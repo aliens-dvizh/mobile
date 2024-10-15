@@ -5,27 +5,29 @@ import 'package:dvizh_mob/core/services/dio_service.dart';
 import 'package:dvizh_mob/src/events/bloc/events/events_bloc.dart';
 import 'package:dvizh_mob/src/events/data/repositories/event_repository.dart';
 import 'package:dvizh_mob/src/events/data/sources/event_data_source.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:talker_bloc_logger/talker_bloc_logger.dart';
+import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
+import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
+import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 void main() async {
+  final Talker talker = Talker();
   final dependencies = await DependenciesInit().init(
     progress: [
       (progress) async => DioService.initialize(
             'http://localhost',
           )..addInterceptor(
-              PrettyDioLogger(
-                requestHeader: true,
-                requestBody: true,
-                responseBody: true,
-                responseHeader: false,
-                error: true,
-                compact: true,
-                maxWidth: 90,
-                enabled: kDebugMode,
+              TalkerDioLogger(
+                talker: talker,
+                settings: const TalkerDioLoggerSettings(
+                  printRequestHeaders: true,
+                  printResponseHeaders: true,
+                  printResponseMessage: true,
+                ),
               ),
             ),
       (progress) async => EventRepository(
@@ -35,11 +37,24 @@ void main() async {
           ),
     ],
   );
+
+  FlutterError.onError = (FlutterErrorDetails details) {
+    talker.error(
+      details.exceptionAsString(),
+      details.stack.toString(),
+    );
+  };
+
+  Bloc.observer = TalkerBlocObserver(
+    talker: talker,
+  );
+
   runApp(
     MyApp(
       dependencies: dependencies,
     ),
   );
+
 }
 
 class MyApp extends StatelessWidget {
@@ -52,6 +67,9 @@ class MyApp extends StatelessWidget {
     return Dependencies(
       dependencies: dependencies,
       child: MaterialApp(
+        navigatorObservers: [
+          TalkerRouteObserver(Talker()),
+        ],
         title: 'Flutter Demo',
         home: MultiBlocProvider(
           providers: [
@@ -105,6 +123,16 @@ class _MyHomePageState extends State<MyHomePage> {
             initialCameraPosition: _kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
+            },
+            markers: {
+              Marker(
+                markerId: MarkerId('1'),
+                position: LatLng(37.42796133580664, -122.085749655962),
+                infoWindow: InfoWindow(
+                  title: 'Googleplex',
+                  snippet: 'Google Headquarters',
+                ),
+              ),
             },
           );
         },
