@@ -7,7 +7,7 @@ final class EventsInitial extends EventsState {}
 final class EventsLoading extends EventsState {}
 
 final class EventsLoaded extends EventsState {
-  final List events;
+  final ListDataModel<EventModel> events;
 
   EventsLoaded({required this.events});
 }

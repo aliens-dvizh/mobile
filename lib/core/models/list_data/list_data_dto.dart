@@ -9,10 +9,10 @@ class ListDataDTO<T extends DTO> {
   ListDataDTO({required this.list, this.count = 0});
 
   factory ListDataDTO.fromJson(
-      Map<String, dynamic> json,
-      String key,
-      T Function(Map<String, dynamic>) fromJsonT,
-      ) {
+    Map<String, dynamic> json,
+    String key,
+    T Function(Map<String, dynamic>) fromJsonT,
+  ) {
     return ListDataDTO<T>(
       list: (json[key] as List).map((item) => fromJsonT(item)).toList(),
       count: json['count'] ?? 0,
@@ -25,10 +25,6 @@ class ListDataDTO<T extends DTO> {
 
   factory ListDataDTO.empty() {
     return ListDataDTO<T>(list: [], count: 0);
-  }
-
-  List<ModelItem> toModelList() {
-    return list.map((dto) => dto.toModel()).toList();
   }
 
   ListDataModel<M> toModel<M extends ModelItem>() {
