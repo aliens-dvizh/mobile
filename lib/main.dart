@@ -1,6 +1,4 @@
-
 import 'package:depend/depend.dart';
-import 'package:dvizh_mob/core/services/dio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
@@ -10,12 +8,17 @@ import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import 'app.dart';
+import 'core/services/dio/dio_service.dart';
+import 'core/services/talker/talker_service.dart';
 import 'src/events/export.dart';
 
 void main() async {
   final Talker talker = Talker();
   final dependencies = await DependenciesInit().init(
     progress: [
+      (progress) async => TalkerService(
+            talker,
+          ),
       (progress) async => DioService.initialize(
             'http://localhost',
           )..addInterceptor(
