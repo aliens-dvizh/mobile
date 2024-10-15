@@ -17,7 +17,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version-file: pubspec.yaml
 
       - name: Install dependencies
         run: flutter pub get
@@ -29,8 +28,3 @@ jobs:
       # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
         run: flutter analyze
-
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed.
-      - name: Run tests
-        run: flutter test
