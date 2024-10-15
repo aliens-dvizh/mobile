@@ -9,6 +9,8 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'src/events/export.dart';
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

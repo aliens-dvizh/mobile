@@ -1,13 +1,7 @@
-import 'dart:async';
-
 import 'package:depend/depend.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 import 'material_app.dart';
-import 'src/events/export.dart';
 
 class App extends StatefulWidget {
   final DependenciesLibrary dependencies;
