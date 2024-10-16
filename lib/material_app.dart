@@ -1,3 +1,5 @@
+import 'package:depend/depend.dart';
+import 'package:dvizh_mob/core/services/talker/talker_service.dart';
 import 'package:flutter/material.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -12,7 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: _appRouter.config(
         navigatorObservers: () => [
-          TalkerRouteObserver(Talker()),
+          TalkerRouteObserver(
+              Dependencies.of(context).get<TalkerService>().talker),
         ],
       ),
     );

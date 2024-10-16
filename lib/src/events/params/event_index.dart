@@ -7,7 +7,7 @@ class EventIndexParams extends Params {
   EventIndexParams({this.page = 1, this.perPage = 10});
 
   @override
-  toData() {
+  Map<String, int> toMap() {
     return {
       'page': page,
       'per_page': perPage,

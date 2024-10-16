@@ -10,6 +10,6 @@ class EventDataSource {
   EventDataSource(this._dioService);
 
   Future<ListDataDTO<EventDTO>> getEvents(EventIndexParams params) =>
-      _dioService.I.get('/event/event/', data: params.toData()).then((value) =>
+      _dioService.I.get('/event/event/', data: params.toMap()).then((value) =>
           ListDataDTO.fromJson(value.data, 'events', EventDTO.fromJson));
 }

@@ -1,5 +1,6 @@
 import 'package:depend/depend.dart';
 import 'package:flutter/material.dart';
+import 'package:toptom_widgetbook/kit/export.dart';
 
 import 'material_app.dart';
 
@@ -19,7 +20,7 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return Dependencies(
       dependencies: widget.dependencies,
-      child: MyApp(),
+      child: ThemeCore(child: MyApp()),
     );
   }
 }
