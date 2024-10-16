@@ -109,7 +109,8 @@ class _ChangePasswordModalViewState extends State<ChangePasswordModalView> {
                           hintText: 'Новый пароль',
                           controller: firstPasswordController,
                           errorText:
-                              ValidationExceptionParser.getFieldException(form.password),
+                              ValidationExceptionParser.getFieldException(
+                                  form.password),
                         ),
                         SizedBox(height: size.xl2),
                         TextFieldWidget.password(
@@ -117,7 +118,8 @@ class _ChangePasswordModalViewState extends State<ChangePasswordModalView> {
                           controller: secondPasswordController,
                           errorText: (state is ResetPasswordError)
                               ? state.message.tr()
-                              : ValidationExceptionParser.getFieldException(form.password),
+                              : ValidationExceptionParser.getFieldException(
+                                  form.password),
                         ),
                       ],
                     );

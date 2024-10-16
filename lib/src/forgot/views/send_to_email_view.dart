@@ -82,7 +82,8 @@ class SendToEmailView extends StatelessWidget {
                     return TextFieldWidget(
                       controller: emailController,
                       hintText: 'Email',
-                      errorText: ValidationExceptionParser.getFieldException(form.email),
+                      errorText: ValidationExceptionParser.getFieldException(
+                          form.email),
                     );
                   },
                 ),
@@ -106,8 +107,9 @@ class SendToEmailView extends StatelessWidget {
         ButtonWidget(
           type: ButtonType.defaultButton,
           onPressed: context.router.maybePop,
-          child: Text('Вернуться назад',
-              style: ThemeCore.of(context).typography.label,
+          child: Text(
+            'Вернуться назад',
+            style: ThemeCore.of(context).typography.label,
           ),
         ),
       ],

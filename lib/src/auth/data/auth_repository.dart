@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:depend/depend.dart';
 import 'package:dio/dio.dart';
 import 'auth_data_source.dart';
 import 'auth_interceptor_data_source.dart';
@@ -7,7 +8,7 @@ import 'token_data_source.dart';
 import '../models/export.dart';
 import '../params/export.dart';
 
-class AuthRepository {
+class AuthRepository extends Dependency {
   final TokenDataSource _tokenSource;
   final AuthDataSource _authSource;
   final AuthInterceptorDataSource _authInterceptorSource;

@@ -1,4 +1,3 @@
-
 import '../../../core/models/params/params.dart';
 
 class ChangeEmailVerifyCode extends Params {

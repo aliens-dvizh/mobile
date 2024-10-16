@@ -4,7 +4,8 @@ enum ConfirmPasswordException {
   passwordsDoNotMatch;
 }
 
-class ConfirmPasswordField extends FFormField<String, ConfirmPasswordException> {
+class ConfirmPasswordField
+    extends FFormField<String, ConfirmPasswordException> {
   String password;
 
   ConfirmPasswordField({
@@ -14,7 +15,7 @@ class ConfirmPasswordField extends FFormField<String, ConfirmPasswordException> 
 
   @override
   ConfirmPasswordException? validator(String value) {
-    if(value != password) return ConfirmPasswordException.passwordsDoNotMatch;
+    if (value != password) return ConfirmPasswordException.passwordsDoNotMatch;
     return null;
   }
 }

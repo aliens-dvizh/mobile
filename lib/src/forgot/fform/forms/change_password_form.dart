@@ -3,7 +3,6 @@ import 'package:fform/fform.dart';
 import '../../../auth/export.dart';
 import '../fields/export.dart';
 
-
 class ConfirmPasswordForm extends FForm {
   PasswordField password;
   ConfirmPasswordField confirmPassword;
@@ -23,7 +22,10 @@ class ConfirmPasswordForm extends FForm {
     );
   }
 
-  void change({String? password, String? confirmPassword, }) {
+  void change({
+    String? password,
+    String? confirmPassword,
+  }) {
     String passwordValue = password ?? '';
 
     this.password.value = passwordValue;

@@ -65,7 +65,8 @@ class _LoginViewState extends State<LoginView> {
     }
   }
 
-  void Function() _forgotPassword(BuildContext context) => () => ForgotModalSheet.view(context, widget._emailController.text);
+  void Function() _forgotPassword(BuildContext context) =>
+      () => ForgotModalSheet.view(context, widget._emailController.text);
 
   void Function() _toRegister(BuildContext context) =>
       () => context.read<SignInCubit>().to(SingRegisterState());

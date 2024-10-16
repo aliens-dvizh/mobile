@@ -113,9 +113,8 @@ class _VerificationModalViewState extends State<VerificationModalView> {
               controller: widget.codeController,
               hintText: 'Код',
               maxLength: 6,
-              errorText: state is VerificationPasswordError
-                  ? state.message
-                  : null,
+              errorText:
+                  state is VerificationPasswordError ? state.message : null,
               enabled: state is! VerificationPasswordLoading,
             );
           },
@@ -153,13 +152,11 @@ class _VerificationModalViewState extends State<VerificationModalView> {
   void initState() {
     super.initState();
     widget.codeController.addListener(_sendVerificationCode);
-
   }
 
   @override
   void dispose() {
     super.dispose();
     widget.codeController.removeListener(_sendVerificationCode);
-
   }
 }

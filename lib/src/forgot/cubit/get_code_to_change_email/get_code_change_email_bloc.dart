@@ -18,7 +18,9 @@ class GetCodeToChangeEmailBloc
   }
 
   Future<void> _changeEmail(
-      GetCodeChangeEmail event, Emitter<GetCodeToChangeEmailState> emit,) async {
+    GetCodeChangeEmail event,
+    Emitter<GetCodeToChangeEmailState> emit,
+  ) async {
     if (state is GetCodeToChangeEmailLoading) return;
     emit(GetCodeToChangeEmailLoading());
 

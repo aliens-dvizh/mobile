@@ -8,8 +8,8 @@ class EmailForm extends FForm {
   EmailForm({required this.email});
 
   factory EmailForm.parse({String? email}) => EmailForm(
-    email: EmailField(value: email ?? ''),
-  );
+        email: EmailField(value: email ?? ''),
+      );
 
   change({String? email}) {
     this.email.value = email ?? '';

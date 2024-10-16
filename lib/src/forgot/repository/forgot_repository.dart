@@ -4,7 +4,6 @@ import 'forgot_data_source.dart';
 
 import '../params/export.dart';
 
-
 class ForgotRepository extends Dependency {
   final ForgotDataSource _dataSource;
 
