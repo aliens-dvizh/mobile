@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 import '../../../core/utils/validation_exception_parses.dart';
+import '../../forgot/views/export.dart';
 import '../bloc/export.dart';
 import '../bloc/sign_in/sign_in_cubit.dart';
 import '../fform/form/login_form.dart';
@@ -64,9 +65,7 @@ class _LoginViewState extends State<LoginView> {
     }
   }
 
-  void Function() _forgotPassword(BuildContext context) => () {
-        ForgotModalSheet.view(context, widget._emailController.text);
-      };
+  void Function() _forgotPassword(BuildContext context) => () => ForgotModalSheet.view(context, widget._emailController.text);
 
   void Function() _toRegister(BuildContext context) =>
       () => context.read<SignInCubit>().to(SingRegisterState());

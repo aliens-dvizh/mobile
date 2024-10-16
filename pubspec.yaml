@@ -55,6 +55,7 @@ dependencies:
       url: https://github.com/COMPANY-GLOBAL-ID/toptom_widgetbook.git
       ref: main
   pin_code_fields: ^8.0.1
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
