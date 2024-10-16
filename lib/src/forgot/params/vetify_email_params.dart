@@ -10,7 +10,7 @@ class VerifyEmailParams extends Params {
   });
 
   @override
-  toData() {
+  Map<String, Object> toMap() {
     final data = {
       'email': email,
       'code': code,

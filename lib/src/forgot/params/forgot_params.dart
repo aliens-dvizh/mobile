@@ -8,7 +8,7 @@ class ForgotParams extends Params {
   });
 
   @override
-  toData() {
+  Map<String, String> toMap() {
     return {
       'email': email,
     };

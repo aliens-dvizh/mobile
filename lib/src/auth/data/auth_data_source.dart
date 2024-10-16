@@ -10,15 +10,15 @@ class AuthDataSource {
   AuthDataSource(this._apiService);
 
   Future<AuthDto> login(LoginParams params) => _apiService.I
-      .post('/auth/login', data: params.toData())
+      .post('/auth/login', data: params.toMap())
       .then((value) => AuthDto.fromJson(value.data));
 
   Future<AuthDto> verify(VerifyParams params) => _apiService.I
-      .post('/auth/verify-code', data: params.toData())
+      .post('/auth/verify-code', data: params.toMap())
       .then((value) => AuthDto.fromJson(value.data));
 
   Future register(RegisterParams params) =>
-      _apiService.I.post('/auth/register', data: params.toData());
+      _apiService.I.post('/auth/register', data: params.toMap());
 
   Future<AuthDto> refresh(AuthModel auth) => _apiService.I.post(
         '/auth/refresh',
@@ -32,9 +32,9 @@ class AuthDataSource {
 
   Future<Response> changeEmail(ChangeEmailParams params) => _apiService.I.post(
         '/auth/change-email',
-        data: params.toData(),
+        data: params.toMap(),
       );
 
   Future<Response> deleteAccount(DeleteAccountParams params) =>
-      _apiService.I.delete('/auth/delete', data: params.toData());
+      _apiService.I.delete('/auth/delete', data: params.toMap());
 }

@@ -15,7 +15,7 @@ class LoginForm extends FForm {
     );
   }
 
-  change({String? email, String? password}) {
+  void change({String? email, String? password}) {
     this.email.value = email ?? '';
     this.password.value = password ?? '';
   }

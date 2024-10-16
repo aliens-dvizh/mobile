@@ -28,7 +28,7 @@ class _RegisterViewState extends State<RegisterView> {
   late TextEditingController _nameController;
 
   @override
-  initState() {
+  void initState() {
     _nameController = TextEditingController();
     super.initState();
   }
@@ -108,7 +108,7 @@ class _RegisterViewState extends State<RegisterView> {
                           enabled: state is! RegistrationLoading,
                           errorText:
                               ValidationExceptionParser.getFieldException(
-                                  form.name),
+                                  form, form.name),
                         ),
                         SizedBox(height: size.l),
                         TextFieldWidget(
@@ -117,6 +117,7 @@ class _RegisterViewState extends State<RegisterView> {
                           enabled: state is! RegistrationLoading,
                           errorText:
                               ValidationExceptionParser.getFieldException(
+                            form,
                             form.email,
                           ),
                         ),
@@ -127,6 +128,7 @@ class _RegisterViewState extends State<RegisterView> {
                           enabled: state is! RegistrationLoading,
                           errorText:
                               ValidationExceptionParser.getFieldException(
+                            form,
                             form.password,
                           ),
                         ),

@@ -83,7 +83,9 @@ class SendToEmailView extends StatelessWidget {
                       controller: emailController,
                       hintText: 'Email',
                       errorText: ValidationExceptionParser.getFieldException(
-                          form.email),
+                        form,
+                        form.email,
+                      ),
                     );
                   },
                 ),

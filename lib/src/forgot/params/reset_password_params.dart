@@ -12,7 +12,7 @@ class ResetPasswordParams extends Params {
   });
 
   @override
-  toData() {
+  Map<String, Object> toMap() {
     return {
       'email': email,
       'code': code,

@@ -12,7 +12,7 @@ class LoginParams extends Params {
   });
 
   @override
-  toData() {
+  Map<String, String> toMap() {
     return {
       'email': email,
       'password': password,

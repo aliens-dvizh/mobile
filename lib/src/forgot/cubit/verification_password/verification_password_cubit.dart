@@ -17,7 +17,7 @@ class VerificationPasswordCubit extends Cubit<VerificationPasswordState> {
     try {
       await _userRepository.verifyCode(params);
       emit(VerificationPasswordSuccess());
-    } on DioException catch (err) {
+    } on DioException {
       emit(VerificationPasswordError('Ошибка'));
     } catch (err) {
       emit(VerificationPasswordError('Ошибка'));

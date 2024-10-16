@@ -6,7 +6,7 @@ class CodeToChangeEmailParams extends Params {
   CodeToChangeEmailParams({required this.password});
 
   @override
-  toData() {
+  Map<String, String> toMap() {
     return {'password': password};
   }
 }

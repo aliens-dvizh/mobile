@@ -8,7 +8,7 @@ class ChangeEmailVerifyCode extends Params {
   });
 
   @override
-  Map<String, dynamic> toData() {
+  Map<String, dynamic> toMap() {
     return {
       'code': code,
     };

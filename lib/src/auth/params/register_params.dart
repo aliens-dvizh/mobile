@@ -12,7 +12,7 @@ class RegisterParams extends Params {
   });
 
   @override
-  toData() {
+  Map<String, String> toMap() {
     return {
       'name': name,
       'email': email,

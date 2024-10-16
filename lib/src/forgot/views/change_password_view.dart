@@ -48,7 +48,7 @@ class _ChangePasswordModalViewState extends State<ChangePasswordModalView> {
             );
       };
 
-  _listener(BuildContext context, ResetPasswordState state) {
+  void _listener(BuildContext context, ResetPasswordState state) {
     if (state is ResetPasswordSuccess) {
       context.read<ForgotScreenCubit>().to(SuccessPasswordScreenState());
     }
@@ -110,7 +110,9 @@ class _ChangePasswordModalViewState extends State<ChangePasswordModalView> {
                           controller: firstPasswordController,
                           errorText:
                               ValidationExceptionParser.getFieldException(
-                                  form.password),
+                            form,
+                            form.password,
+                          ),
                         ),
                         SizedBox(height: size.xl2),
                         TextFieldWidget.password(
@@ -119,7 +121,9 @@ class _ChangePasswordModalViewState extends State<ChangePasswordModalView> {
                           errorText: (state is ResetPasswordError)
                               ? state.message.tr()
                               : ValidationExceptionParser.getFieldException(
-                                  form.password),
+                                  form,
+                                  form.confirmPassword,
+                                ),
                         ),
                       ],
                     );

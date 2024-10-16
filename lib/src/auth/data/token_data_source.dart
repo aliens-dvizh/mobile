@@ -5,8 +5,8 @@ import '../models/export.dart';
 class TokenDataSource {
   TokenDataSource(this._storage);
 
-  static const String _keyToken = "token";
-  static const String _keyRefreshToken = "refresh_token";
+  static const String _keyToken = 'token';
+  static const String _keyRefreshToken = 'refresh_token';
 
   final FlutterSecureStorage _storage;
 

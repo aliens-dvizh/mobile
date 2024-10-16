@@ -30,8 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return AutoTabsRouter(
       routes: const [
         EventsRoute(),
+        ProfileRoute(),
       ],
-      transitionBuilder: (context,child,animation) => FadeTransition(
+      transitionBuilder: (context, child, animation) => FadeTransition(
         opacity: animation,
         child: child,
       ),
@@ -43,8 +44,14 @@ class _HomeScreenState extends State<HomeScreen> {
             currentIndex: tabsRouter.activeIndex,
             onTap: tabsRouter.setActiveIndex,
             items: [
-              BottomNavigationBarItem(label: 'Profile', icon: Icon(Icons.event)),
-              BottomNavigationBarItem(label: 'User', icon: Icon(Icons.person)),
+              BottomNavigationBarItem(
+                label: 'Profile',
+                icon: Icon(Icons.event),
+              ),
+              BottomNavigationBarItem(
+                label: 'User',
+                icon: Icon(Icons.person),
+              ),
             ],
           ),
           floatingActionButton: Visibility(
@@ -59,4 +66,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

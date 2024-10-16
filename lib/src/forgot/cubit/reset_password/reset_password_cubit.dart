@@ -18,7 +18,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
     try {
       await _userRepository.resetPassword(params);
       emit(ResetPasswordSuccess());
-    } on DioException catch (err) {
+    } on DioException {
       emit(ResetPasswordError('Ошибка'));
     } catch (err) {
       emit(ResetPasswordError('Ошибка'));

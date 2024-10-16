@@ -9,7 +9,7 @@ class ChangeEmailParams extends Params {
     required this.code,
   });
   @override
-  toData() {
+  Map<String, Object> toMap() {
     return {'email': newEmail, 'code': code};
   }
 }

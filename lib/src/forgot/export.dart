@@ -1,3 +1,5 @@
+library;
+
 export 'views/export.dart';
 export 'repository/export.dart';
 export 'params/export.dart';

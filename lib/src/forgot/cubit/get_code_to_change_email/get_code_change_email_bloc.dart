@@ -27,7 +27,7 @@ class GetCodeToChangeEmailBloc
     try {
       await _forgotRepository.getSendCodeToChangeEmail(event.params);
       emit(GetCodeToChangeEmailSuccess());
-    } on DioException catch (error) {
+    } on DioException {
       emit(GetCodeToChangeEmailError(error: 'Ошибка'));
     } catch (error) {
       emit(GetCodeToChangeEmailError(error: 'Ошибка'));

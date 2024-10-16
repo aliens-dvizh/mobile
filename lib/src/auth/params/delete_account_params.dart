@@ -7,7 +7,7 @@ class DeleteAccountParams extends Params {
     required this.code,
   });
   @override
-  toData() {
+  Map<String, int> toMap() {
     return {'code': code};
   }
 }

@@ -88,7 +88,7 @@ class _VerificationModalViewState extends State<VerificationModalView> {
         ),
         SizedBox(height: size.s),
         Text(
-          "Мы отправили его на ${widget.email}",
+          'Мы отправили его на ${widget.email}',
           style: ThemeCore.of(context).typography.paragraphMedium,
           textAlign: TextAlign.start,
         ),

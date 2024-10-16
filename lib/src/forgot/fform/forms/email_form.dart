@@ -11,7 +11,7 @@ class EmailForm extends FForm {
         email: EmailField(value: email ?? ''),
       );
 
-  change({String? email}) {
+  void change({String? email}) {
     this.email.value = email ?? '';
   }
 

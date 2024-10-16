@@ -1,5 +1,4 @@
 import 'package:depend/depend.dart';
-import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
 import 'package:dvizh_mob/src/auth/data/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

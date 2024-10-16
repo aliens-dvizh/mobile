@@ -1,5 +1,4 @@
 import 'package:fform_flutter/fform_flutter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,9 +73,8 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     final size = ThemeCore.of(context).padding;
-    return CardWidget(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      padding: EdgeInsets.all(size.xl2),
       children: [
         Text(
           'Войти в аккаунт',
@@ -94,15 +92,21 @@ class _LoginViewState extends State<LoginView> {
                       controller: widget._emailController,
                       hintText: 'Email',
                       errorText: ValidationExceptionParser.getFieldException(
-                          form.email),
+                        form,
+                        form.email,
+                      ),
                       enabled: state is! LoginLoading,
                     ),
                     SizedBox(height: ThemeCore.of(context).padding.l),
                     PasswordFieldWidget(
-                      hintText: 'Пароль',
+                      hideIcon: Icon(Icons.access_time),
+                      showIcon: Icon(Icons.access_time),
                       controller: widget._passwordController,
+                      hintText: 'Пароль',
                       errorText: ValidationExceptionParser.getFieldException(
-                          form.password),
+                        form,
+                        form.password,
+                      ),
                       enabled: state is! LoginLoading,
                     ),
                   ],

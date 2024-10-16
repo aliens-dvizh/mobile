@@ -25,7 +25,7 @@ class RegisterForm extends FForm {
     );
   }
 
-  change({
+  void change({
     String? name,
     String? email,
     String? phone,

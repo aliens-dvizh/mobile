@@ -22,7 +22,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     try {
       await _userRepository.forgotPassword(params);
       emit(ForgotPasswordSuccess(email: params.email));
-    } on DioException catch (err) {
+    } on DioException {
       emit(ForgotPasswordError('Ошибка'));
     } catch (err) {
       emit(ForgotPasswordError('Ошибка'));
