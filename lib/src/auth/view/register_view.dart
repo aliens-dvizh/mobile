@@ -1,6 +1,6 @@
 import 'package:fform_flutter/fform_flutter.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
@@ -83,9 +83,8 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     final size = ThemeCore.of(context).padding;
-    return CardWidget(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      padding: EdgeInsets.all(size.xl2),
       children: [
         Text(
           'Регистрация',
@@ -123,6 +122,8 @@ class _RegisterViewState extends State<RegisterView> {
                         ),
                         SizedBox(height: size.l),
                         PasswordFieldWidget(
+                          hideIcon: Icon(Icons.access_time),
+                          showIcon: Icon(Icons.access_time),
                           hintText: 'Пароль',
                           controller: widget.passwordController,
                           enabled: state is! RegistrationLoading,

@@ -1,13 +1,10 @@
 import 'package:depend/depend.dart';
-import 'package:dvizh_mob/src/forgot/repository/forgot_repository.dart';
+import 'package:dvizh_mob/core/services/dio/dio_service.dart';
+import 'package:dvizh_mob/src/forgot/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
-import '../cubit/forgot_password/forgot_password_cubit.dart';
-import '../cubit/reset_password/reset_password_cubit.dart';
-import '../cubit/verification_password/verification_password_cubit.dart';
-import '../cubit/forgot_screen/forgot_screen_cubit.dart';
 import 'change_password_view.dart';
 import 'finish_changed_view.dart';
 import 'send_to_email_view.dart';
@@ -21,6 +18,11 @@ class ForgotModalSheet extends StatefulWidget {
   });
 
   static Future<void> view(BuildContext context, String email) async {
+    final ForgotRepository repository = ForgotRepository(
+      ForgotDataSource(
+        Dependencies.of(context).get<DioService>(),
+      ),
+    );
     await showModalBottomSheet(
       backgroundColor: Colors.transparent.withOpacity(0.06),
       isScrollControlled: true,
@@ -28,19 +30,13 @@ class ForgotModalSheet extends StatefulWidget {
       builder: (innerContext) => MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => ForgotPasswordCubit(
-              Dependencies.of(context).get<ForgotRepository>(),
-            ),
+            create: (context) => ForgotPasswordCubit(repository),
           ),
           BlocProvider(
-            create: (context) => ResetPasswordCubit(
-              Dependencies.of(context).get<ForgotRepository>(),
-            ),
+            create: (context) => ResetPasswordCubit(repository),
           ),
           BlocProvider(
-            create: (context) => VerificationPasswordCubit(
-              Dependencies.of(context).get<ForgotRepository>(),
-            ),
+            create: (context) => VerificationPasswordCubit(repository),
           ),
           BlocProvider(
             create: (context) => ForgotScreenCubit(),

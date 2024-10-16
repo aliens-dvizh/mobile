@@ -106,6 +106,8 @@ class _ChangePasswordModalViewState extends State<ChangePasswordModalView> {
                     return Column(
                       children: [
                         PasswordFieldWidget(
+                          hideIcon: Icon(Icons.access_time),
+                          showIcon: Icon(Icons.access_time),
                           hintText: 'Новый пароль',
                           controller: firstPasswordController,
                           errorText:

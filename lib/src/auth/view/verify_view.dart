@@ -109,8 +109,7 @@ class _VerifyViewState extends State<VerifyView> {
   @override
   Widget build(BuildContext context) {
     final size = ThemeCore.of(context).padding;
-    return CardWidget(
-      padding: EdgeInsets.all(size.xl2),
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
