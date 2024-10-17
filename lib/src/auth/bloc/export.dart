@@ -4,3 +4,4 @@ export 'delete_account/delete_account_bloc.dart';
 export 'login/login_bloc.dart';
 export 'registration/registration_bloc.dart';
 export 'verify/verify_bloc.dart';
+export 'sign_in/sign_in_cubit.dart';

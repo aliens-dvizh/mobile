@@ -4,11 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
-import '../../../core/utils/validation_exception_parses.dart';
-import '../cubit/forgot_password/forgot_password_cubit.dart';
-import '../cubit/forgot_screen/forgot_screen_cubit.dart';
-import '../fform/export.dart';
-import '../params/forgot_params.dart';
+import '../../../../core/utils/validation_exception_parses.dart';
+import '../../export.dart';
 
 class SendToEmailView extends StatelessWidget {
   final TextEditingController emailController;

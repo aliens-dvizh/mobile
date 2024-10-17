@@ -10,11 +10,14 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i6;
 import 'package:dvizh_mob/src/auth/routing/auth_wrapped_route.dart' as _i1;
-import 'package:dvizh_mob/src/auth/screens/sing_in_screen.dart' as _i5;
+import 'package:dvizh_mob/src/auth/presentation/screens/sing_in_screen.dart'
+    as _i5;
 import 'package:dvizh_mob/src/events/presentation/screens/events_screen.dart'
     as _i2;
-import 'package:dvizh_mob/src/main/screens/home_screen.dart' as _i3;
-import 'package:dvizh_mob/src/user/screens/profile_screen.dart' as _i4;
+import 'package:dvizh_mob/src/main/presentation/screens/home_screen.dart'
+    as _i3;
+import 'package:dvizh_mob/src/user/presentation/screens/profile_screen.dart'
+    as _i4;
 
 /// generated route for
 /// [_i1.AuthWrappedScreen]

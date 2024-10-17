@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
-import '../../../core/utils/validation_exception_parses.dart';
-import '../bloc/export.dart';
-import '../bloc/sign_in/sign_in_cubit.dart';
-import '../fform/form/register_form.dart';
-import '../params/register_params.dart';
+
+import '../../../../core/utils/validation_exception_parses.dart';
+import '../../export.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({

@@ -6,10 +6,8 @@ import 'package:fform_flutter/fform_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
-import '../cubit/forgot_screen/forgot_screen_cubit.dart';
-import '../cubit/reset_password/reset_password_cubit.dart';
-import '../fform/export.dart';
-import '../params/reset_password_params.dart';
+
+import '../../export.dart';
 
 class ChangePasswordModalView extends StatefulWidget {
   const ChangePasswordModalView({

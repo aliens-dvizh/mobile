@@ -3,11 +3,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
-import '../cubit/forgot_password/forgot_password_cubit.dart';
-import '../cubit/forgot_screen/forgot_screen_cubit.dart';
-import '../cubit/verification_password/verification_password_cubit.dart';
-import '../params/forgot_params.dart';
-import '../params/vetify_email_params.dart';
+
+import '../../export.dart';
 
 class VerificationModalView extends StatefulWidget {
   const VerificationModalView({

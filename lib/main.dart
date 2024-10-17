@@ -15,7 +15,8 @@ import 'core/services/talker/talker_service.dart';
 import 'src/events/export.dart';
 
 void main() async {
-  final dependencies = await DependenciesInit().init(
+  final DependenciesInit dependenciesInit = DependenciesInit();
+  final dependencies = await dependenciesInit.init(
     progress: [
       (progress) async => TalkerService(
             Talker(),

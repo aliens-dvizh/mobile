@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
-import '../../../core/router/auto_route.gr.dart';
+import '../../../../core/router/auto_route.gr.dart';
 
 @RoutePage()
 class ProfileScreen extends StatelessWidget {
@@ -14,9 +14,10 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: ButtonWidget(
-      onPressed: _toSingIn(context),
-      child: Text('Авторизоваться'),
-    ));
+      child: ButtonWidget(
+        onPressed: _toSingIn(context),
+        child: Text('Авторизоваться'),
+      ),
+    );
   }
 }

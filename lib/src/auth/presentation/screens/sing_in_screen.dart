@@ -5,8 +5,7 @@ import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/sign_in/sign_in_cubit.dart';
-import '../view/export.dart';
+import '../export.dart';
 
 @RoutePage()
 class SingInScreen extends StatefulWidget implements AutoRouteWrapper {

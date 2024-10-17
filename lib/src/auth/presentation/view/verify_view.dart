@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
-import '../bloc/export.dart';
-import '../params/export.dart';
+
+import '../../export.dart';
 
 const int secondsRemaining = 60;
 const int codeLength = 6;
