@@ -1,6 +1,8 @@
 import 'package:depend/depend.dart';
+import 'package:dvizh_mob/src/auth/data/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
@@ -13,22 +15,18 @@ import 'core/services/talker/talker_service.dart';
 import 'src/events/export.dart';
 
 void main() async {
-  final Talker talker = Talker();
-  final dependencies = await DependenciesInit().init(
+  final DependenciesInit dependenciesInit = DependenciesInit();
+  final dependencies = await dependenciesInit.init(
     progress: [
       (progress) async => TalkerService(
-            talker,
+            Talker(),
           ),
       (progress) async => DioService.initialize(
             'http://localhost',
           )..addInterceptor(
               TalkerDioLogger(
-                talker: talker,
-                settings: const TalkerDioLoggerSettings(
-                  printRequestHeaders: true,
-                  printResponseHeaders: true,
-                  printResponseMessage: true,
-                ),
+                talker: progress.dependencies.get<TalkerService>().talker,
+                settings: const TalkerDioLoggerSettings(),
               ),
             ),
       (progress) async => EventRepository(
@@ -36,17 +34,28 @@ void main() async {
               progress.dependencies.get<DioService>(),
             ),
           ),
+      (progress) async => AuthRepository(
+            TokenDataSource(
+              FlutterSecureStorage(),
+            ),
+            AuthDataSource(
+              progress.dependencies.get<DioService>(),
+            ),
+            AuthInterceptorDataSource(
+              progress.dependencies.get<DioService>(),
+            ),
+          ),
     ],
   );
   FlutterError.onError = (FlutterErrorDetails details) {
-    talker.error(
-      details.exceptionAsString(),
-      details.stack.toString(),
-    );
+    dependencies.get<TalkerService>().talker.error(
+          details.exceptionAsString(),
+          details.stack.toString(),
+        );
   };
 
   Bloc.observer = TalkerBlocObserver(
-    talker: talker,
+    talker: dependencies.get<TalkerService>().talker,
   );
 
   App(

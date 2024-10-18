@@ -14,7 +14,7 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
     on<FetchEventsEvent>(_fetch);
   }
 
-  _fetch(FetchEventsEvent event, Emitter<EventsState> emit) async {
+  Future<void> _fetch(FetchEventsEvent event, Emitter<EventsState> emit) async {
     emit(EventsLoading());
     try {
       final result = await _eventRepository.getEvents(event.params);

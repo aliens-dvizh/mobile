@@ -22,12 +22,12 @@ class DioService extends Dependency {
 
   Dio get I => _dio;
 
-  addInterceptor(Interceptor interceptor) {
+  void addInterceptor(Interceptor interceptor) {
     if (interceptor is AppInterceptor) interceptor.setDio = _dio;
     _dio.interceptors.add(interceptor);
   }
 
-  removerInterceptor(Interceptor interceptor) {
+  void removerInterceptor(Interceptor interceptor) {
     _dio.interceptors.remove(interceptor);
   }
 }

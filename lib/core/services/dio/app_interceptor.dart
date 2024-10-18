@@ -5,5 +5,5 @@ abstract class AppInterceptor extends Interceptor {
 
   set setDio(Dio dio) => _dio = dio;
 
-  get dio => _dio;
+  Dio get dio => _dio;
 }

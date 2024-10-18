@@ -1,3 +1,3 @@
 abstract class Params {
-  toData();
+  Map<String, dynamic> toMap();
 }
