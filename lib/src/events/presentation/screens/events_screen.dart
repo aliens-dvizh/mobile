@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:depend/depend.dart';
 import 'package:dvizh_mob/core/models/list_data/list_data_model.dart';
-import 'package:dvizh_mob/src/events/presentation/widgets/event_type.dart';
 import 'package:dvizh_mob/src/events/presentation/widgets/events_list.dart';
 import 'package:dvizh_mob/src/events/presentation/widgets/events_type_list.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,17 +45,37 @@ class _EventsScreenState extends State<EventsScreen> {
             children: [
               Text('Events Screen'),
               EventsTypeList(),
-              SizedBox(height: 10,),
-              EventCard(cardData: EventModel(id: 1, description: '7, 8, 9 октября • Первомайские пруды • мест 2', name: 'Skriptonit',)),
-              EventCard(cardData: EventModel(id: 1, description: '7, 8, 9 октября • Первомайские пруды • мест 2', name: 'Skriptonit',)),
-              EventCard(cardData: EventModel(id: 1, description: '7, 8, 9 октября • Первомайские пруды • мест 2', name: 'Skriptonit',)),
+              SizedBox(
+                height: 10,
+              ),
+              EventCard(
+                  cardData: EventModel(
+                id: 1,
+                description: '7, 8, 9 октября • Первомайские пруды • мест 2',
+                name: 'Skriptonit',
+              )),
+              EventCard(
+                  cardData: EventModel(
+                id: 1,
+                description: '7, 8, 9 октября • Первомайские пруды • мест 2',
+                name: 'Skriptonit',
+              )),
+              EventCard(
+                  cardData: EventModel(
+                id: 1,
+                description: '7, 8, 9 октября • Первомайские пруды • мест 2',
+                name: 'Skriptonit',
+              )),
               BlocBuilder<EventsBloc, EventsState>(
                 builder: (context, state) {
                   return switch (state) {
                     EventsInitial() ||
                     EventsLoading() =>
                       CupertinoActivityIndicator(),
-                    EventsLoaded(events: ListDataModel<EventModel> events) => EventsList(eventsListData: events,),
+                    EventsLoaded(events: ListDataModel<EventModel> events) =>
+                      EventsList(
+                        eventsListData: events,
+                      ),
                     EventsError() => Text('Exception')
                   };
                 },
@@ -68,9 +87,3 @@ class _EventsScreenState extends State<EventsScreen> {
     );
   }
 }
-
-
-
-
-
-

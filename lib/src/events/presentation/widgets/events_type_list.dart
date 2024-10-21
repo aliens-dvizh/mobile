@@ -13,17 +13,52 @@ class EventsTypeList extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          EventType(selected: true, eventTypeData: EventTypeModel(eventTypeIcon: Icons.theater_comedy, eventTypeName: "Театр"),),
-          SizedBox(width: 10,),
-          EventType(selected: false, eventTypeData: EventTypeModel(eventTypeIcon: Icons.mic_none_rounded, eventTypeName: "Радио"),),
-          SizedBox(width: 10,),
-          EventType(selected: false, eventTypeData: EventTypeModel(eventTypeIcon: Icons.car_crash, eventTypeName: "Гонки"),),
-          SizedBox(width: 10,),
-          EventType(selected: false, eventTypeData: EventTypeModel(eventTypeIcon: Icons.airplanemode_active, eventTypeName: "Полеты"),),
-          SizedBox(width: 10,),
-          EventType(selected: false, eventTypeData: EventTypeModel(eventTypeIcon: Icons.directions_run, eventTypeName: "Бег"),),
-          SizedBox(width: 10,),
-          EventType(selected: false, eventTypeData: EventTypeModel(eventTypeIcon: Icons.beach_access, eventTypeName: "Пляж"),),
+          EventType(
+            selected: true,
+            eventTypeData: EventTypeModel(
+                eventTypeIcon: Icons.theater_comedy, eventTypeName: 'Театр'),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          EventType(
+            selected: false,
+            eventTypeData: EventTypeModel(
+                eventTypeIcon: Icons.mic_none_rounded, eventTypeName: 'Радио'),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          EventType(
+            selected: false,
+            eventTypeData: EventTypeModel(
+                eventTypeIcon: Icons.car_crash, eventTypeName: 'Гонки'),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          EventType(
+            selected: false,
+            eventTypeData: EventTypeModel(
+                eventTypeIcon: Icons.airplanemode_active,
+                eventTypeName: 'Полеты'),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          EventType(
+            selected: false,
+            eventTypeData: EventTypeModel(
+                eventTypeIcon: Icons.directions_run, eventTypeName: 'Бег'),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          EventType(
+            selected: false,
+            eventTypeData: EventTypeModel(
+                eventTypeIcon: Icons.beach_access, eventTypeName: 'Пляж'),
+          ),
         ],
       ),
     );

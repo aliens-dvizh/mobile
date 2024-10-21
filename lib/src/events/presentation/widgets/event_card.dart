@@ -17,7 +17,10 @@ class EventCard extends StatelessWidget {
             height: 180,
             decoration: BoxDecoration(
               boxShadow: [
-                BoxShadow(color: Colors.black12, offset: Offset(0, 1), blurRadius: 8.8)
+                BoxShadow(
+                    color: Colors.black12,
+                    offset: Offset(0, 1),
+                    blurRadius: 8.8)
               ],
               borderRadius: BorderRadius.circular(8),
               image: DecorationImage(
@@ -42,19 +45,23 @@ class EventCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(width: 10,),
-                    Icon(Icons.file_download_outlined, color: Colors.black12, size: 16,)
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Icon(
+                      Icons.file_download_outlined,
+                      color: Colors.black12,
+                      size: 16,
+                    )
                   ],
                 ),
-
                 SizedBox(height: 4),
                 Text(
                   cardData.description,
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold
-                  ),
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),

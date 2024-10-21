@@ -12,7 +12,6 @@ class EventsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-
       children: eventsListData.list.map((event) {
         return EventCard(cardData: event);
       }).toList(),

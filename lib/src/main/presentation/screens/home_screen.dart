@@ -41,7 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           body: child,
           appBar: AppBar(
-            title: Text("DVIZH", style: TextStyle(fontSize: 24),),
+            title: Text(
+              'DVIZH',
+              style: TextStyle(fontSize: 24),
+            ),
             centerTitle: true,
           ),
           bottomNavigationBar: BottomNavigationBar(
