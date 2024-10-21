@@ -40,6 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
         final tabsRouter = AutoTabsRouter.of(context);
         return Scaffold(
           body: child,
+          appBar: AppBar(
+            title: Text("DVIZH", style: TextStyle(fontSize: 24),),
+            centerTitle: true,
+          ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: tabsRouter.activeIndex,
             onTap: tabsRouter.setActiveIndex,
