@@ -9,9 +9,9 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i6;
-import 'package:dvizh_mob/src/auth/routing/auth_wrapped_route.dart' as _i1;
 import 'package:dvizh_mob/src/auth/presentation/screens/sing_in_screen.dart'
     as _i5;
+import 'package:dvizh_mob/src/auth/routing/auth_wrapped_route.dart' as _i1;
 import 'package:dvizh_mob/src/events/presentation/screens/events_screen.dart'
     as _i2;
 import 'package:dvizh_mob/src/main/presentation/screens/home_screen.dart'
@@ -109,7 +109,7 @@ class SingInRoute extends _i6.PageRouteInfo<void> {
   static _i6.PageInfo page = _i6.PageInfo(
     name,
     builder: (data) {
-      return const _i5.SingInScreen();
+      return _i6.WrappedRoute(child: const _i5.SingInScreen());
     },
   );
 }

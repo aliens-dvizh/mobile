@@ -38,6 +38,9 @@ class _EventsScreenState extends State<EventsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Мероприятия'),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16),
@@ -48,35 +51,29 @@ class _EventsScreenState extends State<EventsScreen> {
               SizedBox(
                 height: 10,
               ),
-              EventCard(
+              ...List.generate(5, (value) {
+                return EventCard(
                   cardData: EventModel(
-                id: 1,
-                description: '7, 8, 9 октября • Первомайские пруды • мест 2',
-                name: 'Skriptonit',
-              )),
-              EventCard(
-                  cardData: EventModel(
-                id: 1,
-                description: '7, 8, 9 октября • Первомайские пруды • мест 2',
-                name: 'Skriptonit',
-              )),
-              EventCard(
-                  cardData: EventModel(
-                id: 1,
-                description: '7, 8, 9 октября • Первомайские пруды • мест 2',
-                name: 'Skriptonit',
-              )),
+                    id: 1,
+                    description:
+                        '7, 8, 9 октября • Первомайские пруды • мест 2',
+                    name: 'Skriptonit',
+                  ),
+                );
+              }),
               BlocBuilder<EventsBloc, EventsState>(
                 builder: (context, state) {
                   return switch (state) {
                     EventsInitial() ||
                     EventsLoading() =>
                       CupertinoActivityIndicator(),
-                    EventsLoaded(events: ListDataModel<EventModel> events) =>
+                    EventsLoaded(events: ListDataModel<EventModel> events)
+                        when (events.list.isNotEmpty) =>
                       EventsList(
                         eventsListData: events,
                       ),
-                    EventsError() => Text('Exception')
+                    EventsLoaded() => Text('Нет элементов'),
+                    EventsError() => Text('Exception'),
                   };
                 },
               ),

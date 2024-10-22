@@ -20,7 +20,9 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return Dependencies(
       dependencies: widget.dependencies,
-      child: ThemeCore(child: MyApp()),
+      child: ThemeSwitcher(
+        child: MyApp(),
+      ),
     );
   }
 }
