@@ -6,7 +6,8 @@ class LoginForm extends FForm {
   EmailField email;
   PasswordField password;
 
-  LoginForm({required this.email, required this.password});
+  LoginForm({required this.email, required this.password})
+      : super(fields: [email, password]);
 
   factory LoginForm.parse({String email = '', String password = ''}) {
     return LoginForm(
@@ -19,10 +20,4 @@ class LoginForm extends FForm {
     this.email.value = email ?? '';
     this.password.value = password ?? '';
   }
-
-  @override
-  bool get allFieldUpdateCheck => true;
-
-  @override
-  List<FFormField> get fields => [email, password];
 }

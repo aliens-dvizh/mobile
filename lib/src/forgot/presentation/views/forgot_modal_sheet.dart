@@ -1,5 +1,5 @@
 import 'package:depend/depend.dart';
-import 'package:dvizh_mob/core/services/dio/dio_service.dart';
+import 'package:dvizh_mob/main.dart';
 import 'package:dvizh_mob/src/forgot/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +20,7 @@ class ForgotModalSheet extends StatefulWidget {
   static Future<void> view(BuildContext context, String email) async {
     final ForgotRepository repository = ForgotRepository(
       ForgotDataSource(
-        Dependencies.of(context).get<DioService>(),
+        Dependencies.of<RootLibrary>(context).dioService,
       ),
     );
     await showModalBottomSheet(

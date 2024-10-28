@@ -6,7 +6,8 @@ class ResetForm extends FForm {
   final EmailField email;
   final PasswordField password;
 
-  ResetForm({required this.email, required this.password});
+  ResetForm({required this.email, required this.password})
+      : super(fields: [email, password]);
 
   factory ResetForm.parse({
     required String email,
@@ -17,10 +18,4 @@ class ResetForm extends FForm {
       password: PasswordField(value: password),
     );
   }
-
-  @override
-  bool get allFieldUpdateCheck => false;
-
-  @override
-  List<FFormField> get fields => [email, password];
 }

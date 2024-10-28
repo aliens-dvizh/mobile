@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:depend/depend.dart';
+import 'package:dvizh_mob/main.dart';
 import 'package:dvizh_mob/src/auth/bloc/export.dart';
-import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
+import 'package:dvizh_mob/src/auth/export.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +17,7 @@ class SingInScreen extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    final authRepository = Dependencies.of(context).get<AuthRepository>();
+    final authRepository = Dependencies.of<AuthLibrary>(context).authRepository;
     return MultiBlocProvider(
       providers: [
         BlocProvider<SignInCubit>(

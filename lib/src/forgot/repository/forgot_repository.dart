@@ -1,10 +1,9 @@
-import 'package:depend/depend.dart';
 import '../../../core/models/message_response/message_response_model.dart';
 import 'forgot_data_source.dart';
 
 import '../params/export.dart';
 
-class ForgotRepository extends Dependency {
+class ForgotRepository {
   final ForgotDataSource _dataSource;
 
   ForgotRepository(this._dataSource);

@@ -1,11 +1,9 @@
 import 'dart:io';
-
-import 'package:depend/depend.dart';
 import 'package:dio/dio.dart';
 
 part 'app_interceptor.dart';
 
-class DioService extends Dependency {
+class DioService {
   static late Dio _dio;
 
   DioService();

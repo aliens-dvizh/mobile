@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dvizh_mob/core/utils/validation_exception_parses.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:fform_flutter/fform_flutter.dart';
+import 'package:fform/fform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
