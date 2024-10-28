@@ -11,7 +11,7 @@ class RegisterForm extends FForm {
     required this.name,
     required this.email,
     required this.password,
-  });
+  }) : super(fields: [name, email, password]);
 
   factory RegisterForm.parse({
     String? email,
@@ -36,14 +36,4 @@ class RegisterForm extends FForm {
     this.email.value = email ?? '';
     this.password.value = password ?? '';
   }
-
-  @override
-  bool get allFieldUpdateCheck => false;
-
-  @override
-  List<FFormField> get fields => [
-        name,
-        email,
-        password,
-      ];
 }

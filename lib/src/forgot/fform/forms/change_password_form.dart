@@ -7,7 +7,8 @@ class ConfirmPasswordForm extends FForm {
   PasswordField password;
   ConfirmPasswordField confirmPassword;
 
-  ConfirmPasswordForm({required this.password, required this.confirmPassword});
+  ConfirmPasswordForm({required this.password, required this.confirmPassword})
+      : super(fields: [password, confirmPassword]);
 
   factory ConfirmPasswordForm.parse({
     required String? password,
@@ -33,7 +34,4 @@ class ConfirmPasswordForm extends FForm {
       ..password = passwordValue
       ..value = confirmPassword ?? '';
   }
-
-  @override
-  List<FFormField> get fields => [password, confirmPassword];
 }

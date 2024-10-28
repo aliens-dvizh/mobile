@@ -250,10 +250,10 @@ packages:
     dependency: "direct main"
     description:
       name: depend
-      sha256: e5e1c442a5304ed8eb093ca68c88baec61bd5d9e11d6ad5a12d31f0b341fe8d5
+      sha256: "6282dc47172cee134af5cec05874d7e92ff9f665e6934cc8412bc96f36761e29"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.4"
+    version: "2.0.0"
   dio:
     dependency: "direct main"
     description:
@@ -314,18 +314,10 @@ packages:
     dependency: "direct main"
     description:
       name: fform
-      sha256: "992fc544fafa758c92392a54990e642412089ccbfb7977fcdc7429cdd93b54fb"
+      sha256: d4dcaf3ab346a4fc567fbcb6904bd8bad416863b5faad217403cd09804b850b5
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.0"
-  fform_flutter:
-    dependency: "direct main"
-    description:
-      name: fform_flutter
-      sha256: "2354ffd45b7edd84f5c0ceea3472399c03aff773a8f99d44b64193fe597eeeb6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
+    version: "5.0.6"
   file:
     dependency: transitive
     description:

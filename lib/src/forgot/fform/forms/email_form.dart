@@ -5,7 +5,7 @@ import '../../../auth/export.dart';
 class EmailForm extends FForm {
   EmailField email;
 
-  EmailForm({required this.email});
+  EmailForm({required this.email}) : super(fields: [email]);
 
   factory EmailForm.parse({String? email}) => EmailForm(
         email: EmailField(value: email ?? ''),
@@ -14,10 +14,4 @@ class EmailForm extends FForm {
   void change({String? email}) {
     this.email.value = email ?? '';
   }
-
-  @override
-  bool get allFieldUpdateCheck => false;
-
-  @override
-  List<FFormField> get fields => [email];
 }

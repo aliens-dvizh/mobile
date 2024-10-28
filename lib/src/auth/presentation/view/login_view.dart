@@ -1,4 +1,4 @@
-import 'package:fform_flutter/fform_flutter.dart';
+import 'package:fform/fform.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
