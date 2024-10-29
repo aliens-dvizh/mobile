@@ -1,8 +1,13 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:dvizh_mob/src/events/export.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:auto_route/auto_route.dart';
 import 'package:toptom_widgetbook/kit/export.dart';
+
+// 🌎 Project imports:
+import 'package:dvizh_mob/src/events/export.dart';
 
 class EventCard extends StatelessWidget {
   final EventModel cardData;

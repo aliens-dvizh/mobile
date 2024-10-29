@@ -1,5 +1,7 @@
+// 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
 
+// 🌎 Project imports:
 import '../../../core/router/auto_route.gr.dart';
 
 class AuthRouter extends RootStackRouter {

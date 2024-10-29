@@ -1,4 +1,7 @@
+// 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
+
+// 🌎 Project imports:
 import 'package:dvizh_mob/core/router/auto_route.gr.dart';
 
 class EventRouter extends RootStackRouter {

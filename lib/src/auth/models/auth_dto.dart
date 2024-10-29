@@ -1,3 +1,4 @@
+// 🌎 Project imports:
 import '../../../core/models/model/dto.dart';
 import '../../../core/models/model/model.dart';
 import 'auth_model.dart';

@@ -1,6 +1,11 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dvizh_mob/src/events/models/event_type_model.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:auto_size_text/auto_size_text.dart';
+
+// 🌎 Project imports:
+import 'package:dvizh_mob/src/events/models/event_type_model.dart';
 
 class EventType extends StatelessWidget {
   final EventTypeModel eventTypeData;

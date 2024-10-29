@@ -1,11 +1,15 @@
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
 import 'package:depend/depend.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// 🌎 Project imports:
 import 'package:dvizh_mob/main.dart';
 import 'package:dvizh_mob/src/auth/bloc/export.dart';
 import 'package:dvizh_mob/src/auth/export.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../export.dart';
 
 @RoutePage()

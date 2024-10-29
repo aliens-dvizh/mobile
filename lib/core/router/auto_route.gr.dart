@@ -8,10 +8,15 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
+// 📦 Package imports:
 import 'package:auto_route/auto_route.dart' as _i6;
+
+// 🌎 Project imports:
+import 'package:dvizh_mob/src/auth/routing/auth_wrapped_route.dart' as _i1;
+
 import 'package:dvizh_mob/src/auth/presentation/screens/sing_in_screen.dart'
     as _i5;
-import 'package:dvizh_mob/src/auth/routing/auth_wrapped_route.dart' as _i1;
 import 'package:dvizh_mob/src/events/presentation/screens/events_screen.dart'
     as _i2;
 import 'package:dvizh_mob/src/main/presentation/screens/home_screen.dart'

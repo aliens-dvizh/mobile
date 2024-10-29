@@ -1,11 +1,15 @@
+// 🎯 Dart imports:
 import 'dart:async';
+
+// 📦 Package imports:
 import 'package:dio/dio.dart';
+
+// 🌎 Project imports:
+import '../models/export.dart';
+import '../params/export.dart';
 import 'auth_data_source.dart';
 import 'auth_interceptor_data_source.dart';
 import 'token_data_source.dart';
-
-import '../models/export.dart';
-import '../params/export.dart';
 
 class AuthRepository {
   final TokenDataSource _tokenSource;

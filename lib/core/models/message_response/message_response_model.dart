@@ -1,3 +1,4 @@
+// 🌎 Project imports:
 import '../model/model.dart';
 
 class MessageResponseModel extends ModelItem {

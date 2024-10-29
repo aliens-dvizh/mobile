@@ -1,10 +1,15 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:depend/depend.dart';
-import 'package:dvizh_mob/core/router/auto_route.gr.dart';
-import 'package:dvizh_mob/main.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:auto_route/auto_route.dart';
+import 'package:depend/depend.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+
+// 🌎 Project imports:
+import 'package:dvizh_mob/core/router/auto_route.gr.dart';
+import 'package:dvizh_mob/main.dart';
 
 @RoutePage()
 class HomeScreen extends StatefulWidget {
