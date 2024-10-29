@@ -1,6 +1,8 @@
+// 📦 Package imports:
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// 🌎 Project imports:
 import '../../data/auth_repository.dart';
 import '../../params/delete_account_params.dart';
 

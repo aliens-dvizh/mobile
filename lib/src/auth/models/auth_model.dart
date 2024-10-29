@@ -1,3 +1,4 @@
+// 🌎 Project imports:
 import 'package:dvizh_mob/core/models/model/model.dart';
 
 class AuthModel extends ModelItem {

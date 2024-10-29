@@ -1,7 +1,11 @@
-import 'package:auto_route/auto_route.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
+
+// 📦 Package imports:
+import 'package:auto_route/auto_route.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
+// 🌎 Project imports:
 import '../../../../core/router/auto_route.gr.dart';
 
 @RoutePage()

@@ -1,7 +1,7 @@
+// 🌎 Project imports:
 import '../../../core/models/message_response/message_response_model.dart';
-import 'forgot_data_source.dart';
-
 import '../params/export.dart';
+import 'forgot_data_source.dart';
 
 class ForgotRepository {
   final ForgotDataSource _dataSource;

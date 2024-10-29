@@ -1,6 +1,9 @@
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
 import 'package:dvizh_mob/src/events/models/event_type_model.dart';
 import 'package:dvizh_mob/src/events/presentation/widgets/event_type.dart';
-import 'package:flutter/material.dart';
 
 class EventsTypeList extends StatelessWidget {
   const EventsTypeList({super.key});

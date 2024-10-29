@@ -1,3 +1,4 @@
+// 🌎 Project imports:
 import '../../../core/models/params/params.dart';
 
 class LoginParams extends Params {

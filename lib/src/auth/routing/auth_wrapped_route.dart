@@ -1,10 +1,14 @@
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+
+// 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
 import 'package:depend/depend.dart';
-import 'package:dvizh_mob/main.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+// 🌎 Project imports:
+import 'package:dvizh_mob/main.dart';
 import '../bloc/auth/auth_bloc.dart';
 import '../data/export.dart';
 

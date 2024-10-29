@@ -1,4 +1,7 @@
+// 📦 Package imports:
 import 'package:bloc/bloc.dart';
+
+// 🌎 Project imports:
 import 'package:dvizh_mob/core/models/list_data/list_data_model.dart';
 import 'package:dvizh_mob/src/events/models/event_model.dart';
 import '../../params/event_index.dart';

@@ -1,11 +1,14 @@
+// 🎯 Dart imports:
 import 'dart:io';
 
+// 📦 Package imports:
 import 'package:dio/dio.dart';
 import 'package:synchronized/synchronized.dart';
 
+// 🌎 Project imports:
 import '../../../core/services/dio/dio_service.dart';
-import '../models/auth_model.dart';
 import '../data/auth_repository.dart';
+import '../models/auth_model.dart';
 
 class AuthInterceptor extends AppInterceptor {
   final AuthRepository _authRepository;

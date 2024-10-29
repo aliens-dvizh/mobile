@@ -1,6 +1,8 @@
+// 📦 Package imports:
 import 'package:dio/dio.dart';
-import 'package:dvizh_mob/core/services/dio/dio_service.dart';
 
+// 🌎 Project imports:
+import 'package:dvizh_mob/core/services/dio/dio_service.dart';
 import '../models/export.dart';
 import '../params/export.dart';
 

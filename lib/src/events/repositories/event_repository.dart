@@ -1,6 +1,6 @@
+// 🌎 Project imports:
 import 'package:dvizh_mob/core/models/list_data/list_data_model.dart';
 import 'package:dvizh_mob/src/events/params/event_index.dart';
-
 import '../data/event_data_source.dart';
 import '../models/event_model.dart';
 

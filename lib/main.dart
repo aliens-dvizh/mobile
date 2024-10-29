@@ -1,8 +1,11 @@
+// 🎯 Dart imports:
 import 'dart:async';
 
-import 'package:depend/depend.dart';
-import 'package:dvizh_mob/src/auth/data/export.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:depend/depend.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:talker_bloc_logger/talker_bloc_logger.dart';
@@ -11,6 +14,8 @@ import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
+// 🌎 Project imports:
+import 'package:dvizh_mob/src/auth/data/export.dart';
 import 'app.dart';
 import 'core/services/dio/dio_service.dart';
 import 'src/events/export.dart';

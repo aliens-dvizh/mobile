@@ -1,12 +1,17 @@
+// 🎯 Dart imports:
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
+// 🌎 Project imports:
 import '../../export.dart';
 
 const int secondsRemaining = 60;
