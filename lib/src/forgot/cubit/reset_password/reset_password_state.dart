@@ -9,7 +9,6 @@ class ResetPasswordSuccess extends ResetPasswordState {}
 class ResetPasswordLoading extends ResetPasswordState {}
 
 class ResetPasswordError extends ResetPasswordState {
-  final String message;
-
   ResetPasswordError(this.message);
+  final String message;
 }

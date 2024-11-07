@@ -1,17 +1,14 @@
 // 🌎 Project imports:
-import '../../../core/models/params/params.dart';
+import 'package:dvizh_mob/core/models/params/params.dart';
 
-class ForgotParams extends Params {
-  final String email;
-
+class ForgotParams with Params {
   ForgotParams({
     required this.email,
   });
+  final String email;
 
   @override
-  Map<String, String> toMap() {
-    return {
-      'email': email,
-    };
-  }
+  Map<String, String> toMap() => {
+        'email': email,
+      };
 }

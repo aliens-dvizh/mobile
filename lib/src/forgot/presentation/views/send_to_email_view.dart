@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -8,17 +10,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
-import '../../../../core/utils/validation_exception_parses.dart';
-import '../../export.dart';
+import 'package:dvizh_mob/core/utils/validation_exception_parses.dart';
+import 'package:dvizh_mob/src/forgot/export.dart';
 
-class SendToEmailView extends StatelessWidget {
+class SendToEmailView extends StatelessWidget with ValidationExceptionParser {
+  SendToEmailView({
+    required this.emailController,
+    super.key,
+  });
+
   final TextEditingController emailController;
   final EmailForm _form = EmailForm.parse(email: '');
-
-  SendToEmailView({
-    super.key,
-    required this.emailController,
-  });
 
   Future<void> Function() sendVerifyToEmail(BuildContext context) => () async {
         _form.change(email: emailController.text);
@@ -74,37 +76,33 @@ class SendToEmailView extends StatelessWidget {
         SizedBox(height: size.xl4),
         BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
           listener: _listener,
-          builder: (context, state) {
-            return Column(
-              children: [
-                FFormBuilder(
-                  form: _form,
-                  builder: (context, form) {
-                    return TextFieldWidget(
-                      controller: emailController,
-                      hintText: 'Email',
-                      errorText: ValidationExceptionParser.getFieldException(
-                        form,
-                        form.email,
-                      ),
-                    );
-                  },
+          builder: (context, state) => Column(
+            children: [
+              FFormBuilder(
+                form: _form,
+                builder: (context, form) => TextFieldWidget(
+                  controller: emailController,
+                  hintText: 'Email',
+                  errorText: getFieldException(
+                    form,
+                    form.email,
+                  ),
                 ),
-                SizedBox(height: size.l),
-                if (state is ForgotPasswordLoading)
-                  const ButtonWidget(
-                    color: ButtonColor.black,
-                    isLoading: true,
-                  )
-                else
-                  ButtonWidget(
-                    onPressed: sendVerifyToEmail(context),
-                    color: ButtonColor.black,
-                    child: Text('Отправить'),
-                  )
-              ],
-            );
-          },
+              ),
+              SizedBox(height: size.l),
+              if (state is ForgotPasswordLoading)
+                const ButtonWidget(
+                  color: ButtonColor.black,
+                  isLoading: true,
+                )
+              else
+                ButtonWidget(
+                  onPressed: sendVerifyToEmail(context),
+                  color: ButtonColor.black,
+                  child: const Text('Отправить'),
+                )
+            ],
+          ),
         ),
         SizedBox(height: size.l),
         ButtonWidget(

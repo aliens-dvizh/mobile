@@ -1,8 +1,10 @@
 // 📦 Package imports:
+
+// 📦 Package imports:
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 // 🌎 Project imports:
-import '../models/export.dart';
+import 'package:dvizh_mob/src/auth/models/export.dart';
 
 class TokenDataSource {
   TokenDataSource(this._storage);
@@ -12,25 +14,25 @@ class TokenDataSource {
 
   final FlutterSecureStorage _storage;
 
-  Future write(AuthModel auth) async {
+  Future<void> write(AuthModel auth) async {
     await _storage.write(key: _keyToken, value: auth.token);
     await _storage.write(key: _keyRefreshToken, value: auth.refreshToken);
   }
 
-  Future clear() async {
+  Future<void> clear() async {
     await _storage.delete(key: _keyToken);
     await _storage.delete(key: _keyRefreshToken);
   }
 
   Future<AuthDto?> read() async {
     try {
-      String? token = await _storage.read(key: _keyToken);
-      String? refreshToken = await _storage.read(key: _keyRefreshToken);
+      var token = await _storage.read(key: _keyToken);
+      var refreshToken = await _storage.read(key: _keyRefreshToken);
 
       if (token == null || refreshToken == null) return null;
 
       return AuthDto(token, refreshToken);
-    } catch (err) {
+    } on Exception {
       return null;
     }
   }

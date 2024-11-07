@@ -9,7 +9,6 @@ class VerificationPasswordLoading extends VerificationPasswordState {}
 class VerificationPasswordSuccess extends VerificationPasswordState {}
 
 class VerificationPasswordError extends VerificationPasswordState {
-  final String message;
-
   VerificationPasswordError(this.message);
+  final String message;
 }

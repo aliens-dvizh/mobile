@@ -6,18 +6,17 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 
 // 🌎 Project imports:
-import '../../data/auth_repository.dart';
-import '../../params/export.dart';
+import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
+import 'package:dvizh_mob/src/auth/params/export.dart';
 
 part 'login_state.dart';
 part 'login_event.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final AuthRepository _authRepository;
-
   LoginBloc(this._authRepository) : super(LoginInitial()) {
     on<LoginSubmitted>(_login);
   }
+  final AuthRepository _authRepository;
 
   Future<void> _login(LoginSubmitted event, Emitter<LoginState> emit) async {
     if (state is LoginLoading) return;
@@ -37,7 +36,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         return emit(LoginError('Неверный логин или пароль'));
       }
       return emit(LoginError('Ошибка'));
-    } catch (err) {
+    } on Exception {
       return emit(LoginError('Ошибка'));
     }
   }

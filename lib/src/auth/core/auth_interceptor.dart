@@ -6,20 +6,19 @@ import 'package:dio/dio.dart';
 import 'package:synchronized/synchronized.dart';
 
 // 🌎 Project imports:
-import '../../../core/services/dio/dio_service.dart';
-import '../data/auth_repository.dart';
-import '../models/auth_model.dart';
+import 'package:dvizh_mob/core/services/dio/dio_service.dart';
+import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
+import 'package:dvizh_mob/src/auth/models/auth_model.dart';
 
 class AuthInterceptor extends AppInterceptor {
-  final AuthRepository _authRepository;
-  AuthModel auth;
-  Lock? _lock;
-  Future? _tokenRefreshCall;
-
   AuthInterceptor(
     this.auth,
     this._authRepository,
   );
+  final AuthRepository _authRepository;
+  AuthModel auth;
+  Lock? _lock;
+  Future<void>? _tokenRefreshCall;
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
@@ -28,12 +27,16 @@ class AuthInterceptor extends AppInterceptor {
   }
 
   @override
-  void onError(DioException err, ErrorInterceptorHandler handler) async {
+  Future<void> onError(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) async {
     final path = err.response?.requestOptions.path;
     if (err.response?.statusCode == HttpStatus.unauthorized &&
         (path != '/auth/logout')) {
       try {
-        late Response response;
+        late Response<Response<Object?>> response;
+
         final requestOptions = err.requestOptions;
         if (_tokenRefreshCall == null) {
           _lock = Lock();
@@ -59,8 +62,8 @@ class AuthInterceptor extends AppInterceptor {
           return handler.resolve(response);
         }
         return handler.resolve(response);
-      } catch (e) {
-        _authRepository.clear();
+      } on Exception {
+        await _authRepository.clear();
         return handler.next(err);
       }
     }

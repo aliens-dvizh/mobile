@@ -3,9 +3,9 @@ import 'package:auto_route/auto_route.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/core/router/auto_route.gr.dart';
-import '../../src/auth/export.dart';
-import '../../src/events/export.dart';
-import '../../src/user/export.dart';
+import 'package:dvizh_mob/src/auth/export.dart';
+import 'package:dvizh_mob/src/events/export.dart';
+import 'package:dvizh_mob/src/user/export.dart';
 
 @AutoRouterConfig()
 class AppRouter extends RootStackRouter {

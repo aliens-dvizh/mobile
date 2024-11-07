@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -11,13 +13,13 @@ import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/core/utils/validation_exception_parses.dart';
-import '../../export.dart';
+import 'package:dvizh_mob/src/forgot/export.dart';
 
 class ChangePasswordModalView extends StatefulWidget {
   const ChangePasswordModalView({
-    super.key,
     required this.email,
     required this.code,
+    super.key,
   });
 
   final String email;
@@ -28,7 +30,8 @@ class ChangePasswordModalView extends StatefulWidget {
       _ChangePasswordModalViewState();
 }
 
-class _ChangePasswordModalViewState extends State<ChangePasswordModalView> {
+class _ChangePasswordModalViewState extends State<ChangePasswordModalView>
+    with ValidationExceptionParser {
   late TextEditingController firstPasswordController;
   late TextEditingController secondPasswordController;
   late ConfirmPasswordForm _form;
@@ -99,55 +102,50 @@ class _ChangePasswordModalViewState extends State<ChangePasswordModalView> {
         SizedBox(height: size.xl4),
         BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
           listener: _listener,
-          builder: (context, state) {
-            return Column(
-              children: [
-                FFormBuilder(
-                  form: _form,
-                  builder: (context, form) {
-                    return Column(
-                      children: [
-                        PasswordFieldWidget(
-                          hideIcon: Icon(Icons.access_time),
-                          showIcon: Icon(Icons.access_time),
-                          hintText: 'Новый пароль',
-                          controller: firstPasswordController,
-                          errorText:
-                              ValidationExceptionParser.getFieldException(
-                            form,
-                            form.password,
-                          ),
-                        ),
-                        SizedBox(height: size.xl2),
-                        TextFieldWidget.password(
-                          hintText: 'Повторите пароль',
-                          controller: secondPasswordController,
-                          errorText: (state is ResetPasswordError)
-                              ? state.message.tr()
-                              : ValidationExceptionParser.getFieldException(
-                                  form,
-                                  form.confirmPassword,
-                                ),
-                        ),
-                      ],
-                    );
-                  },
+          builder: (context, state) => Column(
+            children: [
+              FFormBuilder(
+                form: _form,
+                builder: (context, form) => Column(
+                  children: [
+                    PasswordFieldWidget(
+                      hideIcon: const Icon(Icons.access_time),
+                      showIcon: const Icon(Icons.access_time),
+                      hintText: 'Новый пароль',
+                      controller: firstPasswordController,
+                      errorText: getFieldException(
+                        form,
+                        form.password,
+                      ),
+                    ),
+                    SizedBox(height: size.xl2),
+                    TextFieldWidget.password(
+                      hintText: 'Повторите пароль',
+                      controller: secondPasswordController,
+                      errorText: (state is ResetPasswordError)
+                          ? state.message.tr()
+                          : getFieldException(
+                              form,
+                              form.confirmPassword,
+                            ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: size.xl4),
-                if (state is ResetPasswordLoading)
-                  const ButtonWidget(
-                    color: ButtonColor.black,
-                    isLoading: true,
-                  )
-                else
-                  ButtonWidget(
-                    onPressed: changePassword(context),
-                    color: ButtonColor.black,
-                    child: Text('Cохранить'),
-                  ),
-              ],
-            );
-          },
+              ),
+              SizedBox(height: size.xl4),
+              if (state is ResetPasswordLoading)
+                const ButtonWidget(
+                  color: ButtonColor.black,
+                  isLoading: true,
+                )
+              else
+                ButtonWidget(
+                  onPressed: changePassword(context),
+                  color: ButtonColor.black,
+                  child: const Text('Cохранить'),
+                ),
+            ],
+          ),
         ),
       ],
     );

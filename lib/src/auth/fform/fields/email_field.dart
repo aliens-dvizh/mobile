@@ -10,7 +10,7 @@ class EmailField extends FFormField<String, EmailError> {
   EmailField({String value = ''}) : super(value);
 
   @override
-  EmailError? validator(value) {
+  EmailError? validator(String value) {
     if (value.isEmpty) return EmailError.empty;
     return null;
   }

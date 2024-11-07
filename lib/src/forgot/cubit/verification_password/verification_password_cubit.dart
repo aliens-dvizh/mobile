@@ -3,8 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import '../../params/vetify_email_params.dart';
-import '../../repository/forgot_repository.dart';
+import 'package:dvizh_mob/src/forgot/params/vetify_email_params.dart';
+import 'package:dvizh_mob/src/forgot/repository/forgot_repository.dart';
 
 part 'verification_password_state.dart';
 
@@ -21,7 +21,7 @@ class VerificationPasswordCubit extends Cubit<VerificationPasswordState> {
       emit(VerificationPasswordSuccess());
     } on DioException {
       emit(VerificationPasswordError('Ошибка'));
-    } catch (err) {
+    } on Exception {
       emit(VerificationPasswordError('Ошибка'));
     }
   }

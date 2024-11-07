@@ -1,17 +1,14 @@
 // 🌎 Project imports:
-import '../../../core/models/params/params.dart';
+import 'package:dvizh_mob/core/models/params/params.dart';
 
-class EventIndexParams extends Params {
+class EventIndexParams with Params {
+  EventIndexParams({this.page = 1, this.perPage = 10});
   final int page;
   final int perPage;
 
-  EventIndexParams({this.page = 1, this.perPage = 10});
-
   @override
-  Map<String, int> toMap() {
-    return {
-      'page': page,
-      'per_page': perPage,
-    };
-  }
+  Map<String, int> toMap() => {
+        'page': page,
+        'per_page': perPage,
+      };
 }

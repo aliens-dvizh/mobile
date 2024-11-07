@@ -1,1 +1,1 @@
-class ModelItem {}
+mixin ModelItem {}

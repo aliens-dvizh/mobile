@@ -5,21 +5,18 @@ sealed class ForgotPasswordState {}
 class ForgotPasswordInitial extends ForgotPasswordState {}
 
 class ForgotPasswordSuccess extends ForgotPasswordState {
-  final String email;
-
   ForgotPasswordSuccess({required this.email});
+  final String email;
 }
 
 class CheckVerificationCodeSuccess extends ForgotPasswordState {
-  final String email;
-
   CheckVerificationCodeSuccess({required this.email});
+  final String email;
 }
 
 class ForgotPasswordLoading extends ForgotPasswordState {}
 
 class ForgotPasswordError extends ForgotPasswordState {
-  final String message;
-
   ForgotPasswordError(this.message);
+  final String message;
 }

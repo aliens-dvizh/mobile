@@ -12,13 +12,13 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
-import '../../export.dart';
+import 'package:dvizh_mob/src/auth/export.dart';
 
 const int secondsRemaining = 60;
 const int codeLength = 6;
 
 class VerifyView extends StatefulWidget {
-  const VerifyView({super.key, required this.email});
+  const VerifyView({required this.email, super.key});
 
   final String email;
 
@@ -129,60 +129,50 @@ class _VerifyViewState extends State<VerifyView> {
         SizedBox(height: size.xl2),
         BlocConsumer<VerifyBloc, VerifyState>(
           listener: _listener,
-          builder: (context, state) {
-            return ToptomPincodeField(
-              length: codeLength,
-              errorController: errorController,
-              controller: codeController,
-              enabled: state is! VerifyLoading,
-            );
-          },
+          builder: (context, state) => ToptomPincodeField(
+            length: codeLength,
+            errorController: errorController,
+            controller: codeController,
+            enabled: state is! VerifyLoading,
+          ),
         ),
         SizedBox(height: size.xl2),
         ValueListenableBuilder(
           valueListenable: canResendNotifier,
-          builder: (context, canResendValue, child) {
-            return ValueListenableBuilder(
-              valueListenable: secondsRemainingNotifier,
-              builder: (context, secondsRemainingValue, child) {
-                return Text.rich(
-                  textAlign: TextAlign.center,
-                  TextSpan(
-                    style: ThemeCore.of(context)
-                        .typography
-                        .paragraphSmall
-                        .copyWith(
-                          color:
-                              ThemeCore.of(context).color.scheme.textSecondary,
-                        ),
-                    children: [
-                      if (canResendValue)
-                        TextSpan(
-                          text: '${'Отправить код повторно'}\n',
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = _resendCode(context),
-                          style: TextStyle(
-                            color: ThemeCore.of(context).color.scheme.main,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        )
-                      else
-                        TextSpan(
-                          text:
-                              '${'Вы можете отправить повтрно через'} $secondsRemainingValue ${'секунд'}',
-                          style: TextStyle(
-                            color: canResendValue
-                                ? ThemeCore.of(context).color.scheme.main
-                                : Colors.grey,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                    ],
-                  ),
-                );
-              },
-            );
-          },
+          builder: (context, canResendValue, child) => ValueListenableBuilder(
+            valueListenable: secondsRemainingNotifier,
+            builder: (context, secondsRemainingValue, child) => Text.rich(
+              textAlign: TextAlign.center,
+              TextSpan(
+                style: ThemeCore.of(context).typography.paragraphSmall.copyWith(
+                      color: ThemeCore.of(context).color.scheme.textSecondary,
+                    ),
+                children: [
+                  if (canResendValue)
+                    TextSpan(
+                      text: '${'Отправить код повторно'}\n',
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = _resendCode(context),
+                      style: TextStyle(
+                        color: ThemeCore.of(context).color.scheme.main,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  else
+                    TextSpan(
+                      text:
+                          '${'Вы можете отправить повтрно через'} $secondsRemainingValue ${'секунд'}',
+                      style: TextStyle(
+                        color: canResendValue
+                            ? ThemeCore.of(context).color.scheme.main
+                            : Colors.grey,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
         ),
       ],
     );

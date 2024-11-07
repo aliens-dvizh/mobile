@@ -10,13 +10,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
-import '../../export.dart';
+import 'package:dvizh_mob/src/forgot/export.dart';
 
 class VerificationModalView extends StatefulWidget {
   const VerificationModalView({
-    super.key,
     required this.email,
     required this.codeController,
+    super.key,
   });
 
   final String email;
@@ -52,7 +52,7 @@ class _VerificationModalViewState extends State<VerificationModalView> {
             .forgot(ForgotParams(email: widget.email));
       };
 
-  Function() _changeEmail(BuildContext context) => () {
+  VoidCallback _changeEmail(BuildContext context) => () {
         context.read<ForgotScreenCubit>().to(SendCodeScreenState());
       };
 
@@ -111,16 +111,14 @@ class _VerificationModalViewState extends State<VerificationModalView> {
         SizedBox(height: size.xl4),
         BlocConsumer<VerificationPasswordCubit, VerificationPasswordState>(
           listener: _listener,
-          builder: (context, state) {
-            return TextFieldWidget.number(
-              controller: widget.codeController,
-              hintText: 'Код',
-              maxLength: 6,
-              errorText:
-                  state is VerificationPasswordError ? state.message : null,
-              enabled: state is! VerificationPasswordLoading,
-            );
-          },
+          builder: (context, state) => TextFieldWidget.number(
+            controller: widget.codeController,
+            hintText: 'Код',
+            maxLength: 6,
+            errorText:
+                state is VerificationPasswordError ? state.message : null,
+            enabled: state is! VerificationPasswordLoading,
+          ),
         ),
         ValueListenableBuilder(
           valueListenable: canResendNotifier,
@@ -140,9 +138,9 @@ class _VerificationModalViewState extends State<VerificationModalView> {
             }
             return TextButton(
               onPressed: _resendCode(context),
-              child: Text(
+              child: const Text(
                 'Отправить повторно',
-                style: const TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black),
               ),
             );
           },

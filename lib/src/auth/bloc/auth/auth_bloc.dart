@@ -2,24 +2,23 @@
 import 'package:bloc/bloc.dart';
 
 // 🌎 Project imports:
-import '../../data/auth_repository.dart';
-import '../../models/auth_model.dart';
+import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
+import 'package:dvizh_mob/src/auth/models/auth_model.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthRepository _repository;
-
   AuthBloc(this._repository) : super(AuthIsNotSign()) {
     on<AuthLogin>(_login);
     on<AuthLogout>(_logout);
     on<Unauthenticated>((event, emit) => emit(AuthIsNotSign()));
     _initialize();
   }
+  final AuthRepository _repository;
 
-  void _initialize() async {
-    AuthModel? auth = await _repository.auth;
+  Future<void> _initialize() async {
+    var auth = await _repository.auth;
     _listenerAuth(auth);
     _repository.authStream.listen(_listenerAuth);
   }
@@ -40,7 +39,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await _repository.logout();
       add(Unauthenticated());
-    } catch (err) {
+    } on Exception {
       add(Unauthenticated());
     }
   }

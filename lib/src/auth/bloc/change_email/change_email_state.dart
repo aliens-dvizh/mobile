@@ -7,8 +7,8 @@ class ChangeEmailInitial extends ChangeEmailState {}
 class ChangeEmailLoading extends ChangeEmailState {}
 
 class ChangeEmailError extends ChangeEmailState {
-  final String error;
   ChangeEmailError({required this.error});
+  final String error;
 }
 
 class ChangeEmailSuccess extends ChangeEmailState {}

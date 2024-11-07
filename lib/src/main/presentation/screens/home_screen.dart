@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   void _toTalker() {
-    Navigator.of(context).push(
+    Navigator.of(context).push<void>(
       MaterialPageRoute(
         builder: (context) => TalkerScreen(
           talker: Dependencies.of<RootLibrary>(context).talker,
@@ -31,50 +33,48 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return AutoTabsRouter(
-      routes: const [
-        EventsRoute(),
-        ProfileRoute(),
-      ],
-      transitionBuilder: (context, child, animation) => FadeTransition(
-        opacity: animation,
-        child: child,
-      ),
-      builder: (context, child) {
-        final tabsRouter = AutoTabsRouter.of(context);
-        return Scaffold(
-          body: child,
-          appBar: AppBar(
-            title: Text(
-              'DVIZH',
-              style: TextStyle(fontSize: 24),
-            ),
-            centerTitle: true,
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: tabsRouter.activeIndex,
-            onTap: tabsRouter.setActiveIndex,
-            items: [
-              BottomNavigationBarItem(
-                label: 'Profile',
-                icon: Icon(Icons.event),
+  Widget build(BuildContext context) => AutoTabsRouter(
+        routes: const [
+          EventsRoute(),
+          ProfileRoute(),
+        ],
+        transitionBuilder: (context, child, animation) => FadeTransition(
+          opacity: animation,
+          child: child,
+        ),
+        builder: (context, child) {
+          final tabsRouter = AutoTabsRouter.of(context);
+          return Scaffold(
+            body: child,
+            appBar: AppBar(
+              title: const Text(
+                'DVIZH',
+                style: TextStyle(fontSize: 24),
               ),
-              BottomNavigationBarItem(
-                label: 'User',
-                icon: Icon(Icons.person),
-              ),
-            ],
-          ),
-          floatingActionButton: Visibility(
-            visible: kDebugMode,
-            child: FloatingActionButton(
-              onPressed: _toTalker,
-              child: Icon(Icons.add),
+              centerTitle: true,
             ),
-          ),
-        );
-      },
-    );
-  }
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: tabsRouter.activeIndex,
+              onTap: tabsRouter.setActiveIndex,
+              items: const [
+                BottomNavigationBarItem(
+                  label: 'Profile',
+                  icon: Icon(Icons.event),
+                ),
+                BottomNavigationBarItem(
+                  label: 'User',
+                  icon: Icon(Icons.person),
+                ),
+              ],
+            ),
+            floatingActionButton: Visibility(
+              visible: kDebugMode,
+              child: FloatingActionButton(
+                onPressed: _toTalker,
+                child: const Icon(Icons.add),
+              ),
+            ),
+          );
+        },
+      );
 }

@@ -1,33 +1,31 @@
 // 🎯 Dart imports:
 import 'dart:async';
 
-// 📦 Package imports:
-import 'package:dio/dio.dart';
-
 // 🌎 Project imports:
-import '../models/export.dart';
-import '../params/export.dart';
-import 'auth_data_source.dart';
-import 'auth_interceptor_data_source.dart';
-import 'token_data_source.dart';
+import 'package:dvizh_mob/src/auth/data/auth_data_source.dart';
+import 'package:dvizh_mob/src/auth/data/auth_interceptor_data_source.dart';
+import 'package:dvizh_mob/src/auth/data/token_data_source.dart';
+import 'package:dvizh_mob/src/auth/models/export.dart';
+import 'package:dvizh_mob/src/auth/params/export.dart';
 
 class AuthRepository {
-  final TokenDataSource _tokenSource;
-  final AuthDataSource _authSource;
-  final AuthInterceptorDataSource _authInterceptorSource;
-  final StreamController<AuthModel?> _authController =
-      StreamController<AuthModel?>.broadcast();
-  static AuthModel? _auth;
-
   AuthRepository(
     this._tokenSource,
     this._authSource,
     this._authInterceptorSource,
   );
 
+  final TokenDataSource _tokenSource;
+  final AuthDataSource _authSource;
+  final AuthInterceptorDataSource _authInterceptorSource;
+  final StreamController<AuthModel?> _authController =
+      StreamController<AuthModel?>.broadcast();
+
+  late AuthModel? _auth;
+
   Stream<AuthModel?> get authStream => _authController.stream;
 
-  Future register(RegisterParams params) => _authSource.register(params);
+  Future<void> register(RegisterParams params) => _authSource.register(params);
 
   Future<void> login(LoginParams params) async =>
       await _authSource.login(params).then(_loginCallback);
@@ -46,20 +44,20 @@ class AuthRepository {
 
   Future<AuthModel> _refreshCallback(AuthDto value) async {
     _auth = value.toModel();
-    _tokenSource.write(_auth!);
+    await _tokenSource.write(_auth!);
     _authInterceptorSource.set(_auth!, this);
     _authController.add(_auth);
     return _auth!;
   }
 
-  Future _loginCallback(AuthDto value) async {
+  Future<void> _loginCallback(AuthDto value) async {
     _auth = value.toModel();
     await _tokenSource.write(_auth!);
     _authInterceptorSource.set(_auth!, this);
     _authController.add(_auth);
   }
 
-  Future clear() async {
+  Future<void> clear() async {
     await _tokenSource.clear();
     _authInterceptorSource.remove();
     _authController.add(null);
@@ -75,7 +73,7 @@ class AuthRepository {
     return _auth;
   }
 
-  Future<Response> changeEmail(ChangeEmailParams params) =>
+  Future<void> changeEmail(ChangeEmailParams params) =>
       _authSource.changeEmail(params);
 
   Future<void> deleteAccount(DeleteAccountParams params) =>

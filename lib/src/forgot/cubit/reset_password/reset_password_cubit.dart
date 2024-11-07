@@ -3,17 +3,16 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 
 // 🌎 Project imports:
-import '../../params/reset_password_params.dart';
-import '../../repository/forgot_repository.dart';
+import 'package:dvizh_mob/src/forgot/params/reset_password_params.dart';
+import 'package:dvizh_mob/src/forgot/repository/forgot_repository.dart';
 
 part 'reset_password_state.dart';
 
 class ResetPasswordCubit extends Cubit<ResetPasswordState> {
+  ResetPasswordCubit(this._userRepository) : super(ResetPasswordInitial());
   final ForgotRepository _userRepository;
 
-  ResetPasswordCubit(this._userRepository) : super(ResetPasswordInitial());
-
-  Future reset(ResetPasswordParams params) async {
+  Future<void> reset(ResetPasswordParams params) async {
     if (state is ResetPasswordLoading) return;
 
     emit(ResetPasswordLoading());
@@ -22,7 +21,7 @@ class ResetPasswordCubit extends Cubit<ResetPasswordState> {
       emit(ResetPasswordSuccess());
     } on DioException {
       emit(ResetPasswordError('Ошибка'));
-    } catch (err) {
+    } on Exception {
       emit(ResetPasswordError('Ошибка'));
     }
   }

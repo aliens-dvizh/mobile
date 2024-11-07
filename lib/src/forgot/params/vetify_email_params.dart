@@ -1,14 +1,13 @@
 // 🌎 Project imports:
-import '../../../core/models/params/params.dart';
+import 'package:dvizh_mob/core/models/params/params.dart';
 
-class VerifyEmailParams extends Params {
-  final String email;
-  final int code;
-
+class VerifyEmailParams with Params {
   VerifyEmailParams({
     required this.email,
     required this.code,
   });
+  final String email;
+  final int code;
 
   @override
   Map<String, Object> toMap() {

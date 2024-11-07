@@ -5,9 +5,9 @@ sealed class SignInState {}
 class SignLoginState extends SignInState {}
 
 class SingVerifyState extends SignInState {
-  final String email;
-
   SingVerifyState(this.email);
+
+  final String email;
 }
 
 class SingRegisterState extends SignInState {}

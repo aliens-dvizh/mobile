@@ -7,8 +7,6 @@ import 'package:dio/dio.dart';
 part 'app_interceptor.dart';
 
 class DioService {
-  static late Dio _dio;
-
   DioService();
 
   DioService.initialize(String url) {
@@ -20,11 +18,12 @@ class DioService {
       },
     ));
   }
+  static late Dio _dio;
 
   Dio get I => _dio;
 
   void addInterceptor(Interceptor interceptor) {
-    if (interceptor is AppInterceptor) interceptor.setDio = _dio;
+    if (interceptor is AppInterceptor) interceptor.dio = _dio;
     _dio.interceptors.add(interceptor);
   }
 

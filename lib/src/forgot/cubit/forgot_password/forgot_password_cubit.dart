@@ -3,21 +3,20 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 
 // 🌎 Project imports:
-import '../../params/forgot_params.dart';
-import '../../repository/forgot_repository.dart';
+import 'package:dvizh_mob/src/forgot/params/forgot_params.dart';
+import 'package:dvizh_mob/src/forgot/repository/forgot_repository.dart';
 
 part 'forgot_password_state.dart';
 
 class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
-  final ForgotRepository _userRepository;
-
   ForgotPasswordCubit(this._userRepository) : super(ForgotPasswordInitial());
+  final ForgotRepository _userRepository;
 
   void setState() {
     emit(ForgotPasswordSuccess(email: ''));
   }
 
-  Future forgot(ForgotParams params) async {
+  Future<void> forgot(ForgotParams params) async {
     if (state is ForgotPasswordLoading) return;
 
     emit(ForgotPasswordLoading());
@@ -26,7 +25,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
       emit(ForgotPasswordSuccess(email: params.email));
     } on DioException {
       emit(ForgotPasswordError('Ошибка'));
-    } catch (err) {
+    } on Exception {
       emit(ForgotPasswordError('Ошибка'));
     }
   }

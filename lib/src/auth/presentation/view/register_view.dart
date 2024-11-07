@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -8,14 +10,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
-import '../../../../core/utils/validation_exception_parses.dart';
-import '../../export.dart';
+import 'package:dvizh_mob/core/utils/validation_exception_parses.dart';
+import 'package:dvizh_mob/src/auth/export.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({
-    super.key,
     required this.emailController,
     required this.passwordController,
+    super.key,
   });
 
   final TextEditingController emailController;
@@ -25,7 +27,8 @@ class RegisterView extends StatefulWidget {
   State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _RegisterViewState extends State<RegisterView> {
+class _RegisterViewState extends State<RegisterView>
+    with ValidationExceptionParser {
   late TextEditingController _nameController;
 
   @override
@@ -94,67 +97,59 @@ class _RegisterViewState extends State<RegisterView> {
         SizedBox(height: size.xl2),
         BlocConsumer<RegistrationBloc, RegistrationState>(
           listener: _listener,
-          builder: (context, state) {
-            return Column(
-              children: [
-                FFormBuilder<RegisterForm>(
-                  form: _form,
-                  builder: (context, RegisterForm form) {
-                    return Column(
-                      children: [
-                        TextFieldWidget(
-                          hintText: 'Имя',
-                          controller: _nameController,
-                          enabled: state is! RegistrationLoading,
-                          errorText:
-                              ValidationExceptionParser.getFieldException(
-                                  form, form.name),
-                        ),
-                        SizedBox(height: size.l),
-                        TextFieldWidget(
-                          hintText: 'Email',
-                          controller: widget.emailController,
-                          enabled: state is! RegistrationLoading,
-                          errorText:
-                              ValidationExceptionParser.getFieldException(
-                            form,
-                            form.email,
-                          ),
-                        ),
-                        SizedBox(height: size.l),
-                        PasswordFieldWidget(
-                          hideIcon: Icon(Icons.access_time),
-                          showIcon: Icon(Icons.access_time),
-                          hintText: 'Пароль',
-                          controller: widget.passwordController,
-                          enabled: state is! RegistrationLoading,
-                          errorText:
-                              ValidationExceptionParser.getFieldException(
-                            form,
-                            form.password,
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+          builder: (context, state) => Column(
+            children: [
+              FFormBuilder<RegisterForm>(
+                form: _form,
+                builder: (context, form) => Column(
+                  children: [
+                    TextFieldWidget(
+                      hintText: 'Имя',
+                      controller: _nameController,
+                      enabled: state is! RegistrationLoading,
+                      errorText: getFieldException(form, form.name),
+                    ),
+                    SizedBox(height: size.l),
+                    TextFieldWidget(
+                      hintText: 'Email',
+                      controller: widget.emailController,
+                      enabled: state is! RegistrationLoading,
+                      errorText: getFieldException(
+                        form,
+                        form.email,
+                      ),
+                    ),
+                    SizedBox(height: size.l),
+                    PasswordFieldWidget(
+                      hideIcon: const Icon(Icons.access_time),
+                      showIcon: const Icon(Icons.access_time),
+                      hintText: 'Пароль',
+                      controller: widget.passwordController,
+                      enabled: state is! RegistrationLoading,
+                      errorText: getFieldException(
+                        form,
+                        form.password,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: size.xl2),
-                SizedBox(
-                  width: double.infinity,
-                  child: (state is RegistrationLoading)
-                      ? const ButtonWidget(
-                          size: ButtonSize.l,
-                          isLoading: true,
-                        )
-                      : ButtonWidget(
-                          size: ButtonSize.l,
-                          onPressed: _registerUser(context),
-                          child: Text('Зарегистрироваться'),
-                        ),
-                ),
-              ],
-            );
-          },
+              ),
+              SizedBox(height: size.xl2),
+              SizedBox(
+                width: double.infinity,
+                child: (state is RegistrationLoading)
+                    ? const ButtonWidget(
+                        size: ButtonSize.l,
+                        isLoading: true,
+                      )
+                    : ButtonWidget(
+                        size: ButtonSize.l,
+                        onPressed: _registerUser(context),
+                        child: const Text('Зарегистрироваться'),
+                      ),
+              ),
+            ],
+          ),
         ),
         SizedBox(height: size.xl2),
         Align(
@@ -162,7 +157,7 @@ class _RegisterViewState extends State<RegisterView> {
           child: Text.rich(
             TextSpan(
               children: [
-                TextSpan(
+                const TextSpan(
                   text: 'Есть аккаунт? ',
                 ),
                 TextSpan(

@@ -1,22 +1,20 @@
 // 🌎 Project imports:
-import '../../../core/models/params/params.dart';
+import 'package:dvizh_mob/core/models/params/params.dart';
 
-class LoginParams extends Params {
-  final String email;
-  final String password;
-  final String? phone;
-
+class LoginParams with Params {
   LoginParams({
     required this.email,
     required this.password,
     this.phone,
   });
 
+  final String email;
+  final String password;
+  final String? phone;
+
   @override
-  Map<String, String> toMap() {
-    return {
-      'email': email,
-      'password': password,
-    };
-  }
+  Map<String, String> toMap() => {
+        'email': email,
+        'password': password,
+      };
 }

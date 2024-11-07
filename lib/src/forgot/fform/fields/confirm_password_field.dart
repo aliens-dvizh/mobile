@@ -7,12 +7,11 @@ enum ConfirmPasswordException {
 
 class ConfirmPasswordField
     extends FFormField<String, ConfirmPasswordException> {
-  String password;
-
   ConfirmPasswordField({
     required String value,
     required this.password,
   }) : super(value);
+  String password;
 
   @override
   ConfirmPasswordException? validator(String value) {

@@ -1,23 +1,20 @@
 // 🌎 Project imports:
-import '../../../core/models/params/params.dart';
+import 'package:dvizh_mob/core/models/params/params.dart';
 
-class ResetPasswordParams extends Params {
-  final String email;
-  final int code;
-  final String newPassword;
-
+class ResetPasswordParams with Params {
   ResetPasswordParams({
     required this.email,
     required this.code,
     required this.newPassword,
   });
+  final String email;
+  final int code;
+  final String newPassword;
 
   @override
-  Map<String, Object> toMap() {
-    return {
-      'email': email,
-      'code': code,
-      'password': newPassword,
-    };
-  }
+  Map<String, Object> toMap() => {
+        'email': email,
+        'code': code,
+        'password': newPassword,
+      };
 }

@@ -1,13 +1,17 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:toptom_widgetbook/kit/export.dart';
 
 // 🌎 Project imports:
-import 'material_app.dart';
+import 'package:dvizh_mob/material_app.dart';
 
 class App extends StatefulWidget {
+  const App({super.key});
+
   @override
   State<App> createState() => _AppState();
 }
@@ -15,9 +19,7 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return ThemeSwitcher(
-      child: MyApp(),
-    );
-  }
+  Widget build(BuildContext context) => ThemeSwitcher(
+        child: MyApp(),
+      );
 }

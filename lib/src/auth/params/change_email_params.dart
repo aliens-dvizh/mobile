@@ -1,16 +1,15 @@
 // 🌎 Project imports:
-import '../../../core/models/params/params.dart';
+import 'package:dvizh_mob/core/models/params/params.dart';
 
-class ChangeEmailParams extends Params {
-  final String newEmail;
-  final int code;
-
+class ChangeEmailParams with Params {
   ChangeEmailParams({
     required this.newEmail,
     required this.code,
   });
+
+  final String newEmail;
+  final int code;
+
   @override
-  Map<String, Object> toMap() {
-    return {'email': newEmail, 'code': code};
-  }
+  Map<String, Object> toMap() => {'email': newEmail, 'code': code};
 }

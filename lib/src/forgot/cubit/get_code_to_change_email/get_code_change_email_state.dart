@@ -7,8 +7,8 @@ class GetCodeToChangeEmailInitial extends GetCodeToChangeEmailState {}
 class GetCodeToChangeEmailLoading extends GetCodeToChangeEmailState {}
 
 class GetCodeToChangeEmailError extends GetCodeToChangeEmailState {
-  final String error;
   GetCodeToChangeEmailError({required this.error});
+  final String error;
 }
 
 class GetCodeToChangeEmailSuccess extends GetCodeToChangeEmailState {}

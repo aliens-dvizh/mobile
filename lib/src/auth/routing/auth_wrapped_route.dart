@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 
 // 📦 Package imports:
@@ -9,49 +11,43 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/main.dart';
-import '../bloc/auth/auth_bloc.dart';
-import '../data/export.dart';
+import 'package:dvizh_mob/src/auth/bloc/auth/auth_bloc.dart';
+import 'package:dvizh_mob/src/auth/data/export.dart';
 
 @RoutePage()
 class AuthWrappedScreen extends StatelessWidget implements AutoRouteWrapper {
   const AuthWrappedScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return AutoRouter();
-  }
+  Widget build(BuildContext context) => const AutoRouter();
 
   @override
-  Widget wrappedRoute(BuildContext context) {
-    return Dependencies(
-      library: AuthLibrary(
-        parent: Dependencies.of<RootLibrary>(context),
-      ),
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<AuthBloc>(
-            create: (context) => AuthBloc(
-              Dependencies.of<AuthLibrary>(context).authRepository,
+  Widget wrappedRoute(BuildContext context) => Dependencies(
+        library: AuthLibrary(
+          parent: Dependencies.of<RootLibrary>(context),
+        ),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<AuthBloc>(
+              create: (context) => AuthBloc(
+                Dependencies.of<AuthLibrary>(context).authRepository,
+              ),
             ),
-          ),
-        ],
-        child: this,
-      ),
-    );
-  }
+          ],
+          child: this,
+        ),
+      );
 }
 
 class AuthLibrary extends DependenciesLibrary<RootLibrary> {
-
-  late final AuthRepository authRepository;
-
   AuthLibrary({required super.parent});
+  late final AuthRepository authRepository;
 
   @override
   Future<void> init() async {
     authRepository = AuthRepository(
       TokenDataSource(
-        FlutterSecureStorage(),
+        const FlutterSecureStorage(),
       ),
       AuthDataSource(
         parent.dioService,

@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -9,25 +11,25 @@ import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 // 🌎 Project imports:
 import 'package:dvizh_mob/main.dart';
 import 'package:dvizh_mob/src/forgot/export.dart';
-import 'change_password_view.dart';
-import 'finish_changed_view.dart';
-import 'send_to_email_view.dart';
-import 'verification_view.dart';
+import 'package:dvizh_mob/src/forgot/presentation/views/change_password_view.dart';
+import 'package:dvizh_mob/src/forgot/presentation/views/finish_changed_view.dart';
+import 'package:dvizh_mob/src/forgot/presentation/views/send_to_email_view.dart';
+import 'package:dvizh_mob/src/forgot/presentation/views/verification_view.dart';
 
 class ForgotModalSheet extends StatefulWidget {
-  final String email;
   const ForgotModalSheet({
-    super.key,
     required this.email,
+    super.key,
   });
+  final String email;
 
   static Future<void> view(BuildContext context, String email) async {
-    final ForgotRepository repository = ForgotRepository(
+    final repository = ForgotRepository(
       ForgotDataSource(
         Dependencies.of<RootLibrary>(context).dioService,
       ),
     );
-    await showModalBottomSheet(
+    await showModalBottomSheet<void>(
       backgroundColor: Colors.transparent.withOpacity(0.06),
       isScrollControlled: true,
       context: context,
@@ -77,22 +79,20 @@ class _ForgotModalSheetState extends State<ForgotModalSheet> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: MediaQuery.of(context).viewInsets,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: ThemeCore.of(context).color.scheme.white,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
+  Widget build(BuildContext context) => Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: ThemeCore.of(context).color.scheme.white,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
           ),
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(ThemeCore.of(context).padding.xl),
-          child: BlocBuilder<ForgotScreenCubit, ForgotScreenState>(
-            builder: (context, state) {
-              return switch (state) {
+          child: Padding(
+            padding: EdgeInsets.all(ThemeCore.of(context).padding.xl),
+            child: BlocBuilder<ForgotScreenCubit, ForgotScreenState>(
+              builder: (context, state) => switch (state) {
                 SendCodeScreenState() => SendToEmailView(
                     emailController: emailController,
                   ),
@@ -105,11 +105,9 @@ class _ForgotModalSheetState extends State<ForgotModalSheet> {
                     code: codeController.text,
                   ),
                 SuccessPasswordScreenState() => const FinishChangedModal(),
-              };
-            },
+              },
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
