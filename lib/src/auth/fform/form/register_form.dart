@@ -1,14 +1,12 @@
 // 📦 Package imports:
+
+// 📦 Package imports:
 import 'package:fform/fform.dart';
 
 // 🌎 Project imports:
-import '../fields/export.dart';
+import 'package:dvizh_mob/src/auth/fform/fields/export.dart';
 
 class RegisterForm extends FForm {
-  NameField name;
-  EmailField email;
-  PasswordField password;
-
   RegisterForm({
     required this.name,
     required this.email,
@@ -19,13 +17,15 @@ class RegisterForm extends FForm {
     String? email,
     String? name,
     String? password,
-  }) {
-    return RegisterForm(
-      name: NameField(value: name ?? ''),
-      email: EmailField(value: email ?? ''),
-      password: PasswordField(value: password ?? ''),
-    );
-  }
+  }) =>
+      RegisterForm(
+        name: NameField(value: name ?? ''),
+        email: EmailField(value: email ?? ''),
+        password: PasswordField(value: password ?? ''),
+      );
+  NameField name;
+  EmailField email;
+  PasswordField password;
 
   void change({
     String? name,

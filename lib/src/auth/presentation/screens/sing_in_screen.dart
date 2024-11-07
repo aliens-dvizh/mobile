@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -7,10 +9,7 @@ import 'package:depend/depend.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/main.dart';
-import 'package:dvizh_mob/src/auth/bloc/export.dart';
 import 'package:dvizh_mob/src/auth/export.dart';
-import '../export.dart';
 
 @RoutePage()
 class SingInScreen extends StatefulWidget implements AutoRouteWrapper {
@@ -67,14 +66,12 @@ class _SingInScreenState extends State<SingInScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(20),
-          child: BlocBuilder<SignInCubit, SignInState>(
-            builder: (context, state) {
-              return switch (state) {
+  Widget build(BuildContext context) => Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: BlocBuilder<SignInCubit, SignInState>(
+              builder: (context, state) => switch (state) {
                 SignLoginState() => LoginView(
                     emailController: _emailController,
                     passwordController: _passwordController,
@@ -86,11 +83,9 @@ class _SingInScreenState extends State<SingInScreen> {
                     emailController: _emailController,
                     passwordController: _passwordController,
                   ),
-              };
-            },
+              },
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

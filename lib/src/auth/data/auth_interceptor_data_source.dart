@@ -1,14 +1,14 @@
 // 🌎 Project imports:
 import 'package:dvizh_mob/core/services/dio/dio_service.dart';
-import '../core/auth_interceptor.dart';
-import '../models/auth_model.dart';
-import 'auth_repository.dart';
+import 'package:dvizh_mob/src/auth/core/auth_interceptor.dart';
+import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
+import 'package:dvizh_mob/src/auth/models/auth_model.dart';
 
 class AuthInterceptorDataSource {
+  AuthInterceptorDataSource(this._apiService);
+
   final DioService _apiService;
   AuthInterceptor? _interceptor;
-
-  AuthInterceptorDataSource(this._apiService);
 
   void set(AuthModel auth, AuthRepository repository) {
     remove();

@@ -1,14 +1,13 @@
 // 🌎 Project imports:
-import '../../../core/models/params/params.dart';
+import 'package:dvizh_mob/core/models/params/params.dart';
 
-class DeleteAccountParams extends Params {
-  final int code;
-
+class DeleteAccountParams with Params {
   DeleteAccountParams({
     required this.code,
   });
+
+  final int code;
+
   @override
-  Map<String, int> toMap() {
-    return {'code': code};
-  }
+  Map<String, int> toMap() => {'code': code};
 }

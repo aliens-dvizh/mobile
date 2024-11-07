@@ -3,19 +3,17 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import '../../data/auth_repository.dart';
-import '../../params/delete_account_params.dart';
+import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
+import 'package:dvizh_mob/src/auth/params/delete_account_params.dart';
 
 part 'delete_account_event.dart';
-
 part 'delete_account_state.dart';
 
 class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
-  final AuthRepository _authRepository;
-
   DeleteAccountBloc(this._authRepository) : super(DeleteAccountInitial()) {
     on<DeleteAccount>(_deleteAccount);
   }
+  final AuthRepository _authRepository;
 
   Future<void> _deleteAccount(
       DeleteAccount event, Emitter<DeleteAccountState> emit) async {
@@ -27,7 +25,7 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
       emit(DeleteAccountSuccess());
     } on DioException {
       emit(DeleteAccountError(error: 'Ошибка'));
-    } catch (error) {
+    } on Exception {
       emit(DeleteAccountError(error: 'Ошибка'));
     }
   }

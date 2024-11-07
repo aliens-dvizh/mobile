@@ -1,7 +1,8 @@
 // 🌎 Project imports:
-import '../model/model.dart';
+import 'package:dvizh_mob/core/models/model/model.dart';
 
-class MessageResponseModel extends ModelItem {
-  final String message;
+class MessageResponseModel with ModelItem {
   MessageResponseModel({required this.message});
+
+  final String message;
 }

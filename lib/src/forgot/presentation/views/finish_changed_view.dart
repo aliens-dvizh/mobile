@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -49,7 +51,7 @@ class FinishChangedModal extends StatelessWidget {
         ButtonWidget(
           onPressed: context.router.maybePop,
           color: ButtonColor.black,
-          child: Text('Вернуться'),
+          child: const Text('Вернуться'),
         ),
       ],
     );

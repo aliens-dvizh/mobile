@@ -20,13 +20,12 @@ enum PhoneError {
   }
 }
 
-class PhoneField extends FFormField {
-  final bool isRequired;
-
+class PhoneField extends FFormField<String, PhoneError> {
   PhoneField({
     required String value,
     this.isRequired = true,
   }) : super(value);
+  final bool isRequired;
 
   @override
   PhoneError? validator(value) {

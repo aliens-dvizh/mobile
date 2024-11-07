@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -8,15 +10,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
-import '../../../../core/utils/validation_exception_parses.dart';
-import '../../../forgot/export.dart';
-import '../../export.dart';
+import 'package:dvizh_mob/core/utils/validation_exception_parses.dart';
+import 'package:dvizh_mob/src/auth/export.dart';
+import 'package:dvizh_mob/src/forgot/export.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({
-    super.key,
     required TextEditingController emailController,
     required TextEditingController passwordController,
+    super.key,
   })  : _emailController = emailController,
         _passwordController = passwordController;
 
@@ -27,7 +29,7 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _LoginViewState extends State<LoginView> with ValidationExceptionParser {
   final LoginForm _form = LoginForm.parse();
 
   //METHODS
@@ -83,38 +85,34 @@ class _LoginViewState extends State<LoginView> {
         ),
         SizedBox(height: size.xl2),
         BlocBuilder<LoginBloc, LoginState>(
-          builder: (context, state) {
-            return FFormBuilder<LoginForm>(
-              form: _form,
-              builder: (context, LoginForm form) {
-                return Column(
-                  children: [
-                    TextFieldWidget(
-                      controller: widget._emailController,
-                      hintText: 'Email',
-                      errorText: ValidationExceptionParser.getFieldException(
-                        form,
-                        form.email,
-                      ),
-                      enabled: state is! LoginLoading,
-                    ),
-                    SizedBox(height: ThemeCore.of(context).padding.l),
-                    PasswordFieldWidget(
-                      hideIcon: Icon(Icons.access_time),
-                      showIcon: Icon(Icons.access_time),
-                      controller: widget._passwordController,
-                      hintText: 'Пароль',
-                      errorText: ValidationExceptionParser.getFieldException(
-                        form,
-                        form.password,
-                      ),
-                      enabled: state is! LoginLoading,
-                    ),
-                  ],
-                );
-              },
-            );
-          },
+          builder: (context, state) => FFormBuilder<LoginForm>(
+            form: _form,
+            builder: (context, form) => Column(
+              children: [
+                TextFieldWidget(
+                  controller: widget._emailController,
+                  hintText: 'Email',
+                  errorText: getFieldException(
+                    form,
+                    form.email,
+                  ),
+                  enabled: state is! LoginLoading,
+                ),
+                SizedBox(height: ThemeCore.of(context).padding.l),
+                PasswordFieldWidget(
+                  hideIcon: const Icon(Icons.access_time),
+                  showIcon: const Icon(Icons.access_time),
+                  controller: widget._passwordController,
+                  hintText: 'Пароль',
+                  errorText: getFieldException(
+                    form,
+                    form.password,
+                  ),
+                  enabled: state is! LoginLoading,
+                ),
+              ],
+            ),
+          ),
         ),
         SizedBox(height: size.ms),
         Align(
@@ -143,7 +141,7 @@ class _LoginViewState extends State<LoginView> {
             return ButtonWidget(
               size: ButtonSize.l,
               onPressed: _loginUser(context),
-              child: Text('Войти'),
+              child: const Text('Войти'),
             );
           },
         ),
@@ -153,7 +151,7 @@ class _LoginViewState extends State<LoginView> {
           child: Text.rich(
             TextSpan(
               children: [
-                TextSpan(
+                const TextSpan(
                   text: 'Нет аккаунта?',
                 ),
                 TextSpan(

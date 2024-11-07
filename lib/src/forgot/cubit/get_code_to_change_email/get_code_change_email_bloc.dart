@@ -3,21 +3,19 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import '../../params/change_email_code_params.dart';
-import '../../repository/forgot_repository.dart';
+import 'package:dvizh_mob/src/forgot/params/change_email_code_params.dart';
+import 'package:dvizh_mob/src/forgot/repository/forgot_repository.dart';
 
 part 'get_code_change_email_events.dart';
-
 part 'get_code_change_email_state.dart';
 
 class GetCodeToChangeEmailBloc
     extends Bloc<ChangeEmailEvent, GetCodeToChangeEmailState> {
-  final ForgotRepository _forgotRepository;
-
   GetCodeToChangeEmailBloc(this._forgotRepository)
       : super(GetCodeToChangeEmailInitial()) {
     on<GetCodeChangeEmail>(_changeEmail);
   }
+  final ForgotRepository _forgotRepository;
 
   Future<void> _changeEmail(
     GetCodeChangeEmail event,
@@ -31,7 +29,7 @@ class GetCodeToChangeEmailBloc
       emit(GetCodeToChangeEmailSuccess());
     } on DioException {
       emit(GetCodeToChangeEmailError(error: 'Ошибка'));
-    } catch (error) {
+    } on Exception {
       emit(GetCodeToChangeEmailError(error: 'Ошибка'));
     }
   }

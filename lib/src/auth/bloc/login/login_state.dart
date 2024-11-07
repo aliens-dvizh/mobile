@@ -9,15 +9,13 @@ class LoginLoading extends LoginState {}
 class LoginSuccess extends LoginState {}
 
 class LoginRedirectVerifyState extends LoginState {
-  final String email;
-
   LoginRedirectVerifyState({required this.email});
+  final String email;
 }
 
 class LoginError extends LoginState {
-  final String? message;
-
   LoginError(this.message);
+  final String? message;
 }
 
 class LoginNetworkError extends LoginState {}

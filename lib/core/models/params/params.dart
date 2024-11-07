@@ -1,3 +1,3 @@
-abstract class Params {
+mixin Params {
   Map<String, dynamic> toMap();
 }

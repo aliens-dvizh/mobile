@@ -17,15 +17,14 @@ enum NameError {
 }
 
 class NameField extends FFormField<String, NameError> {
-  final bool isRequired;
-
   NameField({
     required String value,
     this.isRequired = true,
   }) : super(value);
+  final bool isRequired;
 
   @override
-  NameError? validator(value) {
+  NameError? validator(String value) {
     if (isRequired) {
       if (value.isEmpty) return NameError.empty;
     }

@@ -1,24 +1,18 @@
 // 🌎 Project imports:
-import '../model/model.dart';
-import 'list_data_dto.dart';
+import 'package:dvizh_mob/core/models/model/model.dart';
 
 class ListDataModel<T extends ModelItem> {
-  List<T> list;
-  int count;
-
   ListDataModel({required this.list, this.count = 0});
 
-  factory ListDataModel.fromDTOList(ListDataDTO dto) {
-    return dto.toModel<T>();
-  }
+  List<T> list;
+  int count;
 
   ListDataModel<T> copyWith({
     List<T>? list,
     int? count,
-  }) {
-    return ListDataModel<T>(
-      list: list ?? this.list,
-      count: count ?? this.count,
-    );
-  }
+  }) =>
+      ListDataModel<T>(
+        list: list ?? this.list,
+        count: count ?? this.count,
+      );
 }
