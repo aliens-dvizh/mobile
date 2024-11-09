@@ -1,6 +1,4 @@
 // 🐦 Flutter imports:
-
-// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -10,7 +8,9 @@ import 'package:toptom_widgetbook/kit/export.dart';
 import 'package:dvizh_mob/material_app.dart';
 
 class App extends StatefulWidget {
-  const App({super.key});
+  const App({
+    super.key,
+  });
 
   @override
   State<App> createState() => _AppState();

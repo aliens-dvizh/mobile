@@ -1,6 +1,4 @@
 // 🐦 Flutter imports:
-
-// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 
 // 📦 Package imports:
@@ -22,6 +20,5 @@ class ProfileScreen extends StatelessWidget {
         child: ButtonWidget(
           onPressed: _toSingIn(context),
           child: const Text('Авторизоваться'),
-        ),
-      );
+        ),);
 }
