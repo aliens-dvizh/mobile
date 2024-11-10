@@ -18,6 +18,9 @@ class ProfileScreen extends StatelessWidget {
   VoidCallback _toSingIn(BuildContext context) =>
       () => AutoRouter.of(context).push(const SingInRoute());
 
+  VoidCallback _toUpdate(BuildContext context) =>
+      () => context.router.navigate(const UpdateUserRoute());
+
   @override
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
@@ -29,7 +32,15 @@ class ProfileScreen extends StatelessWidget {
                     child: const Text('Авторизоваться'),
                   ),
                 ),
-              UserLoadedState(:UserModel user) => Text(user.name),
+              UserLoadedState(:UserModel user) => Column(
+                  children: [
+                    Text(user.name),
+                    ElevatedButton(
+                      onPressed: _toUpdate(context),
+                      child: const Text('Update'),
+                    ),
+                  ],
+                ),
               UserExceptionState() => const Text('Exception'),
             },
           ),

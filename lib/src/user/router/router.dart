@@ -11,6 +11,7 @@ class ProfileRouter extends RootStackRouter {
           page: UserWrappedRoute.page,
           children: [
             AutoRoute(page: ProfileRoute.page, path: ''),
+            AutoRoute(page: UpdateUserRoute.page, path: 'update'),
           ],
         ),
       ];
