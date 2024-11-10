@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/events/models/event_type_model.dart';
+import 'package:dvizh_mob/src/category/models/category_model.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({

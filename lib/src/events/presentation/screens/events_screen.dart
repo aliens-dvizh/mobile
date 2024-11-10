@@ -9,11 +9,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/main.dart';
+import 'package:dvizh_mob/src/category/bloc/categories_bloc/categories_bloc.dart';
+import 'package:dvizh_mob/src/category/models/category_model.dart';
+import 'package:dvizh_mob/src/category/widgets/category_card.dart';
 import 'package:dvizh_mob/src/core/models/list_data/list_data_model.dart';
 import 'package:dvizh_mob/src/events/export.dart';
-import 'package:dvizh_mob/src/events/models/event_type_model.dart';
 import 'package:dvizh_mob/src/events/presentation/widgets/event_card.dart';
-import 'package:dvizh_mob/src/events/presentation/widgets/event_type.dart';
 
 @RoutePage()
 class EventsScreen extends StatefulWidget implements AutoRouteWrapper {
@@ -46,23 +47,36 @@ class _EventsScreenState extends State<EventsScreen> {
           child: SingleChildScrollView(
             child: Builder(builder: (context) {
               final eventsState = context.watch<EventsBloc>().state;
+              final categoryState = context.watch<CategoriesBloc>().state;
+
               return Column(
                 children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(5, (index) => Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: CategoryCard(
-                          selected: index % 2 == 0,
-                          category: CategoryModel(
-                            icon: Icons.beach_access,
-                            name: 'Пляж',
-                          ),
+                  switch (categoryState) {
+                    CategoriesInitialState() ||
+                    CategoriesLoadingState() =>
+                      const CupertinoActivityIndicator(),
+                    CategoriesLoadedState(
+                      :ListDataModel<CategoryModel> categories
+                    )
+                        when categories.list.isNotEmpty =>
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: categories.list
+                              .map(
+                                (category) => Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: CategoryCard(
+                                      selected: category.id == 1,
+                                      category: category),
+                                ),
+                              )
+                              .toList(),
                         ),
-                      ),)
-                    ),
-                  ),
+                      ),
+                    CategoriesLoadedState() => const Text('Нет предметов'),
+                    CategoriesExceptionState() => const Text('exception'),
+                  },
                   const SizedBox(
                     height: 10,
                   ),
@@ -70,18 +84,13 @@ class _EventsScreenState extends State<EventsScreen> {
                     EventsInitial() ||
                     EventsLoading() =>
                       const CupertinoActivityIndicator(),
-                    EventsLoaded(events: ListDataModel<EventModel> events)
+                    EventsLoaded(:ListDataModel<EventModel> events)
                         when events.list.isNotEmpty =>
                       ListView.builder(
                         shrinkWrap: true,
                         itemCount: events.count,
                         itemBuilder: (context, index) => EventCard(
-                          event: EventModel(
-                            id: 1,
-                            description:
-                                '7, 8, 9 октября • Первомайские пруды • мест 2',
-                            name: 'Skriptonit',
-                          ),
+                          event: events.list[index],
                         ),
                       ),
                     EventsLoaded() => const Text('Нет элементов'),
