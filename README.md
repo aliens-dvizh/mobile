@@ -5,4 +5,4 @@ A new Flutter project.
 ## Getting Started
 
 - Flutter version:  3.24.3 
-- Готова архитектура, но всё остальное, нет
+- Готова архитектура

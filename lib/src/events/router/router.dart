@@ -13,7 +13,7 @@ class EventRouter extends RootStackRouter {
             AutoRoute(
               page: EventsRoute.page,
               initial: true,
-              path: 'events',
+              path: '',
             ),
             AutoRoute(
               page: EventRoute.page,
