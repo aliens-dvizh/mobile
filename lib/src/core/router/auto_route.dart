@@ -16,18 +16,24 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
-          page: AuthWrappedRoute.page,
+          page: CoreWrappedRoute.page,
           path: '/',
           children: [
             AutoRoute(
-              page: HomeRoute.page,
               path: '',
+              page: AuthWrappedRoute.page,
               children: [
-                ..._eventRouter.routes,
-                ..._profileRouter.routes,
+                AutoRoute(
+                  page: HomeRoute.page,
+                  path: '',
+                  children: [
+                    ..._eventRouter.routes,
+                    ..._profileRouter.routes,
+                  ],
+                ),
+                ..._authRouter.routes,
               ],
             ),
-            ..._authRouter.routes,
           ],
         ),
       ];

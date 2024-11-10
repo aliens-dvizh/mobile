@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -7,37 +6,29 @@ import 'package:toptom_widgetbook/kit/export.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/src/events/export.dart';
+import 'package:dvizh_mob/src/shared/widgets/app_image.dart';
 
 class EventCard extends StatelessWidget {
-  const EventCard({required this.event, super.key});
+  const EventCard({
+    required this.event,
+    super.key,
+    this.onPressed,
+  });
 
   final EventModel event;
+  final VoidCallback? onPressed;
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(bottom: 10),
+  Widget build(BuildContext context) => InkWell(
+        onTap: onPressed,
         child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.25,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Stack(
               children: [
-                Image.network(
-                  event.image ?? '',
-                  fit: BoxFit.cover,
-                  loadingBuilder: (context, url, progress) {
-                    if (progress == null) {
-                      return url;
-                    }
-                    return const CupertinoActivityIndicator();
-                  },
-                  errorBuilder: (context, error, stackTrace) => const Center(
-                    child: Icon(
-                      Icons.error,
-                      color: Colors.red,
-                      size: 30,
-                    ),
-                  ),
+                AppImage(
+                  image: event.image,
                   width: double.infinity,
                   height: double.infinity,
                 ),

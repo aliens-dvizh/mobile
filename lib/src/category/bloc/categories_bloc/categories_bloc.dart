@@ -7,7 +7,6 @@ import 'package:dvizh_mob/src/category/models/category_model.dart';
 import 'package:dvizh_mob/src/core/models/list_data/list_data_model.dart';
 
 part 'categories_event.dart';
-
 part 'categories_state.dart';
 
 class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
@@ -17,6 +16,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
         CategoriesFetchEvent() => _fetch(event, emit),
       },
     );
+    add(CategoriesFetchEvent());
   }
 
   final CategoryRepository _categoryRepository;
@@ -28,7 +28,6 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     emit(CategoriesLoadingState());
     try {
       final result = await _categoryRepository.getCategoryList();
-
       emit(CategoriesLoadedState(categories: result));
     } on Exception {
       emit(CategoriesExceptionState());
