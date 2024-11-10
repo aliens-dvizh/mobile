@@ -8,8 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/utils/validation_exception_parses.dart';
 import 'package:dvizh_mob/src/auth/export.dart';
+import 'package:dvizh_mob/src/core/utils/validation_exception_parses.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({

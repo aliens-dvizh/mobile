@@ -1,7 +1,7 @@
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/models/list_data/list_data_model.dart';
-import 'package:dvizh_mob/core/models/model/dto.dart';
-import 'package:dvizh_mob/core/models/model/model.dart';
+import 'package:dvizh_mob/src/core/models/list_data/list_data_model.dart';
+import 'package:dvizh_mob/src/core/models/model/dto.dart';
+import 'package:dvizh_mob/src/core/models/model/model.dart';
 
 class ListDataDTO<T extends DTO<M>, M extends ModelItem> {
   ListDataDTO({required this.list, this.count = 0});

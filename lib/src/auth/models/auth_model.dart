@@ -1,5 +1,5 @@
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/models/model/model.dart';
+import 'package:dvizh_mob/src/core/models/model/model.dart';
 
 class AuthModel with ModelItem {
   AuthModel({

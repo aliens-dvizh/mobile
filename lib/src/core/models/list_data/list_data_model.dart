@@ -1,5 +1,5 @@
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/models/model/model.dart';
+import 'package:dvizh_mob/src/core/models/model/model.dart';
 
 class ListDataModel<T extends ModelItem> {
   ListDataModel({required this.list, this.count = 0});

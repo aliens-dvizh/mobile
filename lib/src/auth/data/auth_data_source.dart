@@ -2,9 +2,9 @@
 import 'package:dio/dio.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/services/dio/dio_service.dart';
 import 'package:dvizh_mob/src/auth/models/export.dart';
 import 'package:dvizh_mob/src/auth/params/export.dart';
+import 'package:dvizh_mob/src/core/services/dio/dio_service.dart';
 
 class AuthDataSource {
   AuthDataSource(this._apiService);

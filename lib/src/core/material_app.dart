@@ -6,8 +6,8 @@ import 'package:depend/depend.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/router/auto_route.dart';
 import 'package:dvizh_mob/main.dart';
+import 'package:dvizh_mob/src/core/router/auto_route.dart';
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});

@@ -1,5 +1,5 @@
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/models/params/params.dart';
+import 'package:dvizh_mob/src/core/models/params/params.dart';
 
 class ChangeEmailParams with Params {
   ChangeEmailParams({

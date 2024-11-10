@@ -1,9 +1,9 @@
 // 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 
-class EventTypeModel {
-  EventTypeModel({required this.eventTypeIcon, required this.eventTypeName});
+class CategoryModel {
+  CategoryModel({required this.icon, required this.name});
 
-  final IconData eventTypeIcon;
-  final String eventTypeName;
+  final IconData icon;
+  final String name;
 }

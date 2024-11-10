@@ -14,8 +14,8 @@ import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/app.dart';
-import 'package:dvizh_mob/core/services/dio/dio_service.dart';
+import 'package:dvizh_mob/src/core/app.dart';
+import 'package:dvizh_mob/src/core/services/dio/dio_service.dart';
 import 'package:dvizh_mob/src/events/export.dart';
 
 void main() async {

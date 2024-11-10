@@ -6,7 +6,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/router/auto_route.gr.dart';
+import 'package:dvizh_mob/src/core/router/auto_route.gr.dart';
 
 @RoutePage()
 class ProfileScreen extends StatelessWidget {
@@ -20,5 +20,6 @@ class ProfileScreen extends StatelessWidget {
         child: ButtonWidget(
           onPressed: _toSingIn(context),
           child: const Text('Авторизоваться'),
-        ),);
+        ),
+      );
 }

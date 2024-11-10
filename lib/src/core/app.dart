@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:toptom_widgetbook/kit/export.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/material_app.dart';
+import 'package:dvizh_mob/src/core/material_app.dart';
 
 class App extends StatefulWidget {
   const App({
