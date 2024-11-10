@@ -33,69 +33,73 @@ class _EventsScreenState extends State<EventsScreen> {
   }
 
   VoidCallback _toEventDetails(EventModel event) =>
-      () => context.router.navigate(EventRoute(id: event.id));
+      () => context.router.push(EventRoute(id: event.id));
 
   @override
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Builder(
-              builder: (context) {
-                final eventsState = context.watch<EventsBloc>().state;
-                final categoryState = context.watch<CategoriesBloc>().state;
-
-                return Column(
-                  children: [
-                    switch (categoryState) {
-                      CategoriesInitialState() ||
-                      CategoriesLoadingState() =>
-                        const CupertinoActivityIndicator(),
-                      CategoriesLoadedState(
-                        :ListDataModel<CategoryModel> categories
-                      )
-                          when categories.list.isNotEmpty =>
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: categories.list
-                                .map(
-                                  (category) => Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: CategoryCard(
-                                        selected: category.id == 1,
-                                        category: category),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                      CategoriesLoadedState() => const Text('Нет предметов'),
-                      CategoriesExceptionState() => const Text('exception'),
-                    },
-                    const SizedBox(
-                      height: 10,
+          child: CustomScrollView(
+            slivers: [
+              BlocBuilder<CategoriesBloc, CategoriesState>(
+                builder: (context, state) => switch (state) {
+                  CategoriesInitialState() ||
+                  CategoriesLoadingState() =>
+                    const SliverToBoxAdapter(
+                      child: CupertinoActivityIndicator(),
                     ),
-                    switch (eventsState) {
-                      EventsInitial() ||
-                      EventsLoading() =>
-                        const CupertinoActivityIndicator(),
-                      EventsLoaded(:ListDataModel<EventModel> events)
-                          when events.list.isNotEmpty =>
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: events.count,
-                          itemBuilder: (context, index) => EventCard(
-                            event: events.list[index],
-                            onPressed: _toEventDetails(events.list[index]),
+                  CategoriesLoadedState(
+                    :ListDataModel<CategoryModel> categories
+                  )
+                      when categories.list.isNotEmpty =>
+                    SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.2,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: categories.count,
+                          itemBuilder: (context, index) => CategoryCard(
+                            selected: true,
+                            category: categories.list[index],
                           ),
                         ),
-                      EventsLoaded() => const Text('Нет элементов'),
-                      EventsError() => const Text('Exception'),
-                    },
-                  ],
-                );
-              },
-            ),
+                      ),
+                    ),
+                  CategoriesLoadedState() => const SliverToBoxAdapter(
+                      child: Text('Нет элементов'),
+                    ),
+                  CategoriesExceptionState() => const SliverToBoxAdapter(
+                      child: Text('Exception'),
+                    ),
+                },
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                sliver: BlocBuilder<EventsBloc, EventsState>(
+                  builder: (context, state) => switch (state) {
+                    EventsInitial() ||
+                    EventsLoading() =>
+                      const SliverToBoxAdapter(
+                        child: CupertinoActivityIndicator(),
+                      ),
+                    EventsLoaded(:ListDataModel<EventModel> events)
+                        when events.list.isNotEmpty =>
+                      SliverList.builder(
+                        itemCount: events.count,
+                        itemBuilder: (context, index) => EventCard(
+                          event: events.list[index],
+                          onPressed: _toEventDetails(events.list[index]),
+                        ),
+                      ),
+                    EventsError() => const SliverToBoxAdapter(
+                        child: Text('Exception'),
+                      ),
+                    EventsLoaded() => const SliverToBoxAdapter(
+                        child: Text('Нет элементов'),
+                      ),
+                  },
+                ),
+              )
+            ],
           ),
         ),
       );

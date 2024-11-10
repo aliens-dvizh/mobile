@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:depend/depend.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+import 'package:toptom_widgetbook/kit/export.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/main.dart';
@@ -33,8 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) => AutoTabsRouter(
         routes: const [
-          EventsRoute(),
-          ProfileRoute(),
+          EventWrappedRoute(),
+          UserWrappedRoute(),
         ],
         transitionBuilder: (context, child, animation) => FadeTransition(
           opacity: animation,
@@ -47,9 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
             appBar: AppBar(
               title: const Text(
                 'DVIZH',
-                style: TextStyle(fontSize: 24),
               ),
-              centerTitle: true,
+              titleTextStyle: ThemeCore.of(context).typography.h3.copyWith(
+                    color: Colors.black,
+                  ),
             ),
             bottomNavigationBar: BottomNavigationBar(
               currentIndex: tabsRouter.activeIndex,

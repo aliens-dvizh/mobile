@@ -1,18 +1,18 @@
 // 🐦 Flutter imports:
-import 'package:auto_route/auto_route.dart';
-import 'package:depend/depend.dart';
-import 'package:dvizh_mob/src/user/bloc/update/update_user_bloc.dart';
-import 'package:dvizh_mob/src/user/router/user_wrapped_route.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:auto_route/auto_route.dart';
+import 'package:depend/depend.dart';
 import 'package:fform/fform.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/kit/components/components.dart';
 
 // 🌎 Project imports:
+import 'package:dvizh_mob/src/user/bloc/update/update_user_bloc.dart';
 import 'package:dvizh_mob/src/user/bloc/user/user_bloc.dart';
 import 'package:dvizh_mob/src/user/models/user_model.dart';
+import 'package:dvizh_mob/src/user/router/user_wrapped_route.dart';
 
 @RoutePage()
 class UpdateUserScreen extends StatefulWidget implements AutoRouteWrapper {

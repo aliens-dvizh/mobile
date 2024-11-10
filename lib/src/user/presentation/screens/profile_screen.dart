@@ -19,7 +19,7 @@ class ProfileScreen extends StatelessWidget {
       () => AutoRouter.of(context).push(const SingInRoute());
 
   VoidCallback _toUpdate(BuildContext context) =>
-      () => context.router.navigate(const UpdateUserRoute());
+      () => context.router.push(const UpdateUserRoute());
 
   @override
   Widget build(BuildContext context) => Scaffold(
