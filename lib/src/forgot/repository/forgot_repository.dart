@@ -2,7 +2,7 @@
 import 'package:dio/dio.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/models/message_response/message_response_model.dart';
+import 'package:dvizh_mob/src/core/models/message_response/message_response_model.dart';
 import 'package:dvizh_mob/src/forgot/params/export.dart';
 import 'package:dvizh_mob/src/forgot/repository/forgot_data_source.dart';
 

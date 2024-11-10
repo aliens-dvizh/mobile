@@ -1,7 +1,7 @@
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/models/model/dto.dart';
-import 'package:dvizh_mob/core/models/model/model.dart';
 import 'package:dvizh_mob/src/auth/models/auth_model.dart';
+import 'package:dvizh_mob/src/core/models/model/dto.dart';
+import 'package:dvizh_mob/src/core/models/model/model.dart';
 
 class AuthDto with DTO<ModelItem> {
   AuthDto(this.token, this.refreshToken);

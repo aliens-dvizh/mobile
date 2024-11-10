@@ -2,8 +2,8 @@
 import 'package:auto_route/auto_route.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/router/auto_route.gr.dart';
 import 'package:dvizh_mob/src/auth/export.dart';
+import 'package:dvizh_mob/src/core/router/auto_route.gr.dart';
 import 'package:dvizh_mob/src/events/export.dart';
 import 'package:dvizh_mob/src/user/export.dart';
 

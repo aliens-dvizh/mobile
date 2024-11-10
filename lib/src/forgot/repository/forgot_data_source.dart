@@ -2,8 +2,8 @@
 import 'package:dio/dio.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/models/message_response/messge_response_dto.dart';
-import 'package:dvizh_mob/core/services/dio/dio_service.dart';
+import 'package:dvizh_mob/src/core/models/message_response/messge_response_dto.dart';
+import 'package:dvizh_mob/src/core/services/dio/dio_service.dart';
 import 'package:dvizh_mob/src/forgot/params/export.dart';
 
 class ForgotDataSource {

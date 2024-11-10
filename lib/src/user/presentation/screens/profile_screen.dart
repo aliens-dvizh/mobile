@@ -1,6 +1,4 @@
 // 🐦 Flutter imports:
-
-// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 
 // 📦 Package imports:
@@ -8,7 +6,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/router/auto_route.gr.dart';
+import 'package:dvizh_mob/src/core/router/auto_route.gr.dart';
 
 @RoutePage()
 class ProfileScreen extends StatelessWidget {

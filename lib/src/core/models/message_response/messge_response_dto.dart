@@ -1,6 +1,6 @@
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/models/message_response/message_response_model.dart';
-import 'package:dvizh_mob/core/models/model/dto.dart';
+import 'package:dvizh_mob/src/core/models/message_response/message_response_model.dart';
+import 'package:dvizh_mob/src/core/models/model/dto.dart';
 
 class MessageResponseDTO with DTO {
   MessageResponseDTO({required this.message});

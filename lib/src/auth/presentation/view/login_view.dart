@@ -1,6 +1,4 @@
 // 🐦 Flutter imports:
-
-// 🐦 Flutter imports:
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -10,8 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/core/utils/validation_exception_parses.dart';
 import 'package:dvizh_mob/src/auth/export.dart';
+import 'package:dvizh_mob/src/core/utils/validation_exception_parses.dart';
 import 'package:dvizh_mob/src/forgot/export.dart';
 
 class LoginView extends StatefulWidget {

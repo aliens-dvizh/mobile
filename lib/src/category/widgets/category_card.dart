@@ -1,21 +1,19 @@
 // 🐦 Flutter imports:
-
-// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/events/models/event_type_model.dart';
+import 'package:dvizh_mob/src/category/models/category_model.dart';
 
-class EventType extends StatelessWidget {
-  const EventType({
+class CategoryCard extends StatelessWidget {
+  const CategoryCard({
     required this.selected,
-    required this.eventTypeData,
+    required this.category,
     super.key,
   });
-  final EventTypeModel eventTypeData;
+  final CategoryModel category;
   final bool selected;
 
   @override
@@ -39,7 +37,7 @@ class EventType extends StatelessWidget {
             child: Column(
               children: [
                 Icon(
-                  eventTypeData.eventTypeIcon,
+                  category.icon,
                   size: 35,
                   color: selected ? Colors.black : Colors.grey,
                 ),
@@ -47,7 +45,7 @@ class EventType extends StatelessWidget {
                   height: 10,
                 ),
                 AutoSizeText(
-                  eventTypeData.eventTypeName,
+                  category.name,
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
