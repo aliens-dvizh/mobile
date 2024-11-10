@@ -16,7 +16,6 @@ import 'package:talker_flutter/talker_flutter.dart';
 // 🌎 Project imports:
 import 'package:dvizh_mob/src/core/app.dart';
 import 'package:dvizh_mob/src/core/services/dio/dio_service.dart';
-import 'package:dvizh_mob/src/events/export.dart';
 
 void main() async {
   final rootLibrary = RootLibrary();
@@ -54,7 +53,6 @@ void main() async {
 class RootLibrary extends DependenciesLibrary<void> {
   final Talker talker = Talker();
   late final DioService dioService;
-  late final EventRepository eventRepository;
 
   @override
   Future<void> init() async {
@@ -66,10 +64,5 @@ class RootLibrary extends DependenciesLibrary<void> {
           settings: const TalkerDioLoggerSettings(),
         ),
       );
-    eventRepository = EventRepository(
-      EventDataSource(
-        dioService,
-      ),
-    );
   }
 }
