@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
+import 'package:dvizh_mob/src/auth/data/repositories/auth_repository.dart';
 import 'package:dvizh_mob/src/auth/params/delete_account_params.dart';
 
 part 'delete_account_event.dart';

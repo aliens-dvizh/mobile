@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
+import 'package:dvizh_mob/src/auth/data/repositories/iauth_repository.dart';
 import 'package:dvizh_mob/src/auth/params/export.dart';
 
 part 'verify_state.dart';
@@ -14,7 +14,7 @@ class VerifyBloc extends Bloc<VerifyEvent, VerifyState> {
     on<VerifyFetch>(verify);
     on<ResendVerificationCode>(_resendVerificationCode);
   }
-  final AuthRepository _authRepository;
+  final IAuthRepository _authRepository;
 
   Future<void> verify(VerifyFetch event, Emitter<VerifyState> emit) async {
     if (state is VerifyLoading) return;

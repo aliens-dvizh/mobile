@@ -36,7 +36,7 @@ class _LoginViewState extends State<LoginView> with ValidationExceptionParser {
           email: widget._emailController.text,
           password: widget._passwordController.text,
         );
-        if (_form.isInvalid) return;
+        if (!_form.check()) return;
         context.read<LoginBloc>().add(
               LoginSubmitted(
                 params: LoginParams(

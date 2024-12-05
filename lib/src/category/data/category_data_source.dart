@@ -10,7 +10,7 @@ class CategoryDataSource {
   final DioService _apiService;
 
   Future<ListDataDTO<CategoryDTO, CategoryModel>> getCategoryList() =>
-      _apiService.I.get<Map<String, Object?>>('/event/category').then(
+      _apiService.I.get<Object>('/event/category').then(
             (value) => ListDataDTO.fromJson(value.data as Map<String, Object?>,
                 'list', CategoryDTO.fromJson),
           );

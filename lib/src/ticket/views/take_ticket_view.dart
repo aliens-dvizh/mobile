@@ -27,9 +27,6 @@ class _TakeTicketViewState extends State<TakeTicketView> {
         ),
         child: CustomScrollView(
           slivers: [
-            const SliverPadding(
-              padding: EdgeInsets.all(6),
-            ),
             SliverPadding(
               padding: const EdgeInsets.all(12),
               sliver: TicketDate(),

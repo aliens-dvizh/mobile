@@ -33,12 +33,12 @@ void main() async {
 
   runZonedGuarded(
     () => runApp(
-      Dependencies(
-        library: rootLibrary,
+      DependencyScope(
+        dependency: rootLibrary,
         placeholder: const Center(
           child: CircularProgressIndicator(),
         ),
-        child: const App(),
+        builder: (context) => const App(),
       ),
     ),
     (error, stackTrace) {
@@ -50,7 +50,7 @@ void main() async {
   );
 }
 
-class RootLibrary extends DependenciesLibrary<void> {
+class RootLibrary extends DependencyContainer<void> {
   final Talker talker = Talker();
   late final DioService dioService;
 

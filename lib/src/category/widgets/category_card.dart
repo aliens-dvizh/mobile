@@ -1,62 +1,74 @@
 // 🐦 Flutter imports:
-import 'package:flutter/material.dart';
 
-// 📦 Package imports:
-import 'package:auto_size_text/auto_size_text.dart';
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/src/category/models/category_model.dart';
+
+// 📦 Package imports:
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
     required this.selected,
     required this.category,
     super.key,
+    this.size,
+    this.padding,
   });
+
   final CategoryModel category;
   final bool selected;
+  final double? size;
+  final EdgeInsets? padding;
 
   @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size.width * 0.2;
-    return GestureDetector(
-      onTap: () {},
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: selected ? Colors.black : Colors.grey,
-            width: 2,
-          ),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: SizedBox(
-            width: size,
-            height: size,
-            child: Column(
-              children: [
-                Icon(
-                  category.icon,
-                  size: 35,
-                  color: selected ? Colors.black : Colors.grey,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                AutoSizeText(
-                  category.name,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: selected ? Colors.black : Colors.grey,
+  Widget build(BuildContext context) => Padding(
+        padding: padding ?? EdgeInsets.zero,
+        child: LayoutBuilder(
+            builder: (context, constraints) => GestureDetector(
+                  onTap: () {},
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: selected ? Colors.black : Colors.grey,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: SizedBox(
+                      width: size ?? constraints.maxHeight,
+                      height: size ?? constraints.maxHeight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              category.icon,
+                              size: 35,
+                              color: selected ? Colors.black : Colors.grey,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            FittedBox(
+                              child: Text(
+                                category.name,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: selected ? Colors.black : Colors.grey,
+                                ),
+                                maxLines: 2,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+                )),
+      );
 }

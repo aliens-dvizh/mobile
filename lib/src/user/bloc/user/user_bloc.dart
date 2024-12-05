@@ -2,9 +2,9 @@
 import 'package:bloc/bloc.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
+import 'package:dvizh_mob/src/auth/data/repositories/iauth_repository.dart';
 import 'package:dvizh_mob/src/auth/export.dart';
-import 'package:dvizh_mob/src/user/data/user_repository.dart';
+import 'package:dvizh_mob/src/user/data/repositories/iuser_repository.dart';
 import 'package:dvizh_mob/src/user/models/user_model.dart';
 
 part 'user_event.dart';
@@ -22,8 +22,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     _repository.stream.listen(_listenUser);
   }
 
-  final UserRepository _repository;
-  final AuthRepository _authRepository;
+  final IUserRepository _repository;
+  final IAuthRepository _authRepository;
 
   void _listenAuth(AuthModel? auth) {
     if (auth == null) return add(_UserClearEvent());

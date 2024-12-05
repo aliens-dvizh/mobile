@@ -9,6 +9,7 @@ class EventRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           page: EventWrappedRoute.page,
+          path: 'events',
           children: [
             AutoRoute(
               page: EventsRoute.page,
@@ -17,7 +18,7 @@ class EventRouter extends RootStackRouter {
             ),
             AutoRoute(
               page: EventRoute.page,
-              path: 'events/:id',
+              path: ':id',
             ),
           ],
         ),

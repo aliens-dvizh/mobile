@@ -14,7 +14,7 @@ class AppImage extends StatelessWidget {
         image ?? '',
         fit: BoxFit.cover,
         loadingBuilder: (context, url, progress) =>
-            const CupertinoActivityIndicator(),
+            const Center(child: CupertinoActivityIndicator()),
         errorBuilder: (context, error, stackTrace) => const Center(
           child: Icon(
             Icons.error,

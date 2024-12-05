@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:synchronized/synchronized.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
+import 'package:dvizh_mob/src/auth/data/repositories/auth_repository.dart';
 import 'package:dvizh_mob/src/auth/models/auth_model.dart';
 import 'package:dvizh_mob/src/core/services/dio/dio_service.dart';
 
