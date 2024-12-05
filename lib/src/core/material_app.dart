@@ -15,10 +15,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         routerConfig: _appRouter.config(
           navigatorObservers: () => [
             TalkerRouteObserver(
-              Dependencies.of<RootLibrary>(context).talker,
+              DependencyProvider.of<RootLibrary>(context).talker,
             ),
           ],
         ),

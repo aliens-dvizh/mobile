@@ -3,7 +3,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
+import 'package:dvizh_mob/src/auth/data/repositories/iauth_repository.dart';
 import 'package:dvizh_mob/src/auth/params/export.dart';
 
 part 'registration_state.dart';
@@ -13,7 +13,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   RegistrationBloc(this._authRepository) : super(RegistrationInitial()) {
     on<Register>(_register);
   }
-  final AuthRepository _authRepository;
+  final IAuthRepository _authRepository;
 
   Future<void> _register(
     Register event,

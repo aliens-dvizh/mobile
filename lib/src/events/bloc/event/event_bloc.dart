@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/src/events/export.dart';
+import 'package:dvizh_mob/src/events/repositories/ievent_repository.dart';
 
 part 'event_event.dart';
 
@@ -17,7 +18,7 @@ class EventBloc extends Bloc<EventEvent, EventState> {
     );
   }
 
-  final EventRepository _eventRepository;
+  final IEventRepository _eventRepository;
 
   Future<void> _fetch(EventFetchEvent event, Emitter<EventState> emit) async {
     emit(EventLoadingState());

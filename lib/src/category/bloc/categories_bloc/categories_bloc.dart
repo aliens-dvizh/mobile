@@ -2,7 +2,7 @@
 import 'package:bloc/bloc.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/category/data/category_repository.dart';
+import 'package:dvizh_mob/src/category/data/icategory_repository.dart';
 import 'package:dvizh_mob/src/category/models/category_model.dart';
 import 'package:dvizh_mob/src/core/models/list_data/list_data_model.dart';
 
@@ -19,7 +19,7 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
     add(CategoriesFetchEvent());
   }
 
-  final CategoryRepository _categoryRepository;
+  final ICategoryRepository _categoryRepository;
 
   Future<void> _fetch(
     CategoriesFetchEvent event,

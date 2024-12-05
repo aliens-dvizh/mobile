@@ -7,6 +7,7 @@ import 'package:depend/depend.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
+import 'package:dvizh_mob/src/auth/dependencies/iauth_dependencies.dart';
 import 'package:dvizh_mob/src/auth/export.dart';
 
 @RoutePage()
@@ -18,7 +19,8 @@ class SingInScreen extends StatefulWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    final authRepository = Dependencies.of<AuthLibrary>(context).authRepository;
+    final authRepository =
+        DependencyProvider.of<IAuthDependency>(context).authRepository;
     return MultiBlocProvider(
       providers: [
         BlocProvider<SignInCubit>(

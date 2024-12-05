@@ -158,6 +158,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.7"
+  carousel_slider:
+    dependency: "direct main"
+    description:
+      name: carousel_slider
+      sha256: "7b006ec356205054af5beaef62e2221160ea36b90fb70a35e4deacd49d0349ae"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.0"
   characters:
     dependency: transitive
     description:
@@ -250,10 +258,10 @@ packages:
     dependency: "direct main"
     description:
       name: depend
-      sha256: "6282dc47172cee134af5cec05874d7e92ff9f665e6934cc8412bc96f36761e29"
+      sha256: "1e8d9f58b0f7fc9280d3002cda069b855613b1e34769874405e6a803b0e1488a"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "4.0.0"
   dio:
     dependency: "direct main"
     description:
@@ -314,10 +322,10 @@ packages:
     dependency: "direct main"
     description:
       name: fform
-      sha256: d4dcaf3ab346a4fc567fbcb6904bd8bad416863b5faad217403cd09804b850b5
+      sha256: a7a911a6a5dfa19cf3ab7076aa3ccd126c124c18bb5a2fd42e5a8f3ac80f7643
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.6"
+    version: "5.1.0"
   file:
     dependency: transitive
     description:

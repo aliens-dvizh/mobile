@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 
 // 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
@@ -8,10 +9,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/main.dart';
-import 'package:dvizh_mob/src/auth/export.dart';
+import 'package:dvizh_mob/src/auth/dependencies/iauth_dependencies.dart';
 import 'package:dvizh_mob/src/user/bloc/user/user_bloc.dart';
-import 'package:dvizh_mob/src/user/data/user_data_source.dart';
-import 'package:dvizh_mob/src/user/data/user_repository.dart';
+import 'package:dvizh_mob/src/user/dependencies/iuser_dependency_container.dart';
+import 'package:dvizh_mob/src/user/dependencies/mock_user_dependency_container.dart';
+import 'package:dvizh_mob/src/user/dependencies/user_dependency_container.dart';
 
 @RoutePage()
 class UserWrappedScreen extends StatelessWidget implements AutoRouteWrapper {
@@ -19,29 +21,19 @@ class UserWrappedScreen extends StatelessWidget implements AutoRouteWrapper {
   Widget build(BuildContext context) => const AutoRouter();
 
   @override
-  Widget wrappedRoute(BuildContext context) => Dependencies(
-        library: UserLibrary(parent: Dependencies.of<RootLibrary>(context)),
-        child: BlocProvider<UserBloc>(
+  Widget wrappedRoute(BuildContext context) =>
+      DependencyScope<IUserDependencyContainer>(
+        dependency: kDebugMode
+            ? MockUserDependencyContainer()
+            : UserDependencyContainer(
+                parent: DependencyProvider.of<RootLibrary>(context)),
+        builder: (context) => BlocProvider<UserBloc>(
           create: (context) => UserBloc(
-            Dependencies.of<UserLibrary>(context).userRepository,
-            Dependencies.of<AuthLibrary>(context).authRepository,
+            DependencyProvider.of<IUserDependencyContainer>(context)
+                .userRepository,
+            DependencyProvider.of<IAuthDependency>(context).authRepository,
           ),
           child: this,
         ),
       );
-}
-
-class UserLibrary extends DependenciesLibrary<RootLibrary> {
-  UserLibrary({required super.parent});
-
-  late final UserRepository userRepository;
-
-  @override
-  Future<void> init() async {
-    userRepository = UserRepository(
-      dataSource: UserDataSource(
-        dioService: parent.dioService,
-      ),
-    );
-  }
 }

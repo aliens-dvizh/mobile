@@ -5,16 +5,18 @@ import 'package:bloc/bloc.dart';
 import 'package:dvizh_mob/src/core/models/list_data/list_data_model.dart';
 import 'package:dvizh_mob/src/events/models/event_model.dart';
 import 'package:dvizh_mob/src/events/params/event_index.dart';
-import 'package:dvizh_mob/src/events/repositories/event_repository.dart';
+import 'package:dvizh_mob/src/events/repositories/ievent_repository.dart';
 
 part 'events_event.dart';
 part 'events_state.dart';
 
 class EventsBloc extends Bloc<EventsEvent, EventsState> {
   EventsBloc(this._eventRepository) : super(EventsInitial()) {
+    on<EventsEvent>((event, emit) =>
+        switch (event) { FetchEventsEvent() => _fetch(event, emit) });
     on<FetchEventsEvent>(_fetch);
   }
-  final EventRepository _eventRepository;
+  final IEventRepository _eventRepository;
 
   Future<void> _fetch(FetchEventsEvent event, Emitter<EventsState> emit) async {
     emit(EventsLoading());

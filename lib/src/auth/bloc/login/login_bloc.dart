@@ -6,7 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
+import 'package:dvizh_mob/src/auth/data/repositories/iauth_repository.dart';
 import 'package:dvizh_mob/src/auth/params/export.dart';
 
 part 'login_state.dart';
@@ -16,13 +16,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc(this._authRepository) : super(LoginInitial()) {
     on<LoginSubmitted>(_login);
   }
-  final AuthRepository _authRepository;
+  final IAuthRepository _authRepository;
 
   Future<void> _login(LoginSubmitted event, Emitter<LoginState> emit) async {
     if (state is LoginLoading) return;
     emit(LoginLoading());
     try {
       await _authRepository.login(event.params);
+
       emit(LoginSuccess());
     } on DioException catch (err) {
       final statusCode = err.response?.statusCode;

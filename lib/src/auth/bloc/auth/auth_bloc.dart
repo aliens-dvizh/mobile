@@ -2,7 +2,7 @@
 import 'package:bloc/bloc.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/auth/data/auth_repository.dart';
+import 'package:dvizh_mob/src/auth/data/repositories/iauth_repository.dart';
 import 'package:dvizh_mob/src/auth/models/auth_model.dart';
 
 part 'auth_event.dart';
@@ -15,7 +15,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<Unauthenticated>((event, emit) => emit(AuthIsNotSign()));
     _initialize();
   }
-  final AuthRepository _repository;
+  final IAuthRepository _repository;
 
   Future<void> _initialize() async {
     var auth = await _repository.auth;

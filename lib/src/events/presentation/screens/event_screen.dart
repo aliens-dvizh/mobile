@@ -27,6 +27,12 @@ class EventScreen extends StatefulWidget {
 }
 
 class _EventScreenState extends State<EventScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<EventBloc>().add(EventFetchEvent(widget.id));
+  }
+
   void _takeTicket() => TakeTicketView.view(context);
 
   @override

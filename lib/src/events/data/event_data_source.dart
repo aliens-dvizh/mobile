@@ -12,7 +12,7 @@ class EventDataSource {
     EventIndexParams params,
   ) =>
       _dioService.I
-          .get<Map<String, Object?>>('/event/event/', data: params.toMap())
+          .get<Object>('/event/event/', queryParameters: params.toMap())
           .then(
             (value) => ListDataDTO.fromJson(
               value.data as Map<String, Object?>,

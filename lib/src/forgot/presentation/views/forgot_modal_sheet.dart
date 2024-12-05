@@ -24,7 +24,7 @@ class ForgotModalSheet extends StatefulWidget {
   static Future<void> view(BuildContext context, String email) async {
     final repository = ForgotRepository(
       ForgotDataSource(
-        Dependencies.of<RootLibrary>(context).dioService,
+        DependencyProvider.of<RootLibrary>(context).dioService,
       ),
     );
     await showModalBottomSheet<void>(

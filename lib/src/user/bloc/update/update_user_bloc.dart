@@ -2,7 +2,9 @@
 import 'package:bloc/bloc.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/user/data/user_repository.dart';
+import 'package:dvizh_mob/src/user/data/repositories/iuser_repository.dart';
+
+// 🌎 Project imports:
 
 part 'update_user_event.dart';
 part 'update_user_state.dart';
@@ -12,7 +14,7 @@ class UpdateUserBloc extends Bloc<UpdateUserEvent, UpdateUserState> {
     on<UpdateUserEvent>(_update);
   }
 
-  final UserRepository _repository;
+  final IUserRepository _repository;
 
   Future<void> _update(
       UpdateUserEvent event, Emitter<UpdateUserState> emit) async {
