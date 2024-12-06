@@ -6,9 +6,10 @@ import 'package:dvizh_mob/src/auth/export.dart';
 import 'package:dvizh_mob/src/core/models/repository/repository.dart';
 
 abstract class IAuthRepository extends IRepository {
-  Stream<AuthModel?> get authStream;
 
   Future<AuthModel?> get auth;
+
+  StreamSubscription<AuthModel?> on(void Function(AuthModel?) callback);
 
   Future<void> register(RegisterParams params);
 

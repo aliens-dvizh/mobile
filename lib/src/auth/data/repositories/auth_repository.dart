@@ -8,22 +8,23 @@ import 'package:dvizh_mob/src/auth/data/sources/auth_interceptor_data_source.dar
 import 'package:dvizh_mob/src/auth/data/sources/token_data_source.dart';
 import 'package:dvizh_mob/src/auth/models/export.dart';
 import 'package:dvizh_mob/src/auth/params/export.dart';
+import 'package:event_truck/event_truck.dart';
 
 class AuthRepository extends IAuthRepository {
   AuthRepository(
     this._tokenSource,
     this._authSource,
     this._authInterceptorSource,
-  ) : _authController = StreamController<AuthModel?>.broadcast();
+  ) : _authController = EventTruck<AuthModel?>();
 
   final TokenDataSource _tokenSource;
   final AuthDataSource _authSource;
   final AuthInterceptorDataSource _authInterceptorSource;
-  final StreamController<AuthModel?> _authController;
+  final EventTruck<AuthModel?> _authController;
   late AuthModel? _auth;
 
   @override
-  Stream<AuthModel?> get authStream => _authController.stream;
+  StreamSubscription<AuthModel?> on(void Function(AuthModel?) callback) => _authController.on<AuthModel?>(callback);
 
   @override
   Future<void> register(RegisterParams params) => _authSource.register(params);
@@ -85,6 +86,6 @@ class AuthRepository extends IAuthRepository {
 
   @override
   void dispose() {
-    _authController.close();
+    _authController.dispose();
   }
 }

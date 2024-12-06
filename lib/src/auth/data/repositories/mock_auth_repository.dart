@@ -8,13 +8,14 @@ import 'package:dvizh_mob/src/auth/params/delete_account_params.dart';
 import 'package:dvizh_mob/src/auth/params/login_params.dart';
 import 'package:dvizh_mob/src/auth/params/register_params.dart';
 import 'package:dvizh_mob/src/auth/params/verify_params.dart';
+import 'package:event_truck/event_truck.dart';
 
 final AuthModel _mock = AuthModel(token: 'token', refreshToken: 'refreshToken');
 
 class MockAuthRepository extends IAuthRepository {
-  MockAuthRepository() : _streamController = StreamController.broadcast();
+  MockAuthRepository() : _streamController = EventTruck<AuthModel?>();
 
-  final StreamController<AuthModel?> _streamController;
+  final EventTruck<AuthModel?> _streamController;
   AuthModel? _authModel;
 
   @override
@@ -25,8 +26,7 @@ class MockAuthRepository extends IAuthRepository {
     _streamController.add(_authModel);
   }
 
-  @override
-  Stream<AuthModel?> get authStream => _streamController.stream;
+  StreamSubscription<AuthModel?> on(void Function(AuthModel?) callback) => _streamController.on<AuthModel?>(callback);
 
   @override
   Future<void> deleteAccount(DeleteAccountParams params) async {
@@ -59,6 +59,6 @@ class MockAuthRepository extends IAuthRepository {
 
   @override
   void dispose() {
-    _streamController.close();
+    _streamController.dispose();
   }
 }

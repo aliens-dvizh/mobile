@@ -18,7 +18,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           _UserChangeEvent() => _change(event, emit),
         });
 
-    _authRepository.authStream.listen(_listenAuth);
+    _authRepository.on(_listenAuth);
     _repository.stream.listen(_listenUser);
   }
 
