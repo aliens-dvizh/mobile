@@ -7,10 +7,10 @@ import 'package:depend/depend.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/main.dart';
 import 'package:dvizh_mob/src/auth/bloc/auth/auth_bloc.dart';
 import 'package:dvizh_mob/src/auth/dependencies/auth_depedencies.dart';
 import 'package:dvizh_mob/src/auth/dependencies/auth_dependency_factory.dart';
+import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 
 @RoutePage()
 class AuthWrappedScreen extends StatelessWidget implements AutoRouteWrapper {
@@ -21,7 +21,8 @@ class AuthWrappedScreen extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    final rootDependency = DependencyProvider.of<RootLibrary>(context);
+    final rootDependency =
+        DependencyProvider.of<RootDependencyContainer>(context);
 
     return DependencyScope<AuthDependencyContainer, AuthDependencyFactory>(
       factory: AuthDependencyFactory(

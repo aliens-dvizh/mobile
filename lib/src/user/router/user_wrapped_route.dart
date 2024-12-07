@@ -7,8 +7,8 @@ import 'package:depend/depend.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/main.dart';
 import 'package:dvizh_mob/src/auth/dependencies/auth_depedencies.dart';
+import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/user/bloc/user/user_bloc.dart';
 import 'package:dvizh_mob/src/user/dependencies/user_dependency_container.dart';
 import 'package:dvizh_mob/src/user/dependencies/user_dependency_factory.dart';
@@ -22,8 +22,8 @@ class UserWrappedScreen extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) =>
       DependencyScope<UserDependencyContainer, UserDependencyFactory>(
         factory: UserDependencyFactory(
-          useMocks: context.depend<RootLibrary>().settings.useMocks,
-          dioService: context.depend<RootLibrary>().dioService,
+          useMocks: context.depend<RootDependencyContainer>().settings.useMocks,
+          dioService: context.depend<RootDependencyContainer>().dioService,
         ),
         builder: (context) => BlocProvider<UserBloc>(
           create: (context) => UserBloc(

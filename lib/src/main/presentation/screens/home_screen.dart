@@ -9,7 +9,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 import 'package:toptom_widgetbook/kit/export.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/main.dart';
+import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/core/router/auto_route.gr.dart';
 import 'package:dvizh_mob/src/shared/widgets/media_query_scope.dart';
 
@@ -26,7 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.of(context).push<void>(
       MaterialPageRoute(
         builder: (context) => TalkerScreen(
-          talker: DependencyProvider.of<RootLibrary>(context).talker,
+          talker:
+              DependencyProvider.of<RootDependencyContainer>(context).talker,
         ),
       ),
     );

@@ -8,11 +8,11 @@ import 'package:depend/depend.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/main.dart';
 import 'package:dvizh_mob/src/category/bloc/categories_bloc/categories_bloc.dart';
 import 'package:dvizh_mob/src/category/data/category_data_source.dart';
 import 'package:dvizh_mob/src/category/data/category_repository.dart';
 import 'package:dvizh_mob/src/category/data/mock_category_repository.dart';
+import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 
 @RoutePage()
 class CoreWrappedScreen extends StatelessWidget implements AutoRouteWrapper {
@@ -26,7 +26,7 @@ class CoreWrappedScreen extends StatelessWidget implements AutoRouteWrapper {
               ? MockCategoryRepository()
               : CategoryRepository(
                   CategoryDataSource(
-                    DependencyProvider.of<RootLibrary>(context).dioService,
+                    context.depend<RootDependencyContainer>().dioService,
                   ),
                 ),
         ),

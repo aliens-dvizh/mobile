@@ -1,25 +1,48 @@
+// 🎯 Dart imports:
+import 'dart:async';
+
 // 🐦 Flutter imports:
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 // 📦 Package imports:
-import 'package:toptom_widgetbook/kit/export.dart';
+import 'package:bloc/bloc.dart';
+import 'package:depend/depend.dart';
+import 'package:talker_bloc_logger/talker_bloc_logger_observer.dart';
 
 // 🌎 Project imports:
+import 'package:dvizh_mob/src/core/dependency/root_dependency_factory.dart';
 import 'package:dvizh_mob/src/core/material_app.dart';
 
-class App extends StatefulWidget {
-  const App({
-    super.key,
-  });
+class App {
+  Future<void> run() async {
+    final rootLibrary = await RootDependencyFactory().create();
 
-  @override
-  State<App> createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) => ThemeSwitcher(
-        child: MyApp(),
+    FlutterError.onError = (details) {
+      rootLibrary.talker.error(
+        details.exceptionAsString(),
+        details.stack.toString(),
       );
+    };
+
+    Bloc.observer = TalkerBlocObserver(
+      talker: rootLibrary.talker,
+    );
+
+    runZonedGuarded(
+      () => runApp(
+        DependencyProvider(
+          dependency: rootLibrary,
+          child: MyApp(
+            dependency: rootLibrary,
+          ),
+        ),
+      ),
+      (error, stackTrace) {
+        rootLibrary.talker.error(
+          error.toString(),
+          stackTrace.toString(),
+        );
+      },
+    );
+  }
 }

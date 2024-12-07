@@ -7,7 +7,7 @@ import 'package:depend/depend.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/main.dart';
+import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/events/bloc/event/event_bloc.dart';
 import 'package:dvizh_mob/src/events/dependency/event_dependency.dart';
 import 'package:dvizh_mob/src/events/dependency/event_dependency_factory.dart';
@@ -24,9 +24,8 @@ class EventWrappedScreen extends StatelessWidget implements AutoRouteWrapper {
   Widget wrappedRoute(BuildContext context) =>
       DependencyScope<EventDependency, EventDependencyFactory>(
         factory: EventDependencyFactory(
-          useMocks:
-              DependencyProvider.of<RootLibrary>(context).settings.useMocks,
-          dioService: DependencyProvider.of<RootLibrary>(context).dioService,
+          useMocks: context.depend<RootDependencyContainer>().settings.useMocks,
+          dioService: context.depend<RootDependencyContainer>().dioService,
         ),
         builder: (context) => MultiBlocProvider(
           providers: [
