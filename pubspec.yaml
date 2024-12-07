@@ -40,7 +40,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   dio: ^5.7.0
   fform: ^5.1.0
-  depend: ^4.0.0
+  depend: ^5.0.0
   google_maps_flutter: ^2.9.0
   talker: ^4.4.1
   talker_flutter: ^4.4.1

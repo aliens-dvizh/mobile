@@ -258,10 +258,10 @@ packages:
     dependency: "direct main"
     description:
       name: depend
-      sha256: "1e8d9f58b0f7fc9280d3002cda069b855613b1e34769874405e6a803b0e1488a"
+      sha256: "2cb96496205aa869d35f67748dcb94eba5a9bc972a55f5caf3182a5358bb4a83"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0"
+    version: "5.0.0"
   dio:
     dependency: "direct main"
     description:

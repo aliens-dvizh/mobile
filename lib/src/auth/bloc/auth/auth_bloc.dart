@@ -1,6 +1,7 @@
-// 📦 Package imports:
+// 🎯 Dart imports:
 import 'dart:async';
 
+// 📦 Package imports:
 import 'package:bloc/bloc.dart';
 
 // 🌎 Project imports:
@@ -27,10 +28,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     _listenerAuth(auth);
   }
 
-  void _listenerAuth(AuthModel? auth) => switch(auth) {
-      AuthModel() => add(AuthLogin()),
-      null => add(Unauthenticated()),
-    };
+  void _listenerAuth(AuthModel? auth) => switch (auth) {
+        AuthModel() => add(AuthLogin()),
+        null => add(Unauthenticated()),
+      };
 
   void _login(AuthLogin event, Emitter<AuthState> emit) {
     emit(AuthIsSign());

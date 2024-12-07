@@ -11,7 +11,7 @@ import 'package:toptom_widgetbook/kit/components/components.dart';
 // 🌎 Project imports:
 import 'package:dvizh_mob/src/user/bloc/update/update_user_bloc.dart';
 import 'package:dvizh_mob/src/user/bloc/user/user_bloc.dart';
-import 'package:dvizh_mob/src/user/dependencies/iuser_dependency_container.dart';
+import 'package:dvizh_mob/src/user/dependencies/user_dependency_container.dart';
 import 'package:dvizh_mob/src/user/models/user_model.dart';
 
 @RoutePage()
@@ -22,7 +22,7 @@ class UpdateUserScreen extends StatefulWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) => BlocProvider(
         create: (context) => UpdateUserBloc(
-          DependencyProvider.of<IUserDependencyContainer>(context)
+          DependencyProvider.of<UserDependencyContainer>(context)
               .userRepository,
         ),
       );
