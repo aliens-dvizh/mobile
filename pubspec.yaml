@@ -72,6 +72,10 @@ dev_dependencies:
   build_runner: ^2.4.13
   import_sorter: ^4.6.0
 
+
+dependency_overrides:
+  shared_preferences_android: ^2.3.4
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
