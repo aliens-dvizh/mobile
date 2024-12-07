@@ -478,10 +478,10 @@ packages:
     dependency: "direct main"
     description:
       name: google_maps_flutter
-      sha256: "2e302fa3aaf4e2a297f0342d83ebc5e8e9f826e9a716aef473fe7f404ec630a7"
+      sha256: "209856c8e5571626afba7182cf634b2910069dc567954e76ec3e3fb37f5e9db3"
       url: "https://pub.dev"
     source: hosted
-    version: "2.9.0"
+    version: "2.10.0"
   google_maps_flutter_android:
     dependency: transitive
     description:
@@ -1003,42 +1003,42 @@ packages:
     dependency: "direct main"
     description:
       name: talker
-      sha256: "30bbc526bb2e7d465c630f087479616b6b84570728539fde536a3b652acad2f6"
+      sha256: acd8f23656ea77b4170652a00268ae62a9fcf62e22f8aefff29bf5eb468207bf
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.1"
+    version: "4.5.2"
   talker_bloc_logger:
     dependency: "direct main"
     description:
       name: talker_bloc_logger
-      sha256: "4fbe11d809db2769e10c1b4937b5a6642a88d1b17afad4b84d7bb484937fe860"
+      sha256: bf0a5c565ac219b057febcb3492c33a3a6894b393f905d0fb19a24f4048e4805
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.1"
+    version: "4.5.2"
   talker_dio_logger:
     dependency: "direct main"
     description:
       name: talker_dio_logger
-      sha256: "310f7d1eec2c890183b726f8b4c4e5dcb9104034aefd10e8c5f13686acac305b"
+      sha256: a20e1945a1e41c91594956a067bf740b9dc12007e0d4b7191ce13e5044c8c0d2
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.1"
+    version: "4.5.2"
   talker_flutter:
     dependency: "direct main"
     description:
       name: talker_flutter
-      sha256: "51e1f26a726dced6952c2070ae2bc7e23393c319e2f98def2009fdbcdfbda7aa"
+      sha256: a2a96b608b8deb8f9940f9f19ccca45c35214192c00f21fe07142512b5e7117e
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.1"
+    version: "4.5.2"
   talker_logger:
     dependency: transitive
     description:
       name: talker_logger
-      sha256: "515d2e5803928b2bab42108f710c814743965f939be2b4261f9c3045ef8a3fba"
+      sha256: "55b56ef63923972dc04e193d7939807eef5bb94c8bf7bcb1c408f6cbc46ab2d5"
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.1"
+    version: "4.5.2"
   term_glyph:
     dependency: transitive
     description:

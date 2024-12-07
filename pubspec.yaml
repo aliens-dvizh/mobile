@@ -41,11 +41,11 @@ dependencies:
   dio: ^5.7.0
   fform: ^5.1.0
   depend: ^5.0.0
-  google_maps_flutter: ^2.9.0
-  talker: ^4.4.1
-  talker_flutter: ^4.4.1
-  talker_dio_logger: ^4.4.1
-  talker_bloc_logger: ^4.4.1
+  google_maps_flutter: ^2.10.0
+  talker: ^4.5.2
+  talker_flutter: ^4.5.2
+  talker_dio_logger: ^4.5.2
+  talker_bloc_logger: ^4.5.2
   synchronized: ^3.3.0+3
   flutter_secure_storage: ^9.2.2
   easy_localization: ^3.0.7
