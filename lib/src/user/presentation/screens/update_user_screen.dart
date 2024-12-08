@@ -13,6 +13,7 @@ import 'package:dvizh_mob/src/user/bloc/update/update_user_bloc.dart';
 import 'package:dvizh_mob/src/user/bloc/user/user_bloc.dart';
 import 'package:dvizh_mob/src/user/dependencies/user_dependency_container.dart';
 import 'package:dvizh_mob/src/user/models/user_model.dart';
+import 'package:dvizh_mob/src/user/forms/update_form.dart';
 
 @RoutePage()
 class UpdateUserScreen extends StatefulWidget implements AutoRouteWrapper {
@@ -22,40 +23,56 @@ class UpdateUserScreen extends StatefulWidget implements AutoRouteWrapper {
   @override
   Widget wrappedRoute(BuildContext context) => BlocProvider(
         create: (context) => UpdateUserBloc(
-          DependencyProvider.of<UserDependencyContainer>(context)
-              .userRepository,
+          context.depend<UserDependencyContainer>().userRepository,
         ),
+        child: this,
       );
 }
 
 class _UpdateUserScreenState extends State<UpdateUserScreen> {
   late TextEditingController _nameController;
-  late FForm _form;
+  late UpdateUserForm _form;
 
   @override
   void initState() {
     super.initState();
     _nameController = TextEditingController();
+    _form = UpdateUserForm.notFilled();
     _setControllers();
   }
 
-  void _setControllers() {
-    switch (context.read<UserBloc>().state) {
-      case UserInitialState() || UserLoadingState() || UserExceptionState():
-        {}
-      case UserLoadedState(:UserModel user):
-        {
-          _nameController.text = user.name;
-        }
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _form.dispose();
+    super.dispose();
+  }
+
+  void _setControllers() => switch (context.read<UserBloc>().state) {
+        UserLoadedState(:UserModel user) => _nameController.text = user.name,
+        _ => null,
+      };
+
+  void _change() {
+    _form.name.value = _nameController.value.text;
+    if (_form.check()) {
+      context.read<UpdateUserBloc>().add(UpdateUserEvent());
     }
   }
 
-  void _change() {}
+  void _listenerUpdate(
+    BuildContext context,
+    UpdateUserState state,
+  ) =>
+      switch (state) {
+        UpdateUserLoadedState() => context.router.maybePop(),
+        _ => null,
+      };
 
   @override
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
-          child: FFormBuilder(
+          child: FFormBuilder<UpdateUserForm>(
             form: _form,
             builder: (context, form) => ListView(
               padding: const EdgeInsets.all(20),
@@ -63,9 +80,11 @@ class _UpdateUserScreenState extends State<UpdateUserScreen> {
                 TextFieldWidget(
                   controller: _nameController,
                 ),
-                BlocBuilder<UpdateUserBloc, UpdateUserState>(
+                BlocConsumer<UpdateUserBloc, UpdateUserState>(
+                  listener: _listenerUpdate,
                   builder: (context, state) => ButtonWidget(
-                    isLoading: state is UpdateUserLoadingState,
+                    isLoading: state is UpdateUserLoadingState ||
+                        form.status == FFormStatus.loading,
                     onPressed: _change,
                     child: const Text('Change'),
                   ),

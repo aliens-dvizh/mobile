@@ -8,9 +8,10 @@ import 'package:dvizh_mob/src/events/export.dart';
 import 'package:dvizh_mob/src/events/repositories/mock_event_repository.dart';
 
 class EventDependencyFactory extends DependencyFactory<EventDependency> {
-  EventDependencyFactory(
-      {required bool useMocks, required DioService dioService})
-      : _useMocks = useMocks,
+  EventDependencyFactory({
+    required bool useMocks,
+    required DioService dioService,
+  })  : _useMocks = useMocks,
         _dioService = dioService;
 
   final bool _useMocks;
@@ -18,16 +19,14 @@ class EventDependencyFactory extends DependencyFactory<EventDependency> {
 
   @override
   Future<EventDependency> create() async {
-    if (_useMocks) {
-      return EventDependency(
-        eventRepository: EventRepository(
-          EventDataSource(
-            _dioService,
-          ),
-        ),
-      );
-    }
+    final repository = _useMocks
+        ? MockEventRepository()
+        : EventRepository(
+            EventDataSource(
+              _dioService,
+            ),
+          );
 
-    return EventDependency(eventRepository: MockEventRepository());
+    return EventDependency(eventRepository: repository);
   }
 }
