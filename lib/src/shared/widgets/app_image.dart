@@ -13,8 +13,11 @@ class AppImage extends StatelessWidget {
   Widget build(BuildContext context) => Image.network(
         image ?? '',
         fit: BoxFit.cover,
-        loadingBuilder: (context, url, progress) =>
-            const Center(child: CupertinoActivityIndicator()),
+        loadingBuilder: (context, image, progress) {
+          if (progress != null)
+            return const Center(child: CupertinoActivityIndicator());
+          return image;
+        },
         errorBuilder: (context, error, stackTrace) => const Center(
           child: Icon(
             Icons.error,

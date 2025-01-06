@@ -16,7 +16,6 @@ class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
         CategoriesFetchEvent() => _fetch(event, emit),
       },
     );
-    add(CategoriesFetchEvent());
   }
 
   final ICategoryRepository _categoryRepository;

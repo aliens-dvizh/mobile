@@ -1,25 +1,29 @@
 // 🐦 Flutter imports:
+import 'package:dvizh_mob/src/core/router/wrapped_route.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/core/router/auto_route.gr.dart';
 import 'package:dvizh_mob/src/user/bloc/user/user_bloc.dart';
 import 'package:dvizh_mob/src/user/models/user_model.dart';
 
-@RoutePage()
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   VoidCallback _toSingIn(BuildContext context) =>
-      () => AutoRouter.of(context).push(const SingInRoute());
+      () {
+        context.push('/auth');
+      };
 
   VoidCallback _toUpdate(BuildContext context) =>
-      () => context.router.push(const UpdateUserRoute());
+      () {
+        context.push('/profile/update');
+
+      };
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -46,4 +50,5 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       );
+
 }

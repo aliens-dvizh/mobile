@@ -7,4 +7,3 @@ export 'models/export.dart';
 export 'params/export.dart';
 export 'presentation/export.dart';
 export 'repositories/export.dart';
-export 'router/export.dart';

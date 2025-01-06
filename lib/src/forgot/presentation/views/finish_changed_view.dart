@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:go_router/go_router.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 class FinishChangedModal extends StatelessWidget {
@@ -30,7 +30,7 @@ class FinishChangedModal extends StatelessWidget {
               width: 10,
             ),
             ButtonIcon(
-              onPressed: context.router.maybePop,
+              onPressed: context.pop,
               icon: Icons.arrow_back,
               size: ButtonIconSize.m,
               type: ButtonType.primary,
@@ -47,7 +47,7 @@ class FinishChangedModal extends StatelessWidget {
         ),
         SizedBox(height: size.xl3),
         ButtonWidget(
-          onPressed: context.router.maybePop,
+          onPressed: context.pop,
           color: ButtonColor.black,
           child: const Text('Вернуться'),
         ),

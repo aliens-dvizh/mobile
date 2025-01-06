@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_route/auto_route.dart';
 import 'package:fform/fform.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
@@ -57,7 +57,7 @@ class SendToEmailView extends StatelessWidget with ValidationExceptionParser {
               style: ThemeCore.of(context).typography.h3,
             ),
             ButtonIcon(
-              onPressed: context.router.maybePop,
+              onPressed: context.pop,
               icon: Icons.arrow_back,
               size: ButtonIconSize.m,
               type: ButtonType.primary,
@@ -105,7 +105,7 @@ class SendToEmailView extends StatelessWidget with ValidationExceptionParser {
         SizedBox(height: size.l),
         ButtonWidget(
           type: ButtonType.defaultButton,
-          onPressed: context.router.maybePop,
+          onPressed: context.pop,
           child: Text(
             'Вернуться назад',
             style: ThemeCore.of(context).typography.label,

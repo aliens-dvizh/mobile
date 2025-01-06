@@ -11,11 +11,11 @@ import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/core/router/auto_route.dart';
 
 class MyApp extends StatelessWidget {
-  MyApp({required this.dependency, super.key}) : _appRouter = AppRouter();
+  MyApp({required this.dependency, super.key}) : _appRouter = Routing();
 
   final RootDependencyContainer dependency;
 
-  final AppRouter _appRouter;
+  final Routing _appRouter;
 
   @override
   Widget build(BuildContext context) =>
@@ -24,13 +24,11 @@ class MyApp extends StatelessWidget {
         child: ThemeSwitcher(
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            routerConfig: _appRouter.config(
-              navigatorObservers: () => [
-                TalkerRouteObserver(
-                  DependencyProvider.of<RootDependencyContainer>(context)
-                      .talker,
-                ),
-              ],
+            routerConfig: _appRouter.router(
+              TalkerRouteObserver(
+                DependencyProvider.of<RootDependencyContainer>(context)
+                    .talker,
+              ),
             ),
           ),
         ),

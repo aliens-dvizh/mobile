@@ -1,9 +1,12 @@
 // 📦 Package imports:
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/src/auth/data/repositories/iauth_repository.dart';
 import 'package:dvizh_mob/src/auth/export.dart';
+import 'package:dvizh_mob/src/auth/models/auth_model.dart';
 import 'package:dvizh_mob/src/user/data/repositories/iuser_repository.dart';
 import 'package:dvizh_mob/src/user/models/user_model.dart';
 
@@ -19,11 +22,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         });
 
     _authRepository.on(_listenAuth);
-    _repository.stream.listen(_listenUser);
+    _subscription = _repository.stream.listen(_listenUser);
   }
 
   final IUserRepository _repository;
   final IAuthRepository _authRepository;
+  late StreamSubscription<UserModel> _subscription;
 
   void _listenAuth(AuthModel? auth) {
     if (auth == null) return add(_UserClearEvent());
@@ -48,5 +52,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     } on Exception {
       emit(UserExceptionState());
     }
+  }
+
+  @override
+  Future<void> close() {
+    _subscription.cancel();
+    return super.close();
   }
 }

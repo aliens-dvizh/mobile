@@ -1,26 +1,22 @@
 // 🐦 Flutter imports:
+import 'package:dvizh_mob/src/auth/bloc/export.dart';
+import 'package:dvizh_mob/src/auth/presentation/view/export.dart';
+import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_route/auto_route.dart';
 import 'package:depend/depend.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// 🌎 Project imports:
-import 'package:dvizh_mob/src/auth/dependencies/auth_depedencies.dart';
-import 'package:dvizh_mob/src/auth/export.dart';
-
-@RoutePage()
-class SingInScreen extends StatefulWidget implements AutoRouteWrapper {
+class SingInScreen extends StatefulWidget {
   const SingInScreen({super.key});
 
   @override
   State<SingInScreen> createState() => _SingInScreenState();
 
-  @override
   Widget wrappedRoute(BuildContext context) {
     final authRepository =
-        DependencyProvider.of<AuthDependencyContainer>(context).authRepository;
+        DependencyProvider.of<RootDependencyContainer>(context).authRepository;
     return MultiBlocProvider(
       providers: [
         BlocProvider<SignInCubit>(

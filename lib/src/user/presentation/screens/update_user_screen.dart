@@ -1,29 +1,29 @@
 // 🐦 Flutter imports:
+import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
+import 'package:dvizh_mob/src/core/router/wrapped_route.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_route/auto_route.dart';
 import 'package:depend/depend.dart';
 import 'package:fform/fform.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:toptom_widgetbook/kit/components/components.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/src/user/bloc/update/update_user_bloc.dart';
 import 'package:dvizh_mob/src/user/bloc/user/user_bloc.dart';
-import 'package:dvizh_mob/src/user/dependencies/user_dependency_container.dart';
 import 'package:dvizh_mob/src/user/models/user_model.dart';
 import 'package:dvizh_mob/src/user/forms/update_form.dart';
 
-@RoutePage()
-class UpdateUserScreen extends StatefulWidget implements AutoRouteWrapper {
+class UpdateUserScreen extends StatefulWidget implements WrappedRoute {
   @override
   State<UpdateUserScreen> createState() => _UpdateUserScreenState();
 
   @override
   Widget wrappedRoute(BuildContext context) => BlocProvider(
         create: (context) => UpdateUserBloc(
-          context.depend<UserDependencyContainer>().userRepository,
+          context.depend<RootDependencyContainer>().userRepository,
         ),
         child: this,
       );
@@ -65,7 +65,7 @@ class _UpdateUserScreenState extends State<UpdateUserScreen> {
     UpdateUserState state,
   ) =>
       switch (state) {
-        UpdateUserLoadedState() => context.router.maybePop(),
+        UpdateUserLoadedState() => context.pop(),
         _ => null,
       };
 

@@ -2,7 +2,8 @@
 import 'dart:async';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/auth/export.dart';
+import 'package:dvizh_mob/src/auth/models/auth_model.dart';
+import 'package:dvizh_mob/src/auth/params/export.dart';
 import 'package:dvizh_mob/src/core/models/repository/repository.dart';
 
 abstract class IAuthRepository extends IRepository {

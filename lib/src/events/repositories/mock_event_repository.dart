@@ -4,126 +4,36 @@ import 'package:dvizh_mob/src/events/models/event_model.dart';
 import 'package:dvizh_mob/src/events/params/event_index.dart';
 import 'package:dvizh_mob/src/events/repositories/ievent_repository.dart';
 
+final ListDataModel<EventModel> _data = ListDataModel(list: [
+  EventModel(
+    id: 1,
+    name: 'Scryptonit',
+    description: '',
+    image:
+        'https://www.soyuz.ru/public/uploads/files/2/7465493/20210516154216ee4d0ecfbd.jpg',
+  ),
+  EventModel(
+    id: 2,
+    name: 'Scryptonit',
+    description: '',
+    image:
+        'https://www.soyuz.ru/public/uploads/files/2/7465493/20210516154216ee4d0ecfbd.jpg',
+  ),
+  EventModel(
+    id: 3,
+    name: 'Scryptonit',
+    description: '',
+    image:
+        'https://www.soyuz.ru/public/uploads/files/2/7465493/20210516154216ee4d0ecfbd.jpg',
+  ),
+], count: 3);
+
 class MockEventRepository extends IEventRepository {
   @override
   Future<EventModel> getById(int id) =>
-      Future.value(EventModel(id: id, name: 'sdfsdf', description: 'sdfdsf'));
+      Future.value(_data.list.firstWhere((event) => event.id == id));
 
   @override
   Future<ListDataModel<EventModel>> getEvents(EventIndexParams params) =>
-      Future.value(
-        ListDataModel(
-          list: [
-            EventModel(
-                id: 1,
-                name: 'Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 2,
-                name: 'Alex Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 1,
-                name: 'Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 2,
-                name: 'Alex Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 1,
-                name: 'Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 2,
-                name: 'Alex Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 1,
-                name: 'Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 2,
-                name: 'Alex Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 1,
-                name: 'Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 2,
-                name: 'Alex Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 1,
-                name: 'Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 2,
-                name: 'Alex Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 1,
-                name: 'Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 2,
-                name: 'Alex Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 1,
-                name: 'Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 2,
-                name: 'Alex Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 1,
-                name: 'Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-            EventModel(
-                id: 2,
-                name: 'Alex Scryptonit',
-                description: '',
-                image:
-                    'https://icdn.lenta.ru/images/2021/07/28/17/20210728170839751/square_1280_f0ee0cf3a1ec890d402829508d8a4b5f.jpg'),
-          ],
-          count: 20,
-        ),
-      );
+      Future.value(_data);
 }

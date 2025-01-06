@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fform/fform.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
@@ -89,7 +89,7 @@ class _ChangePasswordModalViewState extends State<ChangePasswordModalView>
               width: 10,
             ),
             ButtonIcon(
-              onPressed: context.router.maybePop,
+              onPressed: context.pop,
               icon: Icons.arrow_back,
               size: ButtonIconSize.m,
               type: ButtonType.primary,

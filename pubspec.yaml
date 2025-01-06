@@ -35,19 +35,18 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  auto_route: ^9.2.2
   bloc: ^8.1.4
   flutter_bloc: ^8.1.6
   dio: ^5.7.0
-  fform: ^5.1.0
-  depend: ^5.0.0
+  fform: ^5.1.5
+  depend: ^5.0.2
   google_maps_flutter: ^2.10.0
-  talker: ^4.5.2
-  talker_flutter: ^4.5.2
-  talker_dio_logger: ^4.5.2
-  talker_bloc_logger: ^4.5.2
+  talker: ^4.6.0
+  talker_flutter: ^4.6.0
+  talker_dio_logger: ^4.6.0
+  talker_bloc_logger: ^4.6.0
   synchronized: ^3.3.0+3
-  flutter_secure_storage: ^9.2.2
+  flutter_secure_storage: ^9.2.3
   easy_localization: ^3.0.7
   toptom_widgetbook:
     git:
@@ -57,6 +56,7 @@ dependencies:
   auto_size_text: ^3.0.0
   carousel_slider: ^5.0.0
   event_truck: ^1.0.0
+  go_router: ^14.6.2
 
 dev_dependencies:
   flutter_test:
@@ -68,13 +68,12 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-  auto_route_generator: ^9.0.0
-  build_runner: ^2.4.13
+  build_runner: ^2.4.14
   import_sorter: ^4.6.0
 
 
 dependency_overrides:
-  shared_preferences_android: ^2.3.4
+  shared_preferences_android: ^2.4.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

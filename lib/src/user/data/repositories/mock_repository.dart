@@ -9,7 +9,7 @@ final UserModel _user =
     UserModel(id: 1, name: 'Name', createdAt: DateTime.now());
 
 class MockUserRepository extends IUserRepository {
-  MockUserRepository() : _userController = StreamController();
+  MockUserRepository() : _userController = StreamController.broadcast();
 
   final StreamController<UserModel> _userController;
 
