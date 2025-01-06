@@ -35,9 +35,7 @@ class _LocationFromListViewState extends State<LocationFromListView> {
 
   CityModel? _getCurrentCity() =>
       switch (context.read<CurrentLocationBloc>().state) {
-        CurrentLocationInitial() ||
-        CurrentLocationLoading() =>
-          null,
+        CurrentLocationInitial() || CurrentLocationLoading() => null,
         CurrentLocationExist state => state.city,
       };
 
@@ -53,30 +51,68 @@ class _LocationFromListViewState extends State<LocationFromListView> {
         builder: (context, value, child) => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Text("Города", style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 24
+            ),),
             Expanded(
               child: BlocBuilder<CitiesBloc, CitiesState>(
                 builder: (context, state) => switch (state) {
                   CitiesInitialState() ||
                   CitiesLoadingState() =>
                     const CupertinoActivityIndicator(),
-                  CitiesLoadedState() => ListView.separated(
-                      itemCount: state.categories.list.length,
-                      itemBuilder: (context, item) {
-                        final city = state.categories.list[item];
-                        return CheckboxListTile(
-                          title: Text(
-                            city.name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          value: city.id == value?.id,
-                          onChanged: _onPressed(city),
+                  CitiesLoadedState() => Builder(
+                      builder: (context) {
+                        final sortedList = [
+                          ...state.categories.list
+                            ..sort((a, b) => a.name.compareTo(b.name))
+                        ];
+
+                        return ListView.separated(
+                          itemCount: state.categories.list.length,
+                          itemBuilder: (context, item) {
+                            final city = sortedList[item];
+                            final previousCity =
+                                item > 0 ? sortedList[item - 1] : null;
+                            final showSeparator = previousCity == null ||
+                                city.name[0] != previousCity.name[0];
+
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Visibility(
+                                  visible: showSeparator,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 8,
+                                    ),
+                                    child: Text(
+                                      city.name[0], // Первая буква
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                CheckboxListTile(
+                                  title: Text(
+                                    city.name,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  value: city.id == value?.id,
+                                  onChanged: _onPressed(city),
+                                ),
+                              ],
+                            );
+                          },
+                          separatorBuilder: (context, index) =>
+                              const Divider(height: 1),
                         );
                       },
-                      separatorBuilder: (context, index) => const Divider(
-                        height: 1,
-                      ),
                     ),
                   CitiesExceptionState() => Text('Exception')
                 },

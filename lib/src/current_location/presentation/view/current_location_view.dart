@@ -12,6 +12,8 @@ class CurrentLocationView extends StatelessWidget implements WrappedRoute {
   Future<Object?> view(BuildContext context) => showModalBottomSheet(
         context: context,
         builder: (innerContext) => wrappedRoute(context),
+        isScrollControlled: true,
+        useSafeArea: true,
       );
 
   @override
@@ -45,6 +47,4 @@ class CurrentLocationView extends StatelessWidget implements WrappedRoute {
           },
         ),
       );
-
-
 }

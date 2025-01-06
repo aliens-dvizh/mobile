@@ -66,18 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) => MediaQueryScope(
         builder: (context, type) => Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              'DVIZH',
-            ),
-            titleTextStyle: ThemeCore.of(context).typography.h3.copyWith(
-                  color: Colors.black,
-                ),
-            titleSpacing: 0,
-            actions: [
-              LocationButton(),
-            ],
-          ),
           body: widget.child,
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: routes.indexWhere((route) => route.path == widget.state.fullPath),

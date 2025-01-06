@@ -1,4 +1,5 @@
 import 'package:dvizh_mob/src/current_location/domain/blocs/current_location/current_location_bloc.dart';
+import 'package:dvizh_mob/src/current_location/domain/blocs/current_location_view/current_location_view_cubit.dart';
 import 'package:dvizh_mob/src/current_location/presentation/view/current_location_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class LocationButton extends StatefulWidget {
 
 class _LocationButtonState extends State<LocationButton> {
   void _onPressed() {
+    context.read<CurrentLocationViewCubit>().set(CurrentLocationViewGetFromList());
     CurrentLocationView().view(context);
   }
 
