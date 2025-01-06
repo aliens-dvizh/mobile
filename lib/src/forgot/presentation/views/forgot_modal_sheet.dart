@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/main.dart';
+import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/forgot/export.dart';
 import 'package:dvizh_mob/src/forgot/presentation/views/change_password_view.dart';
 import 'package:dvizh_mob/src/forgot/presentation/views/finish_changed_view.dart';
@@ -24,7 +24,7 @@ class ForgotModalSheet extends StatefulWidget {
   static Future<void> view(BuildContext context, String email) async {
     final repository = ForgotRepository(
       ForgotDataSource(
-        DependencyProvider.of<RootLibrary>(context).dioService,
+        DependencyProvider.of<RootDependencyContainer>(context).dioService,
       ),
     );
     await showModalBottomSheet<void>(

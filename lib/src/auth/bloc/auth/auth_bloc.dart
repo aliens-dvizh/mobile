@@ -1,3 +1,6 @@
+// 🎯 Dart imports:
+import 'dart:async';
+
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
 
@@ -13,23 +16,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthLogin>(_login);
     on<AuthLogout>(_logout);
     on<Unauthenticated>((event, emit) => emit(AuthIsNotSign()));
+    _subscription = _repository.on(_listenerAuth);
     _initialize();
   }
+
   final IAuthRepository _repository;
+  late final StreamSubscription<AuthModel?> _subscription;
 
   Future<void> _initialize() async {
     var auth = await _repository.auth;
     _listenerAuth(auth);
-    _repository.authStream.listen(_listenerAuth);
   }
 
-  void _listenerAuth(AuthModel? auth) {
-    if (auth != null) {
-      add(AuthLogin());
-    } else {
-      add(Unauthenticated());
-    }
-  }
+  void _listenerAuth(AuthModel? auth) => switch (auth) {
+        AuthModel() => add(AuthLogin()),
+        null => add(Unauthenticated()),
+      };
 
   void _login(AuthLogin event, Emitter<AuthState> emit) {
     emit(AuthIsSign());
@@ -42,5 +44,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } on Exception {
       add(Unauthenticated());
     }
+  }
+
+  @override
+  Future<void> close() {
+    _subscription.cancel();
+    return super.close();
   }
 }

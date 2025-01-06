@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:toptom_widgetbook/kit/export.dart';
 
 class TakeTicketView extends StatefulWidget {
-  static Future<void> view(BuildContext context) => showModalBottomSheet<void>(
+  Future<void> view(BuildContext context) => showModalBottomSheet<void>(
         context: context,
         builder: (innerContext) => Builder(
-          builder: (context) => TakeTicketView(),
+          builder: (context) => this,
         ),
       );
 

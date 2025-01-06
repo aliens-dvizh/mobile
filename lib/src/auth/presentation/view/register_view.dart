@@ -1,4 +1,7 @@
 // 🐦 Flutter imports:
+import 'package:dvizh_mob/src/auth/bloc/export.dart';
+import 'package:dvizh_mob/src/auth/fform/export.dart';
+import 'package:dvizh_mob/src/auth/params/export.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +11,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
-import 'package:dvizh_mob/src/auth/export.dart';
 import 'package:dvizh_mob/src/core/utils/validation_exception_parses.dart';
 
 class RegisterView extends StatefulWidget {

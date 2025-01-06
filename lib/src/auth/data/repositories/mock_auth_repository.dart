@@ -1,6 +1,9 @@
 // 🎯 Dart imports:
 import 'dart:async';
 
+// 📦 Package imports:
+import 'package:event_truck/event_truck.dart';
+
 // 🌎 Project imports:
 import 'package:dvizh_mob/src/auth/data/repositories/iauth_repository.dart';
 import 'package:dvizh_mob/src/auth/models/auth_model.dart';
@@ -12,9 +15,9 @@ import 'package:dvizh_mob/src/auth/params/verify_params.dart';
 final AuthModel _mock = AuthModel(token: 'token', refreshToken: 'refreshToken');
 
 class MockAuthRepository extends IAuthRepository {
-  MockAuthRepository() : _streamController = StreamController.broadcast();
+  MockAuthRepository() : _streamController = EventTruck<AuthModel?>();
 
-  final StreamController<AuthModel?> _streamController;
+  final EventTruck<AuthModel?> _streamController;
   AuthModel? _authModel;
 
   @override
@@ -26,7 +29,8 @@ class MockAuthRepository extends IAuthRepository {
   }
 
   @override
-  Stream<AuthModel?> get authStream => _streamController.stream;
+  StreamSubscription<AuthModel?> on(void Function(AuthModel?) callback) =>
+      _streamController.on<AuthModel?>(callback);
 
   @override
   Future<void> deleteAccount(DeleteAccountParams params) async {
@@ -59,6 +63,6 @@ class MockAuthRepository extends IAuthRepository {
 
   @override
   void dispose() {
-    _streamController.close();
+    _streamController.dispose();
   }
 }

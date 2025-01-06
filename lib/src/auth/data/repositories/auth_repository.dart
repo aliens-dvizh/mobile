@@ -1,6 +1,9 @@
 // 🎯 Dart imports:
 import 'dart:async';
 
+// 📦 Package imports:
+import 'package:event_truck/event_truck.dart';
+
 // 🌎 Project imports:
 import 'package:dvizh_mob/src/auth/data/repositories/iauth_repository.dart';
 import 'package:dvizh_mob/src/auth/data/sources/auth_data_source.dart';
@@ -14,16 +17,17 @@ class AuthRepository extends IAuthRepository {
     this._tokenSource,
     this._authSource,
     this._authInterceptorSource,
-  ) : _authController = StreamController<AuthModel?>.broadcast();
+  ) : _authController = EventTruck<AuthModel?>();
 
   final TokenDataSource _tokenSource;
   final AuthDataSource _authSource;
   final AuthInterceptorDataSource _authInterceptorSource;
-  final StreamController<AuthModel?> _authController;
+  final EventTruck<AuthModel?> _authController;
   late AuthModel? _auth;
 
   @override
-  Stream<AuthModel?> get authStream => _authController.stream;
+  StreamSubscription<AuthModel?> on(void Function(AuthModel?) callback) =>
+      _authController.on<AuthModel?>(callback);
 
   @override
   Future<void> register(RegisterParams params) => _authSource.register(params);
@@ -85,6 +89,6 @@ class AuthRepository extends IAuthRepository {
 
   @override
   void dispose() {
-    _authController.close();
+    _authController.dispose();
   }
 }
