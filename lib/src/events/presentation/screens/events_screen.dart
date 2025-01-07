@@ -19,6 +19,7 @@ import 'package:dvizh_mob/src/events/export.dart';
 import 'package:dvizh_mob/src/events/presentation/widgets/event_card.dart';
 import 'package:dvizh_mob/src/shared/widgets/app_container.dart';
 import 'package:dvizh_mob/src/shared/widgets/media_query_scope.dart';
+import 'package:go_router/go_router.dart';
 import 'package:toptom_widgetbook/kit/theme_new/theme_core.dart';
 
 class EventsScreen extends StatefulWidget implements WrappedRoute {
@@ -60,19 +61,14 @@ class _EventsScreenState extends State<EventsScreen> {
   }
 
   VoidCallback _toEventDetails(BuildContext context, EventModel event) => () {
-        EventScreen(
-          id: event.id,
-        ).view(context);
-      };
+    context.push('/event/${event.id}');
+  };
 
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       title: const Text(
         'DVIZH',
-      ),
-      titleTextStyle: ThemeCore.of(context).typography.h3.copyWith(
-        color: Colors.black,
       ),
       titleSpacing: 0,
       actions: [

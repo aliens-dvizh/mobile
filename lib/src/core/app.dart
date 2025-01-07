@@ -32,9 +32,7 @@ class App {
       () => runApp(
         DependencyProvider(
           dependency: rootLibrary,
-          child: MyApp(
-            dependency: rootLibrary,
-          ),
+          child: MyApp(),
         ),
       ),
       (error, stackTrace) {

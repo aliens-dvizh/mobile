@@ -1,9 +1,7 @@
 // 🐦 Flutter imports:
+import 'package:dvizh_mob/src/ticket/views/ticket_day_view.dart';
+import 'package:dvizh_mob/src/ticket/views/ticket_list_day_view.dart';
 import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:toptom_widgetbook/kit/export.dart';
-
 class TakeTicketView extends StatefulWidget {
   Future<void> view(BuildContext context) => showModalBottomSheet<void>(
         context: context,
@@ -27,9 +25,10 @@ class _TakeTicketViewState extends State<TakeTicketView> {
         ),
         child: CustomScrollView(
           slivers: [
+
             SliverPadding(
               padding: const EdgeInsets.all(12),
-              sliver: TicketDate(),
+              sliver: TicketDayView(),
             ),
             const SliverPadding(
               padding: EdgeInsets.all(6),
@@ -39,52 +38,3 @@ class _TakeTicketViewState extends State<TakeTicketView> {
       );
 }
 
-class TicketDate extends StatelessWidget {
-  void _takeDate() {}
-
-  @override
-  Widget build(BuildContext context) => SliverList.separated(
-        itemBuilder: (context, index) => TicketTile(
-          onPressed: _takeDate,
-        ),
-        separatorBuilder: (context, index) => const Divider(),
-        itemCount: 10,
-      );
-}
-
-class TicketTile extends StatelessWidget {
-  const TicketTile({
-    this.onPressed,
-    super.key,
-  });
-
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) => InkWell(
-        onTap: onPressed,
-        child: Row(
-          children: [
-            Text(
-              '27',
-              style: ThemeCore.of(context).typography.h2,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            const Column(
-              children: [
-                Text('Пятница'),
-                Text('октября'),
-              ],
-            ),
-            const Spacer(),
-            ButtonIcon(
-              icon: Icons.arrow_forward_ios,
-              onPressed: onPressed,
-              size: ButtonIconSize.l,
-            )
-          ],
-        ),
-      );
-}

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dvizh_mob/src/city/bloc/categories_bloc/categories_bloc.dart';
 import 'package:dvizh_mob/src/city/models/category_model.dart';
 import 'package:dvizh_mob/src/current_location/domain/blocs/current_location/current_location_bloc.dart';
@@ -13,15 +15,21 @@ class LocationFromListView extends StatefulWidget {
 }
 
 class _LocationFromListViewState extends State<LocationFromListView> {
+  late TextEditingController _searchController;
   late ValueNotifier<CityModel?> _notifier;
+  late StreamSubscription<CurrentLocationState> _subscription;
 
-  void Function(bool? value) _onPressed(CityModel city) => (value) {
-        _notifier.value = city;
+  void Function(bool? value) _onPressed(CityModel city) => (bool? value) {
+    if(value == null) return;
+    if(!value) return;
+
+    _notifier.value = city;
+    context
+        .read<CurrentLocationBloc>()
+        .add(SetCurrentLocationEvent(city: city));
       };
 
   void _submit() {
-    if (_notifier.value == null) return;
-    context.pop();
     context
         .read<CurrentLocationBloc>()
         .add(SetCurrentLocationEvent(city: _notifier.value!));
@@ -31,6 +39,8 @@ class _LocationFromListViewState extends State<LocationFromListView> {
   void initState() {
     super.initState();
     _notifier = ValueNotifier(_getCurrentCity());
+    _searchController = TextEditingController();
+    _subscription = context.read<CurrentLocationBloc>().stream.listen(_listener);
   }
 
   CityModel? _getCurrentCity() =>
@@ -39,10 +49,18 @@ class _LocationFromListViewState extends State<LocationFromListView> {
         CurrentLocationExist state => state.city,
       };
 
-  void _listener(BuildContext context, CurrentLocationState state) {
+  void _listener( CurrentLocationState state) {
     if (state is CurrentLocationExist) {
       context.pop();
     }
+  }
+
+  @override
+  void dispose() {
+    _notifier.dispose();
+    _searchController.dispose();
+    _subscription.cancel();
+    super.dispose();
   }
 
   @override
@@ -50,30 +68,39 @@ class _LocationFromListViewState extends State<LocationFromListView> {
         valueListenable: _notifier,
         builder: (context, value, child) => Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Города", style: TextStyle(
+            Text("Ваш город", style: TextStyle(
               fontWeight: FontWeight.w800,
               fontSize: 24
             ),),
+            SizedBox(height: 16,),
+            TextFieldWidget(
+              hintText: 'Найти город',
+              controller: _searchController,
+            ),
+
             Expanded(
               child: BlocBuilder<CitiesBloc, CitiesState>(
                 builder: (context, state) => switch (state) {
                   CitiesInitialState() ||
                   CitiesLoadingState() =>
                     const CupertinoActivityIndicator(),
-                  CitiesLoadedState() => Builder(
-                      builder: (context) {
+                  CitiesLoadedState() => ValueListenableBuilder(
+                      valueListenable: _searchController,
+                      builder: (context, search, child) {
                         final sortedList = [
                           ...state.categories.list
                             ..sort((a, b) => a.name.compareTo(b.name))
-                        ];
+                        ].where((city) => city.name.toLowerCase().contains(search.text.toLowerCase())).toList();
 
                         return ListView.separated(
-                          itemCount: state.categories.list.length,
+                          itemCount: sortedList.length,
                           itemBuilder: (context, item) {
                             final city = sortedList[item];
                             final previousCity =
                                 item > 0 ? sortedList[item - 1] : null;
+
                             final showSeparator = previousCity == null ||
                                 city.name[0] != previousCity.name[0];
 
@@ -118,18 +145,6 @@ class _LocationFromListViewState extends State<LocationFromListView> {
                 },
               ),
             ),
-            SizedBox(
-              width: double.infinity,
-              child: BlocConsumer<CurrentLocationBloc, CurrentLocationState>(
-                listener: _listener,
-                builder: (context, state) => ButtonWidget(
-                  size: ButtonSize.xl,
-                  isLoading: state is CurrentLocationLoading,
-                  onPressed: value != null ? _submit : null,
-                  child: Text('Выбрать'),
-                ),
-              ),
-            )
           ],
         ),
       );

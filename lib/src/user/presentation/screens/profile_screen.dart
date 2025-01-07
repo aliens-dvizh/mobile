@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
-import 'package:dvizh_mob/src/core/router/wrapped_route.dart';
+import 'package:dvizh_mob/src/theme/domain/blocs/theme_cubit.dart';
+import 'package:dvizh_mob/src/theme/domain/models/theme_type.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -28,25 +29,29 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
-          child: BlocBuilder<UserBloc, UserState>(
-            builder: (context, state) => switch (state) {
-              UserInitialState() || UserLoadingState() => Center(
-                  child: ButtonWidget(
-                    onPressed: _toSingIn(context),
-                    child: const Text('Авторизоваться'),
-                  ),
-                ),
-              UserLoadedState(:UserModel user) => Column(
-                  children: [
-                    Text(user.name),
-                    ElevatedButton(
-                      onPressed: _toUpdate(context),
-                      child: const Text('Update'),
+          child: Column(
+            children: [
+              BlocBuilder<UserBloc, UserState>(
+                builder: (context, state) => switch (state) {
+                  UserInitialState() || UserLoadingState() => Center(
+                      child: ButtonWidget(
+                        onPressed: _toSingIn(context),
+                        child: const Text('Авторизоваться'),
+                      ),
                     ),
-                  ],
-                ),
-              UserExceptionState() => const Text('Exception'),
-            },
+                  UserLoadedState(:UserModel user) => Column(
+                      children: [
+                        Text(user.name),
+                        ElevatedButton(
+                          onPressed: _toUpdate(context),
+                          child: const Text('Update'),
+                        ),
+                      ],
+                    ),
+                  UserExceptionState() => const Text('Exception'),
+                },
+              ),
+            ],
           ),
         ),
       );
