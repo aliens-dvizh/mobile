@@ -1,43 +1,70 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:toptom_widgetbook/kit/components/buttons/button.dart';
 
 class TicketDayView extends StatelessWidget {
+  void view(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => this,
+    );
+  }
+
   final ValueNotifier<Offset> clickPosition = ValueNotifier(Offset.zero);
   final VenueController _venueController = VenueController();
+  final TransformationController _transformationController =
+      TransformationController();
+
   final Venue _venue = Venue(
     seats: [
-      Seat(offset: Offset(0, 0)),
-      Seat(offset: Offset(30, 30)),
-      Seat(offset: Offset(30, 0)),
-      Seat(offset: Offset(0, 30)),
-      Seat(offset: Offset(-30, 0)),
-      Seat(offset: Offset(-30, 30)),
-      Seat(offset: Offset(0, 0)),
+      Seat(offset: Offset(0, 0), place: 1),
+      Seat(offset: Offset(30, 30),  place: 2),
+      Seat(offset: Offset(30, 0),  place: 3),
+      Seat(offset: Offset(0, 30),  place: 4),
+      Seat(offset: Offset(-30, 0),  place: 5),
+      Seat(offset: Offset(-30, 30),  place: 6),
+      Seat(offset: Offset(0, 0),  place: 7),
     ],
   );
 
   @override
-  Widget build(BuildContext context) => SliverToBoxAdapter(
-          child: SizedBox(
-        width: double.infinity,
-        height: 100,
-        child: GestureDetector(
-          onTapUp: (details) {
-            print(details.localPosition);
-            clickPosition.value = details.localPosition;
-          },
-          child: ValueListenableBuilder(
-            valueListenable: clickPosition,
-            builder: (context, value, child) => CustomPaint(
-              painter: VenuePainter(
-                clickPosition: value,
-                venueController: _venueController,
-                venue: _venue,
+  Widget build(BuildContext context) => Container(
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            children: [
+              Expanded(
+                child: InteractiveViewer(
+                  transformationController: _transformationController,
+                  boundaryMargin: const EdgeInsets.all(20.0),
+                  minScale: 0.5,
+                  // Минимальный масштаб
+                  maxScale: 3.0,
+                  // Максимальный масштаб
+                  child: GestureDetector(
+                    onTapUp: (details) {
+                      clickPosition.value = details.localPosition;
+                    },
+                    child: ValueListenableBuilder(
+                      valueListenable: clickPosition,
+                      builder: (context, value, child) => SizedBox.expand(
+                        child: CustomPaint(
+                          painter: VenuePainter(
+                            clickPosition: value,
+                            venueController: _venueController,
+                            venue: _venue,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
+              ButtonWidget(onPressed: () {}, child: Text('asdasd'))
+            ],
           ),
         ),
-      ));
+      );
 }
 
 class VenuePainter extends CustomPainter {
@@ -142,7 +169,12 @@ class Venue {
 }
 
 class Seat {
-  Seat({required this.offset});
+  Seat({
+    required this.offset,
+    required this.place, this.row,
+  });
 
   final Offset offset;
+  final int? row;
+  final int place;
 }

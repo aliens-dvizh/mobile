@@ -3,6 +3,7 @@ import 'package:depend/depend.dart';
 import 'package:dvizh_mob/src/category/bloc/categories_bloc/categories_bloc.dart';
 import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/core/router/wrapped_route.dart';
+import 'package:dvizh_mob/src/ticket/views/ticket_day_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -64,7 +65,7 @@ class _EventScreenState extends State<EventScreen> {
     context.read<EventBloc>().add(EventFetchEvent(widget.params.id));
   }
 
-  void _takeTicket() => TakeTicketView().view(context);
+  void _takeTicket() => TicketDayView().view(context);
 
   @override
   Widget build(BuildContext context) => Scaffold(
