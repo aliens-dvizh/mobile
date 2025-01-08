@@ -1,14 +1,19 @@
-import 'dart:ui';
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:toptom_widgetbook/kit/components/buttons/button.dart';
+import 'package:toptom_widgetbook/kit/export.dart';
 
 class TicketDayView extends StatelessWidget {
   void view(BuildContext context) {
-    showBottomSheet(
+    showModalBottomSheet(
       context: context,
-      builder: (context) => this,
+      builder: (context) => FractionallySizedBox(
+        heightFactor: 0.8, // 8/10 высоты экрана
+        child: this,
+      ),
+      isScrollControlled: true,
     );
   }
 
@@ -27,11 +32,27 @@ class TicketDayView extends StatelessWidget {
       Seat(offset: Offset(-30, 30), place: 6),
       Seat(offset: Offset(-60, 0), place: 7),
     ],
+    maxScale: 4,
   );
 
+  void _onSeatDetected(Seat seat) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+
+      clickPosition.value = Offset.zero;
+      _venueController.toggle(seat);
+    });
+
+  }
+
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: SizedBox(
+  Widget build(BuildContext context) => DecoratedBox(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(10),
+          ),
+        ),
+        child: SizedBox(
           width: double.infinity,
           child: Column(
             children: [
@@ -39,9 +60,9 @@ class TicketDayView extends StatelessWidget {
                 child: InteractiveViewer(
                   transformationController: _transformationController,
                   boundaryMargin: const EdgeInsets.all(20.0),
-                  minScale: 0.5,
+                  minScale: 0.1,
                   // Минимальный масштаб
-                  maxScale: 3.0,
+                  maxScale: _venue.maxScale,
                   // Максимальный масштаб
                   child: GestureDetector(
                     onTapUp: (details) {
@@ -54,7 +75,9 @@ class TicketDayView extends StatelessWidget {
                           painter: VenuePainter(
                             clickPosition: clickPosition,
                             venueController: _venueController,
+                            transformationController: _transformationController,
                             venue: _venue,
+                            onSeatDetected: _onSeatDetected,
                           ),
                         ),
                       ),
@@ -62,7 +85,22 @@ class TicketDayView extends StatelessWidget {
                   ),
                 ),
               ),
-              ButtonWidget(onPressed: () {}, child: Text('asdasd'))
+              ListenableBuilder(
+                listenable: _venueController,
+                builder: (context, child) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16).copyWith(top: 0),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ButtonWidget(
+                        onPressed: _venueController.selectedSeats.isNotEmpty ? () {} : null,
+                        size: ButtonSize.xl,
+                        child: Text('Взять'),
+                      ),
+                    ),
+                  );
+                }
+              )
             ],
           ),
         ),
@@ -73,6 +111,8 @@ class VenuePainter extends CustomPainter {
   VenuePainter({
     required this.clickPosition,
     required this.venueController,
+    required this.transformationController,
+    required this.onSeatDetected,
     required this.venue,
     super.repaint,
   });
@@ -80,6 +120,8 @@ class VenuePainter extends CustomPainter {
   final ValueNotifier<Offset> clickPosition;
   final VenueController venueController;
   final Venue venue;
+  final TransformationController transformationController;
+  final void Function(Seat) onSeatDetected;
 
   static const double sizeSeat = 20;
 
@@ -93,17 +135,24 @@ class VenuePainter extends CustomPainter {
       height: sizeSeat,
     );
 
-    if (_isClickedOnRect(rect)) _switchSeat(seat);
+    if (_isClickedOnRect(rect)) {
+      onSeatDetected.call(seat);
+    }
 
-    canvas.drawRect(
-      rect,
-      Paint()
-        ..strokeWidth = 2
-        ..color = venueController.selectedSeats.contains(seat)
-            ? Colors.red
-            : Colors.grey,
-    );
-    final TextPainter textPainter = TextPainter(
+    canvas.drawRRect(
+        RRect.fromRectAndRadius(rect, Radius.circular(3)),
+        Paint()
+          ..strokeWidth = 2
+          ..color = venueController.selectedSeats.contains(seat)
+              ? Colors.red
+              : Colors.grey);
+
+    final double scale = transformationController.value.getMaxScaleOnAxis();
+
+    // Вычисляем alpha для текста (пример: минимум 50, максимум 255)
+    final int alpha = (((scale - 1) * 205).clamp(0, 255)).toInt();
+
+    TextPainter(
         text: TextSpan(
           children: [
             if (seat.row != null)
@@ -115,21 +164,17 @@ class VenuePainter extends CustomPainter {
             )
           ],
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black.withAlpha(alpha),
             fontSize: 5,
           ),
         ),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr)
-      ..layout(maxWidth: size.width - 12.0 - 12.0);
-    textPainter.paint(canvas, Offset(rectX - 10, rectY + 10));
+      ..layout(maxWidth: size.width - 12.0 - 12.0)
+      ..paint(canvas, Offset(rectX - 10, rectY + 10));
   }
 
   bool _isClickedOnRect(Rect rect) => rect.contains(clickPosition.value);
-
-  void _switchSeat(Seat seat) {
-    venueController.toggle(seat);
-  }
 
   void _createsqn(
       Canvas canvas, Size size, Offset offset, double width, double height) {
@@ -150,13 +195,6 @@ class VenuePainter extends CustomPainter {
     for (final seat in venue.seats) {
       _seatPaint(canvas, size, seat);
     }
-
-    canvas.drawLine(
-        Offset(size.width / 2, 0),
-        Offset(size.width / 2, size.height),
-        Paint()
-          ..color = Colors.orange
-          ..style = PaintingStyle.stroke);
   }
 
   @override
@@ -165,30 +203,33 @@ class VenuePainter extends CustomPainter {
 
 class VenueController extends ChangeNotifier {
   VenueController({List<Seat>? selectedSeats})
-      : selectedSeats = selectedSeats ?? [];
+      : _selectedSeats = selectedSeats ?? [];
 
-  final List<Seat> selectedSeats;
+  final List<Seat> _selectedSeats;
+
+  List<Seat> get selectedSeats => List.unmodifiable(_selectedSeats);
 
   void addSeat(Seat seat) {
-    selectedSeats.add(seat);
+    _selectedSeats.add(seat);
     notifyListeners();
   }
 
   void removeSeat(Seat seat) {
-    selectedSeats.remove(seat);
+    _selectedSeats.remove(seat);
     notifyListeners();
   }
 
   void toggle(Seat seat) {
-    if (selectedSeats.contains(seat)) return removeSeat(seat);
+    if (_selectedSeats.contains(seat)) return removeSeat(seat);
     return addSeat(seat);
   }
 }
 
 class Venue {
-  Venue({required this.seats});
+  Venue({required this.seats, required this.maxScale});
 
   final List<Seat> seats;
+  final double maxScale;
 }
 
 class Seat {

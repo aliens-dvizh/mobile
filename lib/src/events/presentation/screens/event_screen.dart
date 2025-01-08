@@ -4,6 +4,7 @@ import 'package:dvizh_mob/src/category/bloc/categories_bloc/categories_bloc.dart
 import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/core/router/wrapped_route.dart';
 import 'package:dvizh_mob/src/ticket/views/ticket_day_view.dart';
+import 'package:dvizh_mob/src/ticket/views/ticket_list_day_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +66,7 @@ class _EventScreenState extends State<EventScreen> {
     context.read<EventBloc>().add(EventFetchEvent(widget.params.id));
   }
 
-  VoidCallback _takeTicket(BuildContext context) => () => TicketDayView().view(context);
+  VoidCallback _takeTicket(BuildContext context) => () => TakeTicketView().view(context);
 
   @override
   Widget build(BuildContext context) => Scaffold(
