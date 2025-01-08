@@ -57,12 +57,6 @@ class EventCard extends StatelessWidget {
                       FittedBox(
                         child: Text(
                           event.name,
-                          style: ThemeCore.of(context)
-                              .typography
-                              .paragraphBig
-                              .copyWith(
-                                color: Colors.white,
-                              ),
                         ),
                       ),
                       // const SizedBox(height: 4),

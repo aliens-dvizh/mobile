@@ -3,6 +3,7 @@
 import 'package:dvizh_mob/src/auth/presentation/screens/export.dart';
 import 'package:dvizh_mob/src/core/router/wrapped_route.dart';
 import 'package:dvizh_mob/src/events/export.dart';
+import 'package:dvizh_mob/src/events/presentation/screens/event_screen.dart';
 import 'package:dvizh_mob/src/main/export.dart';
 import 'package:dvizh_mob/src/user/export.dart';
 import 'package:dvizh_mob/src/user/presentation/screens/update_user_screen.dart';
@@ -36,6 +37,12 @@ class Routing {
                     builder: (context, state) => const ProfileScreen(),
                   ),
                 ],
+              ),
+              GoRoute(
+                path: '/event/:id',
+                builder: (context, state) => EventScreen(
+                  params: EventScreenParams.fromMap(state.pathParameters),
+                ).wrappedRoute(context),
               ),
               GoRoute(
                 path: '/profile/update',
