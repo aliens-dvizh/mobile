@@ -65,7 +65,7 @@ class _EventScreenState extends State<EventScreen> {
     context.read<EventBloc>().add(EventFetchEvent(widget.params.id));
   }
 
-  void _takeTicket() => TicketDayView().view(context);
+  VoidCallback _takeTicket(BuildContext context) => () => TicketDayView().view(context);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -110,7 +110,7 @@ class _EventScreenState extends State<EventScreen> {
                             width: double.infinity,
                             child: ButtonWidget(
                               size: ButtonSize.xl,
-                              onPressed: _takeTicket,
+                              onPressed: _takeTicket(context),
                               child: const Text('Взять билет'),
                             ),
                           ),

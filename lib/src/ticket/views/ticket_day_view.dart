@@ -1,10 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:toptom_widgetbook/kit/components/buttons/button.dart';
 
 class TicketDayView extends StatelessWidget {
   void view(BuildContext context) {
-    showModalBottomSheet(
+    showBottomSheet(
       context: context,
       builder: (context) => this,
     );
@@ -18,18 +20,18 @@ class TicketDayView extends StatelessWidget {
   final Venue _venue = Venue(
     seats: [
       Seat(offset: Offset(0, 0), place: 1),
-      Seat(offset: Offset(30, 30),  place: 2),
-      Seat(offset: Offset(30, 0),  place: 3),
-      Seat(offset: Offset(0, 30),  place: 4),
-      Seat(offset: Offset(-30, 0),  place: 5),
-      Seat(offset: Offset(-30, 30),  place: 6),
-      Seat(offset: Offset(0, 0),  place: 7),
+      Seat(offset: Offset(30, 30), place: 2),
+      Seat(offset: Offset(30, 0), place: 3),
+      Seat(offset: Offset(0, 30), place: 4),
+      Seat(offset: Offset(-30, 0), place: 5),
+      Seat(offset: Offset(-30, 30), place: 6),
+      Seat(offset: Offset(-60, 0), place: 7),
     ],
   );
 
   @override
-  Widget build(BuildContext context) => Container(
-        child: SizedBox(
+  Widget build(BuildContext context) => Scaffold(
+        body: SizedBox(
           width: double.infinity,
           child: Column(
             children: [
@@ -50,7 +52,7 @@ class TicketDayView extends StatelessWidget {
                       builder: (context, value, child) => SizedBox.expand(
                         child: CustomPaint(
                           painter: VenuePainter(
-                            clickPosition: value,
+                            clickPosition: clickPosition,
                             venueController: _venueController,
                             venue: _venue,
                           ),
@@ -75,7 +77,7 @@ class VenuePainter extends CustomPainter {
     super.repaint,
   });
 
-  final Offset clickPosition;
+  final ValueNotifier<Offset> clickPosition;
   final VenueController venueController;
   final Venue venue;
 
@@ -99,11 +101,31 @@ class VenuePainter extends CustomPainter {
         ..strokeWidth = 2
         ..color = venueController.selectedSeats.contains(seat)
             ? Colors.red
-            : Colors.black,
+            : Colors.grey,
     );
+    final TextPainter textPainter = TextPainter(
+        text: TextSpan(
+          children: [
+            if (seat.row != null)
+              TextSpan(
+                text: '${seat.row} ряд\n',
+              ),
+            TextSpan(
+              text: '${seat.place} место\n',
+            )
+          ],
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 5,
+          ),
+        ),
+        textAlign: TextAlign.center,
+        textDirection: TextDirection.ltr)
+      ..layout(maxWidth: size.width - 12.0 - 12.0);
+    textPainter.paint(canvas, Offset(rectX - 10, rectY + 10));
   }
 
-  bool _isClickedOnRect(Rect rect) => rect.contains(clickPosition);
+  bool _isClickedOnRect(Rect rect) => rect.contains(clickPosition.value);
 
   void _switchSeat(Seat seat) {
     venueController.toggle(seat);
@@ -115,11 +137,12 @@ class VenuePainter extends CustomPainter {
     final centerY = size.height / 2;
 
     canvas.drawRect(
-        Rect.fromCenter(
-            center: Offset(centerX + offset.dx, centerY + offset.dy),
-            width: width,
-            height: height),
-        Paint()..strokeWidth = 2);
+      Rect.fromCenter(
+          center: Offset(centerX + offset.dx, centerY + offset.dy),
+          width: width,
+          height: height),
+      Paint()..strokeWidth = 2,
+    );
   }
 
   @override
@@ -171,7 +194,8 @@ class Venue {
 class Seat {
   Seat({
     required this.offset,
-    required this.place, this.row,
+    required this.place,
+    this.row,
   });
 
   final Offset offset;
