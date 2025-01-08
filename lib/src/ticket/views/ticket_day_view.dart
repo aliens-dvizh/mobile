@@ -6,9 +6,13 @@ import 'package:toptom_widgetbook/kit/components/buttons/button.dart';
 
 class TicketDayView extends StatelessWidget {
   void view(BuildContext context) {
-    showBottomSheet(
+    showModalBottomSheet(
       context: context,
-      builder: (context) => this,
+      builder: (context) => FractionallySizedBox(
+        heightFactor: 0.8, // 8/10 высоты экрана
+        child: this,
+      ),
+      isScrollControlled: true,
     );
   }
 
@@ -30,8 +34,14 @@ class TicketDayView extends StatelessWidget {
   );
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: SizedBox(
+  Widget build(BuildContext context) => DecoratedBox(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(10),
+          ),
+        ),
+        child: SizedBox(
           width: double.infinity,
           child: Column(
             children: [
@@ -54,6 +64,7 @@ class TicketDayView extends StatelessWidget {
                           painter: VenuePainter(
                             clickPosition: clickPosition,
                             venueController: _venueController,
+                            transformationController: _transformationController,
                             venue: _venue,
                           ),
                         ),
@@ -73,6 +84,7 @@ class VenuePainter extends CustomPainter {
   VenuePainter({
     required this.clickPosition,
     required this.venueController,
+    required this.transformationController,
     required this.venue,
     super.repaint,
   });
@@ -80,6 +92,7 @@ class VenuePainter extends CustomPainter {
   final ValueNotifier<Offset> clickPosition;
   final VenueController venueController;
   final Venue venue;
+  final TransformationController transformationController;
 
   static const double sizeSeat = 20;
 
@@ -95,15 +108,20 @@ class VenuePainter extends CustomPainter {
 
     if (_isClickedOnRect(rect)) _switchSeat(seat);
 
-    canvas.drawRect(
-      rect,
-      Paint()
-        ..strokeWidth = 2
-        ..color = venueController.selectedSeats.contains(seat)
-            ? Colors.red
-            : Colors.grey,
-    );
-    final TextPainter textPainter = TextPainter(
+    canvas.drawRRect(
+        RRect.fromRectAndRadius(rect, Radius.circular(3)),
+        Paint()
+          ..strokeWidth = 2
+          ..color = venueController.selectedSeats.contains(seat)
+              ? Colors.red
+              : Colors.grey);
+
+    final double scale = transformationController.value.getMaxScaleOnAxis();
+
+    // Вычисляем alpha для текста (пример: минимум 50, максимум 255)
+    final int alpha = (((scale - 1) * 205).clamp(0, 255)).toInt();
+
+    TextPainter(
         text: TextSpan(
           children: [
             if (seat.row != null)
@@ -115,14 +133,14 @@ class VenuePainter extends CustomPainter {
             )
           ],
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.black.withAlpha(alpha),
             fontSize: 5,
           ),
         ),
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr)
-      ..layout(maxWidth: size.width - 12.0 - 12.0);
-    textPainter.paint(canvas, Offset(rectX - 10, rectY + 10));
+      ..layout(maxWidth: size.width - 12.0 - 12.0)
+      ..paint(canvas, Offset(rectX - 10, rectY + 10));
   }
 
   bool _isClickedOnRect(Rect rect) => rect.contains(clickPosition.value);
