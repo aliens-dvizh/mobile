@@ -1,5 +1,6 @@
 import 'package:dvizh_mob/src/auth/bloc/auth/auth_bloc.dart';
 import 'package:dvizh_mob/src/auth/presentation/view/delete_account_view.dart';
+import 'package:dvizh_mob/src/auth/presentation/view/logout_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -19,6 +20,11 @@ class SettingScreen extends StatelessWidget {
   VoidCallback _delete(BuildContext context) =>
           () {
         DeleteAccountView().view(context);
+      };
+
+  VoidCallback _logout(BuildContext context) =>
+          () {
+        LogoutView().view(context);
       };
 
   @override
@@ -42,9 +48,9 @@ class SettingScreen extends StatelessWidget {
                         onTap: _delete(context),
                         title: Text('Удалить профиль'),
                       ),
-
                       Divider(),
                       ListTile(
+                        onTap: _logout(context),
                         title: Text('Выйти'),
                         trailing: Icon(Icons.exit_to_app),
                       ),

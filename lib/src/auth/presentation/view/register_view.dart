@@ -30,14 +30,15 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView>
     with ValidationExceptionParser {
   late TextEditingController _nameController;
+  late RegisterForm _form;
+
 
   @override
   void initState() {
     _nameController = TextEditingController();
+    _form = RegisterForm.parse();
     super.initState();
   }
-
-  final RegisterForm _form = RegisterForm.parse();
 
   void Function() _toLogin(BuildContext context) =>
       () => context.read<SignInCubit>().to(SignLoginState());
@@ -48,8 +49,10 @@ class _RegisterViewState extends State<RegisterView>
           email: widget.emailController.text,
           password: widget.passwordController.text,
         );
+        print(_form.isValid);
+        print(_form.exceptions);
 
-        if (_form.isInvalid) return;
+        if (!_form.check()) return;
 
         context.read<RegistrationBloc>().add(
               Register(

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:fform/fform.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
@@ -53,6 +54,7 @@ class _LoginViewState extends State<LoginView> with ValidationExceptionParser {
     switch (state) {
       case LoginSuccess():
         {
+          context.pop();
           break;
         }
       case LoginRedirectVerifyState():

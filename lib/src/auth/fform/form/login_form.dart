@@ -1,20 +1,17 @@
-// 📦 Package imports:
 
-// 📦 Package imports:
 import 'package:fform/fform.dart';
-
-// 🌎 Project imports:
 import 'package:dvizh_mob/src/auth/fform/fields/export.dart';
 
 class LoginForm extends FForm {
   LoginForm({required this.email, required this.password})
       : super(fields: [email, password]);
 
-  factory LoginForm.parse({String email = '', String password = ''}) =>
+  factory LoginForm.parse({String? email, String? password}) =>
       LoginForm(
-        email: EmailField(value: email),
-        password: PasswordField(value: password),
+        email: EmailField(value: email ?? ''),
+        password: PasswordField(value: password ?? ''),
       );
+
   EmailField email;
   PasswordField password;
 
