@@ -49,8 +49,6 @@ class _RegisterViewState extends State<RegisterView>
           email: widget.emailController.text,
           password: widget.passwordController.text,
         );
-        print(_form.isValid);
-        print(_form.exceptions);
 
         if (!_form.check()) return;
 
