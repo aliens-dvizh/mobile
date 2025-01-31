@@ -1,8 +1,6 @@
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:toptom_widgetbook/kit/components/buttons/button.dart';
 import 'package:toptom_widgetbook/kit/export.dart';
 
 class TicketDayView extends StatelessWidget {
@@ -10,7 +8,7 @@ class TicketDayView extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       builder: (context) => FractionallySizedBox(
-        heightFactor: 0.8, // 8/10 высоты экрана
+        heightFactor: 0.8,
         child: this,
       ),
       isScrollControlled: true,
@@ -61,9 +59,7 @@ class TicketDayView extends StatelessWidget {
                   transformationController: _transformationController,
                   boundaryMargin: const EdgeInsets.all(20.0),
                   minScale: 0.1,
-                  // Минимальный масштаб
-                  maxScale: _venue.maxScale,
-                  // Максимальный масштаб
+                  maxScale: 3,
                   child: GestureDetector(
                     onTapUp: (details) {
                       clickPosition.value = details.localPosition;
@@ -87,8 +83,7 @@ class TicketDayView extends StatelessWidget {
               ),
               ListenableBuilder(
                 listenable: _venueController,
-                builder: (context, child) {
-                  return Padding(
+                builder: (context, child) => Padding(
                     padding: const EdgeInsets.all(16).copyWith(top: 0),
                     child: SizedBox(
                       width: double.infinity,
@@ -98,8 +93,7 @@ class TicketDayView extends StatelessWidget {
                         child: Text('Взять'),
                       ),
                     ),
-                  );
-                }
+                  ),
               )
             ],
           ),
@@ -147,10 +141,8 @@ class VenuePainter extends CustomPainter {
               ? Colors.red
               : Colors.grey);
 
-    final double scale = transformationController.value.getMaxScaleOnAxis();
-
-    // Вычисляем alpha для текста (пример: минимум 50, максимум 255)
-    final int alpha = (((scale - 1) * 205).clamp(0, 255)).toInt();
+    final scale = transformationController.value.getMaxScaleOnAxis();
+    final alpha = ((scale - 1) * 205).clamp(0, 255).toInt();
 
     TextPainter(
         text: TextSpan(

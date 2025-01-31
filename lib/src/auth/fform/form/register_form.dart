@@ -23,6 +23,7 @@ class RegisterForm extends FForm {
         email: EmailField(value: email ?? ''),
         password: PasswordField(value: password ?? ''),
       );
+
   NameField name;
   EmailField email;
   PasswordField password;
@@ -34,6 +35,10 @@ class RegisterForm extends FForm {
     String? password,
     String? passwordConfirmation,
   }) {
+    print(this.name.value);
+    print(this.email.value);
+    print(this.password.value);
+
     this.name.value = name ?? '';
     this.email.value = email ?? '';
     this.password.value = password ?? '';

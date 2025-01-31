@@ -1,6 +1,7 @@
 // 🐦 Flutter imports:
 import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/core/router/wrapped_route.dart';
+import 'package:dvizh_mob/src/user/params/update_params.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -56,7 +57,11 @@ class _UpdateUserScreenState extends State<UpdateUserScreen> {
   void _change() {
     _form.name.value = _nameController.value.text;
     if (_form.check()) {
-      context.read<UpdateUserBloc>().add(UpdateUserEvent());
+      context.read<UpdateUserBloc>().add(
+            UpdateUserEvent(
+              params: UpdateUserParams(name: _form.name.value),
+            ),
+          );
     }
   }
 

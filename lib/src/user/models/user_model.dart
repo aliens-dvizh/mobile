@@ -11,4 +11,6 @@ class UserModel with ModelItem {
   final int id;
   final String name;
   final DateTime createdAt;
+
+  UserModel copyWith({String? name}) => UserModel(id: id, name: name ?? this.name, createdAt: createdAt);
 }

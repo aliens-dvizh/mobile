@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:dvizh_mob/src/user/data/repositories/iuser_repository.dart';
 import 'package:dvizh_mob/src/user/data/source/user_data_source.dart';
 import 'package:dvizh_mob/src/user/models/user_model.dart';
+import 'package:dvizh_mob/src/user/params/update_params.dart';
 
 class UserRepository extends IUserRepository {
   UserRepository({
@@ -22,8 +23,8 @@ class UserRepository extends IUserRepository {
   Future<UserModel> get() => _dataSource.get().then((value) => value.toModel());
 
   @override
-  Future<void> update() async {
-    final user = await get();
+  Future<void> update(UpdateUserParams params) async {
+    final user = (await get()).copyWith(name: params.name);
     _userController.add(user);
   }
 }
