@@ -31,7 +31,9 @@ import 'package:dvizh_mob/src/core/services/dio/dio_service.dart';
 
 class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
   @override
-  Future<RootDependencyContainer> create() async {
+  RootDependencyContainer create() {
+    print('RootDependencyContainer');
+
     final talker = Talker();
     final settings = AppSettings(useMocks: true);
     const secureStorage = FlutterSecureStorage();
@@ -45,7 +47,11 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
       );
 
     final authRepository = settings.useMocks
-        ? MockAuthRepository()
+        ? MockAuthRepository(
+            TokenDataSource(
+              secureStorage,
+            ),
+          )
         : AuthRepository(
             TokenDataSource(
               secureStorage,

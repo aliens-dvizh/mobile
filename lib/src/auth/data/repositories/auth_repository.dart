@@ -17,17 +17,17 @@ class AuthRepository extends IAuthRepository {
     this._tokenSource,
     this._authSource,
     this._authInterceptorSource,
-  ) : _authController = EventTruck<AuthModel?>();
+  ) : _authController = StreamController<AuthModel?>.broadcast();
 
   final TokenDataSource _tokenSource;
   final AuthDataSource _authSource;
   final AuthInterceptorDataSource _authInterceptorSource;
-  final EventTruck<AuthModel?> _authController;
+  final StreamController<AuthModel?> _authController;
   late AuthModel? _auth;
 
   @override
   StreamSubscription<AuthModel?> on(void Function(AuthModel?) callback) =>
-      _authController.on<AuthModel?>(callback);
+      _authController.stream.listen(callback);
 
   @override
   Future<void> register(RegisterParams params) => _authSource.register(params);
@@ -89,6 +89,6 @@ class AuthRepository extends IAuthRepository {
 
   @override
   void dispose() {
-    _authController.dispose();
+    _authController.close();
   }
 }

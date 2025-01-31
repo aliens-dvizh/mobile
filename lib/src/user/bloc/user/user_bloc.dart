@@ -19,17 +19,25 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           UserFetchEvent() => _fetch(event, emit),
           _UserClearEvent() => _clear(event, emit),
           _UserChangeEvent() => _change(event, emit),
-        });
+        },
+    );
 
-    _authRepository.on(_listenAuth);
-    _subscription = _repository.stream.listen(_listenUser);
+    _initialize();
   }
 
   final IUserRepository _repository;
   final IAuthRepository _authRepository;
   late StreamSubscription<UserModel> _subscription;
+  late StreamSubscription<AuthModel?> _authSubscription;
+
+
+  Future<void> _initialize() async {
+    _authSubscription = _authRepository.on(_listenAuth);
+    _subscription = _repository.stream.listen(_listenUser);
+  }
 
   void _listenAuth(AuthModel? auth) {
+    print(auth);
     if (auth == null) return add(_UserClearEvent());
     add(UserFetchEvent());
   }
@@ -37,6 +45,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   void _listenUser(UserModel user) => add(_UserChangeEvent(user));
 
   void _change(_UserChangeEvent event, Emitter<UserState> emit) {
+    if(state is! UserLoadedState) return;
     emit(UserLoadedState(user: event.user));
   }
 
@@ -57,6 +66,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   @override
   Future<void> close() {
     _subscription.cancel();
+    _authSubscription.cancel();
     return super.close();
   }
 }

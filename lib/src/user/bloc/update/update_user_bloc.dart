@@ -3,6 +3,7 @@ import 'package:bloc/bloc.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/src/user/data/repositories/iuser_repository.dart';
+import 'package:dvizh_mob/src/user/params/update_params.dart';
 
 // 🌎 Project imports:
 
@@ -16,11 +17,10 @@ class UpdateUserBloc extends Bloc<UpdateUserEvent, UpdateUserState> {
 
   final IUserRepository _repository;
 
-  Future<void> _update(
-      UpdateUserEvent event, Emitter<UpdateUserState> emit) async {
+  Future<void> _update(UpdateUserEvent event, Emitter<UpdateUserState> emit) async {
     emit(UpdateUserLoadingState());
     try {
-      await _repository.update();
+      await _repository.update(event.params);
       emit(UpdateUserLoadedState());
     } on Exception {
       emit(UpdateUserExceptionState());

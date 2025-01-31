@@ -4,6 +4,7 @@ import 'dart:async';
 // 🌎 Project imports:
 import 'package:dvizh_mob/src/user/data/repositories/iuser_repository.dart';
 import 'package:dvizh_mob/src/user/models/user_model.dart';
+import 'package:dvizh_mob/src/user/params/update_params.dart';
 
 final UserModel _user =
     UserModel(id: 1, name: 'Name', createdAt: DateTime.now());
@@ -20,8 +21,7 @@ class MockUserRepository extends IUserRepository {
   Stream<UserModel> get stream => _userController.stream;
 
   @override
-  Future<void> update() async {
-    final user = await get();
-    _userController.add(user);
+  Future<void> update(UpdateUserParams params) async {
+    _userController.add(_user.copyWith(name: params.name));
   }
 }
