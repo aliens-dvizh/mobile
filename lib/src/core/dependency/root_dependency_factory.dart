@@ -20,6 +20,7 @@ import 'package:dvizh_mob/src/user/data/repositories/user_repository.dart';
 import 'package:dvizh_mob/src/user/data/source/user_data_source.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
@@ -30,12 +31,16 @@ import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/core/services/dio/dio_service.dart';
 
 class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
+
+  RootDependencyFactory({required this.talker});
+
+
+  final Talker talker;
+
   @override
   RootDependencyContainer create() {
-    print('RootDependencyContainer');
 
-    final talker = Talker();
-    final settings = AppSettings(useMocks: true);
+    final settings = AppSettings(useMocks: false);
     const secureStorage = FlutterSecureStorage();
     final dioService = DioService.initialize(
       'http://localhost',
@@ -45,8 +50,9 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
           settings: const TalkerDioLoggerSettings(),
         ),
       );
+    final supabase = Supabase.instance.client;
 
-    final authRepository = settings.useMocks
+    final authRepository = true
         ? MockAuthRepository(
             TokenDataSource(
               secureStorage,
@@ -74,9 +80,7 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
     final eventRepository = settings.useMocks
         ? MockEventRepository()
         : EventRepository(
-            EventDataSource(
-              dioService,
-            ),
+            EventDataSource(dioService, supabase,),
           );
 
     final categoryRepository = settings.useMocks
@@ -84,6 +88,7 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
         : CategoryRepository(
             CategoryDataSource(
               dioService,
+              supabase,
             ),
           );
 
@@ -92,12 +97,15 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
         : CityRepository(
             CityDataSource(
               dioService,
+              supabase
             ),
           );
 
-    final currentLocationRepository = settings.useMocks
+    final currentLocationRepository = false
         ? MockCurrentLocationRepository()
-        : CurrentLocationRepository();
+        : CurrentLocationRepository(
+      secureStorage: secureStorage
+    );
 
     return RootDependencyContainer(
       dioService: dioService,
@@ -110,6 +118,7 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
       categoryRepository: categoryRepository,
       cityRepository: cityRepository,
       currentLocationRepository: currentLocationRepository,
+      supabaseClient: Supabase.instance.client,
     );
   }
 }

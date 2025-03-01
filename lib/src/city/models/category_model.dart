@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:dvizh_mob/src/city/dto/category_dto.dart';
 import 'package:flutter/cupertino.dart';
 
 // 🌎 Project imports:
@@ -9,11 +10,13 @@ class CityModel with ModelItem {
     required this.id,
     required this.name,
     required this.createdAt,
-    required this.updatedAt,
   });
 
   final int id;
   final String name;
   final DateTime createdAt;
-  final DateTime updatedAt;
+
+  CityDTO toDTO() {
+    return CityDTO(name: name, id: id, createdAt: createdAt);
+  }
 }

@@ -10,20 +10,23 @@ class CityDTO with DTO<CityModel> {
     required this.name,
     required this.id,
     required this.createdAt,
-    required this.updatedAt,
   });
 
   factory CityDTO.fromJson(Map<String, dynamic> json) => CityDTO(
         name: json['name'] as String,
         id: json['id'] as int,
         createdAt: DateTime.parse(json['created_at'] as String),
-        updatedAt: DateTime.parse(json['updated_at'] as String),
       );
+
+  Map<String, Object?> toJson() => {
+      'name': name,
+      'id': id,
+      'created_at': createdAt.toString(),
+    };
 
   final String name;
   final int id;
   final DateTime createdAt;
-  final DateTime updatedAt;
 
   static List<CityDTO> fromJsonList(List<Map<String, dynamic>> json) =>
       json.map(CityDTO.fromJson).toList();
@@ -32,7 +35,6 @@ class CityDTO with DTO<CityModel> {
   CityModel toModel() => CityModel(
         id: id,
         name: name,
-        updatedAt: updatedAt,
         createdAt: createdAt,
       );
 }

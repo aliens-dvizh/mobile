@@ -18,6 +18,15 @@ class ListDataDTO<T extends DTO<M>, M extends ModelItem> {
         count: json['count'] as int? ?? 0,
       );
 
+  factory ListDataDTO.fromJsonList(
+    List<Map<String, Object?>> json,
+    T Function(Map<String, Object?>) fromJsonT,
+  ) =>
+      ListDataDTO<T, M>(
+        list: json.map((item) => fromJsonT(item)).toList(),
+        count: json.length,
+      );
+
   factory ListDataDTO.fromList(List<T> list, int count) =>
       ListDataDTO<T, M>(list: list, count: count);
 

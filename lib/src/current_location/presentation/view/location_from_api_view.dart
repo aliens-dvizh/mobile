@@ -28,7 +28,6 @@ class _LocationFromApiViewState extends State<LocationFromApiView> {
   @override
   void initState() {
     super.initState();
-    context.read<CityFromIPBloc>().add(CityFromIPFetchEvent());
   }
 
   void _listener(BuildContext context, CityFromIPState state) {

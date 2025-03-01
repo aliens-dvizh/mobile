@@ -16,7 +16,8 @@ class CurrentLocationBloc extends Bloc<CurrentLocationEvent, CurrentLocationStat
 
   final ICurrentLocationRepository _repository;
 
-  void _set(SetCurrentLocationEvent event, Emitter<CurrentLocationState> emit) {
+  Future<void> _set(SetCurrentLocationEvent event, Emitter<CurrentLocationState> emit) async{
+    await _repository.setCity(event.city);
     emit(CurrentLocationExist(city: event.city));
   }
 

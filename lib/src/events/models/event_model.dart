@@ -5,12 +5,12 @@ class EventModel with ModelItem {
   EventModel({
     required this.id,
     required this.name,
-    required this.description,
+    this.description,
     this.image,
   });
 
   final int id;
   final String name;
-  final String description;
+  final String? description;
   final String? image;
 }

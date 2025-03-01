@@ -8,7 +8,6 @@ class MockCurrentLocationRepository implements ICurrentLocationRepository {
     id: 1,
     name: 'Алматы',
     createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
   );
 
   @override
@@ -25,5 +24,11 @@ class MockCurrentLocationRepository implements ICurrentLocationRepository {
 
     if(result) return Future.value(null);
     return Future.value(_city);
+  }
+
+  @override
+  Future<CityModel> setCity(CityModel city) {
+    // TODO: implement setCity
+    throw UnimplementedError();
   }
 }

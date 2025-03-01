@@ -20,7 +20,11 @@ import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/shared/widgets/media_query_scope.dart';
 
 class HomeScreen extends StatefulWidget implements WrappedRoute {
-  const HomeScreen({required this.child, required this.state, super.key, });
+  const HomeScreen({
+    required this.child,
+    required this.state,
+    super.key,
+  });
 
   final Widget child;
   final GoRouterState state;
@@ -29,16 +33,17 @@ class HomeScreen extends StatefulWidget implements WrappedRoute {
   State<HomeScreen> createState() => _HomeScreenState();
 
   @override
-  Widget wrappedRoute(BuildContext context) => BlocProvider<CurrentLocationViewCubit>(
-    create: (context) => CurrentLocationViewCubit(),
-    child: this,
-  );
+  Widget wrappedRoute(BuildContext context) =>
+      BlocProvider<CurrentLocationViewCubit>(
+        create: (context) => CurrentLocationViewCubit(),
+        child: this,
+      );
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   final routes = [
     MainNavigationItem(label: 'События', icon: Icons.event, path: '/'),
-    MainNavigationItem(label: 'Профиль', icon: Icons.person, path: '/profile'),
+    // MainNavigationItem(label: 'Профиль', icon: Icons.person, path: '/profile'),
   ];
 
   void _toTalker() {
@@ -56,7 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
     context.go(routes[value].path);
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -67,18 +71,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) => MediaQueryScope(
         builder: (context, type) => Scaffold(
           body: widget.child,
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: routes.indexWhere((route) => route.path == widget.state.fullPath),
-            onTap: _setActiveScreen,
-            items: routes
-                .map(
-                  (route) => BottomNavigationBarItem(
-                    label: route.label,
-                    icon: Icon(route.icon),
-                  ),
-                )
-                .toList(),
-          ),
+          // bottomNavigationBar: BottomNavigationBar(
+          //   currentIndex: routes
+          //       .indexWhere((route) => route.path == widget.state.fullPath),
+          //   onTap: _setActiveScreen,
+          //   items: routes
+          //       .map(
+          //         (route) => BottomNavigationBarItem(
+          //           label: route.label,
+          //           icon: Icon(route.icon),
+          //         ),
+          //       )
+          //       .toList(),
+          // ),
           floatingActionButton: Visibility(
             visible: kDebugMode,
             child: FloatingActionButton(
