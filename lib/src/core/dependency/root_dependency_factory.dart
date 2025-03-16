@@ -3,6 +3,7 @@ import 'package:depend/depend.dart';
 import 'package:dvizh_mob/src/auth/data/export.dart';
 import 'package:dvizh_mob/src/auth/data/repositories/iauth_repository.dart';
 import 'package:dvizh_mob/src/auth/data/repositories/mock_auth_repository.dart';
+import 'package:dvizh_mob/src/auth/data/repositories/supabase_auth_repository.dart';
 import 'package:dvizh_mob/src/category/data/category_data_source.dart';
 import 'package:dvizh_mob/src/category/data/category_repository.dart';
 import 'package:dvizh_mob/src/category/data/mock_category_repository.dart';
@@ -31,15 +32,12 @@ import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/core/services/dio/dio_service.dart';
 
 class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
-
   RootDependencyFactory({required this.talker});
-
 
   final Talker talker;
 
   @override
   RootDependencyContainer create() {
-
     final settings = AppSettings(useMocks: false);
     const secureStorage = FlutterSecureStorage();
     final dioService = DioService.initialize(
@@ -52,35 +50,36 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
       );
     final supabase = Supabase.instance.client;
 
-    final authRepository = true
+    final authRepository = settings.useMocks
         ? MockAuthRepository(
             TokenDataSource(
               secureStorage,
             ),
           )
-        : AuthRepository(
+        : SupabaseAuthRepository(
             TokenDataSource(
               secureStorage,
-            ),
-            AuthDataSource(
-              dioService,
             ),
             AuthInterceptorDataSource(
               dioService,
             ),
-          );
+            supabase);
     final userRepository = settings.useMocks
         ? MockUserRepository()
         : UserRepository(
             dataSource: UserDataSource(
               dioService: dioService,
             ),
+            client: supabase,
           );
 
     final eventRepository = settings.useMocks
         ? MockEventRepository()
         : EventRepository(
-            EventDataSource(dioService, supabase,),
+            EventDataSource(
+              dioService,
+              supabase,
+            ),
           );
 
     final categoryRepository = settings.useMocks
@@ -95,17 +94,12 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
     final cityRepository = settings.useMocks
         ? MockCityRepository()
         : CityRepository(
-            CityDataSource(
-              dioService,
-              supabase
-            ),
+            CityDataSource(dioService, supabase),
           );
 
     final currentLocationRepository = false
         ? MockCurrentLocationRepository()
-        : CurrentLocationRepository(
-      secureStorage: secureStorage
-    );
+        : CurrentLocationRepository(secureStorage: secureStorage);
 
     return RootDependencyContainer(
       dioService: dioService,

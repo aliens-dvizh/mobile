@@ -12,7 +12,7 @@ class EventDataSource {
 
   Future<ListDataDTO<EventDTO, EventModel>> getEvents(
     EventIndexParams params,
-  ) => _client.from('events').select().then((data) => ListDataDTO.fromJsonList(data, EventDTO.fromJson));
+  ) => _client.from('events').select().filter('holded_at', 'gt', params.startAt.toIso8601String()).then((data) => ListDataDTO.fromJsonList(data, EventDTO.fromJson));
 
   Future<EventDTO> getById(int id) => _client.from('events').select().eq('id', id).then((data) => EventDTO.fromJson(data.first));
 }

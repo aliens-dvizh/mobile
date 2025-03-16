@@ -3,7 +3,7 @@ import 'dart:async';
 
 // 🐦 Flutter imports:
 import 'package:dvizh_mob/src/auth/bloc/export.dart';
-import 'package:dvizh_mob/src/auth/params/export.dart';
+import 'package:dvizh_mob/src/auth/params/verify_params.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +59,7 @@ class _VerifyViewState extends State<VerifyView> {
     context.read<VerifyBloc>().add(
           VerifyFetch(
             VerifyParams(
-              email: widget.email,
+              phone: widget.email,
               code: codeController.text.trim(),
             ),
           ),

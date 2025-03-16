@@ -34,10 +34,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<void> _initialize() async {
     _authSubscription = _authRepository.on(_listenAuth);
     _subscription = _repository.stream.listen(_listenUser);
+    _listenAuth(await _authRepository.auth);
   }
 
   void _listenAuth(AuthModel? auth) {
-    print(auth);
     if (auth == null) return add(_UserClearEvent());
     add(UserFetchEvent());
   }

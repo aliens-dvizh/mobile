@@ -10,12 +10,12 @@ class UserDTO with DTO<UserModel> {
   });
 
   factory UserDTO.fromJson(Map<String, Object?> map) => UserDTO(
-        id: map['id'] as int,
+        id: map['id'] as String,
         name: map['name'] as String,
         createdAt: DateTime.parse(map['created_at'] as String),
       );
 
-  final int id;
+  final String id;
   final String name;
   final DateTime createdAt;
 

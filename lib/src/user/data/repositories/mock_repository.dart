@@ -7,7 +7,7 @@ import 'package:dvizh_mob/src/user/models/user_model.dart';
 import 'package:dvizh_mob/src/user/params/update_params.dart';
 
 final UserModel _user =
-    UserModel(id: 1, name: 'Name', createdAt: DateTime.now());
+    UserModel(id: '1', name: 'Name', createdAt: DateTime.now());
 
 class MockUserRepository extends IUserRepository {
   MockUserRepository() : _userController = StreamController.broadcast();

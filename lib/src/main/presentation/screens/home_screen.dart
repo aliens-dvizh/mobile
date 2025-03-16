@@ -43,7 +43,7 @@ class HomeScreen extends StatefulWidget implements WrappedRoute {
 class _HomeScreenState extends State<HomeScreen> {
   final routes = [
     MainNavigationItem(label: 'События', icon: Icons.event, path: '/'),
-    // MainNavigationItem(label: 'Профиль', icon: Icons.person, path: '/profile'),
+    MainNavigationItem(label: 'Профиль', icon: Icons.person, path: '/profile'),
   ];
 
   void _toTalker() {
@@ -71,19 +71,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) => MediaQueryScope(
         builder: (context, type) => Scaffold(
           body: widget.child,
-          // bottomNavigationBar: BottomNavigationBar(
-          //   currentIndex: routes
-          //       .indexWhere((route) => route.path == widget.state.fullPath),
-          //   onTap: _setActiveScreen,
-          //   items: routes
-          //       .map(
-          //         (route) => BottomNavigationBarItem(
-          //           label: route.label,
-          //           icon: Icon(route.icon),
-          //         ),
-          //       )
-          //       .toList(),
-          // ),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: routes
+                .indexWhere((route) => route.path == widget.state.fullPath),
+            onTap: _setActiveScreen,
+            items: routes
+                .map(
+                  (route) => BottomNavigationBarItem(
+                    label: route.label,
+                    icon: Icon(route.icon),
+                  ),
+                )
+                .toList(),
+          ),
           floatingActionButton: Visibility(
             visible: kDebugMode,
             child: FloatingActionButton(

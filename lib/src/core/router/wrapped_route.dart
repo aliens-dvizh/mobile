@@ -26,16 +26,16 @@ class MainWrapped implements WrappedRoute {
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider<UserBloc>(
+
+        BlocProvider<AuthBloc>(
           lazy: false,
+          create: (context) => AuthBloc(container.authRepository),
+        ),
+        BlocProvider<UserBloc>(
           create: (context) => UserBloc(
             container.userRepository,
             container.authRepository,
           ),
-        ),
-        BlocProvider<AuthBloc>(
-          lazy: false,
-          create: (context) => AuthBloc(container.authRepository),
         ),
         BlocProvider<CurrentLocationBloc>(
           lazy: true,

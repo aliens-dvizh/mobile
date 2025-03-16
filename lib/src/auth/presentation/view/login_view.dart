@@ -1,7 +1,8 @@
 // 🐦 Flutter imports:
 import 'package:dvizh_mob/src/auth/bloc/export.dart';
 import 'package:dvizh_mob/src/auth/fform/export.dart';
-import 'package:dvizh_mob/src/auth/params/export.dart';
+import 'package:dvizh_mob/src/auth/params/login_params_with_email.dart';
+import 'package:dvizh_mob/src/auth/params/login_params_with_phone.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -42,8 +43,8 @@ class _LoginViewState extends State<LoginView> with ValidationExceptionParser {
         if (!_form.check()) return;
         context.read<LoginBloc>().add(
               LoginSubmitted(
-                params: LoginParams(
-                  email: widget._emailController.text,
+                params: LoginParamsWithPhone(
+                  phone: widget._emailController.text,
                   password: widget._passwordController.text,
                 ),
               ),

@@ -1,10 +1,8 @@
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-
-// 🌎 Project imports:
 import 'package:dvizh_mob/src/auth/data/repositories/iauth_repository.dart';
-import 'package:dvizh_mob/src/auth/params/export.dart';
+import 'package:dvizh_mob/src/auth/params/verify_params.dart';
 
 part 'verify_state.dart';
 part 'verify_event.dart';

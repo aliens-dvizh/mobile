@@ -8,7 +8,7 @@ class UserModel with ModelItem {
     required this.createdAt,
   });
 
-  final int id;
+  final String id;
   final String name;
   final DateTime createdAt;
 
