@@ -11,8 +11,10 @@ class CategoryDataSource {
   final DioService _apiService;
   final SupabaseClient _client;
 
-  Future<ListDataDTO<CategoryDTO, CategoryModel>> getCategoryList() => _client
-        .from('cities')
+  Future<ListDataDTO<CategoryDTO, CategoryModel>> getCategoryList() {
+    return  _client
+        .from('categories')
         .select()
         .then((data) => ListDataDTO.fromJsonList(data, CategoryDTO.fromJson));
+  }
 }

@@ -28,6 +28,10 @@ class EventDataSource {
           .lte('holded_at', endAt.toIso8601String());
     }
 
+    if(params.categoryId != null) {
+      builder = builder.eq('category_id', params.categoryId!);
+    }
+
     return builder.select().then((data) => ListDataDTO.fromJsonList(data, EventDTO.fromJson));
   }
 

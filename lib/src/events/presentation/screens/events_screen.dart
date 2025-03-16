@@ -1,9 +1,11 @@
 // 🐦 Flutter imports:
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:depend/depend.dart';
+import 'package:dvizh_mob/src/category/models/category_model.dart';
 import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/core/router/wrapped_route.dart';
 import 'package:dvizh_mob/src/current_location/presentation/widgets/location_button.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -84,14 +86,32 @@ class _EventsScreenState extends State<EventsScreen> {
         disableModePicker: true,
       ),
       dialogSize: Size(300, 100),
-      value: [params.value.startAt, params.value.endAt]
+      value: [params.value.startAt, params.value.endAt],
     );
     if (result == null) return;
     if (result.isEmpty) return;
-    params.value = EventIndexParams(
+    params.value = params.value.copyWith(
       startAt: result.elementAtOrNull(0),
       endAt: result.elementAtOrNull(1),
     );
+  }
+
+  VoidCallback _selectCategory(CategoryModel category) => () {
+        params.value = params.value.copyWith(categoryId: category.id);
+      };
+
+  String dateTitle() {
+    final startAt = params.value.startAt;
+    final endAt = params.value.endAt;
+    const format = 'dd MMMM';
+    if (startAt == null && endAt == null) {
+      return 'Выберите время';
+    } else if (startAt != null && endAt == null) {
+      return DateFormat(format).format(startAt);
+    } else if (startAt != null && endAt != null) {
+      return '${DateFormat(format).format(startAt)} - ${DateFormat(format).format(endAt)}';
+    }
+    return '';
   }
 
   @override
@@ -106,21 +126,62 @@ class _EventsScreenState extends State<EventsScreen> {
           ],
         ),
         body: MediaQueryScope(
-          builder: (context, type) => AppContainer(
-            child: CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        ElevatedButton(
-                            onPressed: _onPressedDate, child: Text('time'))
-                      ],
-                    ),
-                  ),
+          builder: (context, type) => CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: ValueListenableBuilder(
+                  valueListenable: params,
+                  builder: (context, value, child) {
+                    return SingleChildScrollView(
+                      padding: EdgeInsets.all(16),
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        spacing: 8,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black,
+                              foregroundColor: Colors.white,
+                            ),
+                            onPressed: _onPressedDate,
+                            child: Text(dateTitle()),
+                          ),
+                          BlocBuilder<CategoriesBloc, CategoriesState>(
+                            builder: (context, state) {
+                              return Row(
+                                spacing: 8,
+                                children: switch (state) {
+                                  CategoriesLoadedState() =>
+                                    state.categories.list.map((category) {
+                                      return ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              category.id == value.categoryId
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                          foregroundColor:
+                                              category.id == value.categoryId
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                        ),
+                                        onPressed: _selectCategory(category),
+                                        child: Text(category.name),
+                                      );
+                                    }).toList(),
+                                  _ => [],
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
-                BlocBuilder<EventsBloc, EventsState>(
+              ),
+              SliverPadding(
+                padding: EdgeInsets.all(16),
+                sliver: BlocBuilder<EventsBloc, EventsState>(
                   builder: (context, state) => switch (state) {
                     EventsInitial() ||
                     EventsLoading() =>
@@ -157,8 +218,8 @@ class _EventsScreenState extends State<EventsScreen> {
                       ),
                   },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       );
