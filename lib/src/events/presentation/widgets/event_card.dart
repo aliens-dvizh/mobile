@@ -19,71 +19,41 @@ class EventCard extends StatelessWidget {
   final VoidCallback? onPressed;
 
   @override
-  Widget build(BuildContext context) => InkWell(
+  Widget build(BuildContext context) => GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: onPressed,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Stack(
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            spacing: 4,
             children: [
-              AppImage(
-                image: event.image,
-                width: double.infinity,
-                height: double.infinity,
-              ),
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black.withOpacity(0.2),
-                      Colors.black.withOpacity(1),
-                    ],
-                  ),
-                ),
-                child: const SizedBox(
+              Expanded(
+                child: AppImage(
+                  image: event.image,
                   width: double.infinity,
-                  height: double.infinity,
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      FittedBox(
-                        child: Text(
-                          event.name,
-                        ),
-                      ),
-                      // const SizedBox(height: 4),
-                      // FittedBox(
-                      //   child: Text.rich(
-                      //     TextSpan(
-                      //       children: [
-                      //         TextSpan(
-                      //           text: event.description,
-                      //         ),
-                      //         TextSpan(
-                      //           text: event.description,
-                      //         ),
-                      //       ],
-                      //       style: ThemeCore.of(context)
-                      //           .typography
-                      //           .paragraphBig
-                      //           .copyWith(
-                      //             color: Colors.white,
-                      //           ),
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
+              Text(
+                event.name,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
+                maxLines: 2,
+              ),
+              if (event.description != null) ...[
+                Text(
+                  event.description ?? '',
+                  style: TextStyle(
+                    color: Colors.grey,
                   ),
                 ),
-              ),
+              ]
             ],
           ),
         ),

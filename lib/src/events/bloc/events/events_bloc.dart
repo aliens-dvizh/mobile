@@ -28,7 +28,8 @@ class EventsBloc extends Bloc<EventsEvent, EventsState> {
       final result = await _eventRepository.getEvents(event.params);
 
       emit(EventsLoaded(events: result));
-    } on Exception {
+    } on Exception catch(err){
+      print(err);
       emit(EventsError());
     }
   }

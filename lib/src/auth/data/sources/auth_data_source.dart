@@ -3,14 +3,18 @@ import 'package:dio/dio.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/src/auth/models/export.dart';
-import 'package:dvizh_mob/src/auth/params/export.dart';
+import 'package:dvizh_mob/src/auth/params/change_email_params.dart';
+import 'package:dvizh_mob/src/auth/params/delete_account_params.dart';
+import 'package:dvizh_mob/src/auth/params/login_params_with_email.dart';
+import 'package:dvizh_mob/src/auth/params/register_params.dart';
+import 'package:dvizh_mob/src/auth/params/verify_params.dart';
 import 'package:dvizh_mob/src/core/services/dio/dio_service.dart';
 
 class AuthDataSource {
   AuthDataSource(this._apiService);
   final DioService _apiService;
 
-  Future<AuthDto> login(LoginParams params) => _apiService.I
+  Future<AuthDto> login(LoginParamsWithEmail params) => _apiService.I
       .post<AuthDto>('/auth/login', data: params.toMap())
       .then((value) => AuthDto.fromJson(value.data as Map<String, Object?>));
 

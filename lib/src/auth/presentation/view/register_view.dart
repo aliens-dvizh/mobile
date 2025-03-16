@@ -1,7 +1,7 @@
 // 🐦 Flutter imports:
 import 'package:dvizh_mob/src/auth/bloc/export.dart';
 import 'package:dvizh_mob/src/auth/fform/export.dart';
-import 'package:dvizh_mob/src/auth/params/export.dart';
+import 'package:dvizh_mob/src/auth/params/register_params.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -56,7 +56,7 @@ class _RegisterViewState extends State<RegisterView>
               Register(
                 params: RegisterParams(
                   name: _nameController.text,
-                  email: widget.emailController.text,
+                  phone: widget.emailController.text,
                   password: widget.passwordController.text,
                 ),
               ),

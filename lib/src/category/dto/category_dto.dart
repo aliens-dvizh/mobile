@@ -10,20 +10,17 @@ class CategoryDTO with DTO<CategoryModel> {
     required this.name,
     required this.id,
     required this.createdAt,
-    required this.updatedAt,
   });
 
   factory CategoryDTO.fromJson(Map<String, dynamic> json) => CategoryDTO(
         name: json['name'] as String,
         id: json['id'] as int,
         createdAt: DateTime.parse(json['created_at'] as String),
-        updatedAt: DateTime.parse(json['updated_at'] as String),
       );
 
   final String name;
   final int id;
   final DateTime createdAt;
-  final DateTime updatedAt;
 
   static List<CategoryDTO> fromJsonList(List<Map<String, dynamic>> json) =>
       json.map(CategoryDTO.fromJson).toList();
@@ -32,8 +29,6 @@ class CategoryDTO with DTO<CategoryModel> {
   CategoryModel toModel() => CategoryModel(
         id: id,
         name: name,
-        updatedAt: updatedAt,
         createdAt: createdAt,
-        icon: Icons.ac_unit,
       );
 }

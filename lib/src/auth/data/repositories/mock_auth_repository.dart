@@ -3,16 +3,15 @@ import 'dart:async';
 
 // 📦 Package imports:
 import 'package:dvizh_mob/src/auth/data/export.dart';
-import 'package:event_truck/event_truck.dart';
+import 'package:dvizh_mob/src/auth/params/login_params_with_email.dart';
 
 // 🌎 Project imports:
 import 'package:dvizh_mob/src/auth/data/repositories/iauth_repository.dart';
 import 'package:dvizh_mob/src/auth/models/auth_model.dart';
 import 'package:dvizh_mob/src/auth/params/delete_account_params.dart';
-import 'package:dvizh_mob/src/auth/params/login_params.dart';
+import 'package:dvizh_mob/src/auth/params/login_params_with_phone.dart';
 import 'package:dvizh_mob/src/auth/params/register_params.dart';
 import 'package:dvizh_mob/src/auth/params/verify_params.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 final AuthModel _mock = AuthModel(token: 'token', refreshToken: 'refreshToken');
 
@@ -53,7 +52,7 @@ class MockAuthRepository extends IAuthRepository {
   }
 
   @override
-  Future<void> login(LoginParams params) async {
+  Future<void> login(LoginParamsWithEmail params) async {
     setAuth(_mock);
   }
 
@@ -79,5 +78,17 @@ class MockAuthRepository extends IAuthRepository {
   @override
   void dispose() {
     _streamController.close();
+  }
+
+  @override
+  Future<void> clear() {
+    // TODO: implement clear
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> loginWithPhone(LoginParamsWithPhone params) {
+    // TODO: implement loginWithPhone
+    throw UnimplementedError();
   }
 }

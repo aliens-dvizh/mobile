@@ -2,28 +2,42 @@
 import 'package:dvizh_mob/src/core/models/list_data/list_data_dto.dart';
 import 'package:dvizh_mob/src/core/services/dio/dio_service.dart';
 import 'package:dvizh_mob/src/events/export.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class EventDataSource {
-  EventDataSource(this._dioService);
+  EventDataSource(this._dioService, this._client);
 
   final DioService _dioService;
+  final SupabaseClient _client;
 
   Future<ListDataDTO<EventDTO, EventModel>> getEvents(
     EventIndexParams params,
-  ) =>
-      _dioService.I
-          .get<Object>('/event/event/', queryParameters: params.toMap())
-          .then(
-            (value) => ListDataDTO.fromJson(
-              value.data as Map<String, Object?>,
-              'events',
-              EventDTO.fromJson,
-            ),
-          );
+  ) {
+    PostgrestFilterBuilder builder = _client.from('events').select();
 
-  Future<EventDTO> getById(int id) =>
-      _dioService.I.get<Map<String, Object?>>('/event/event/$id').then(
-            (value) =>
-                EventDTO.fromJson(value.data?['event'] as Map<String, Object?>),
-          );
+    final startAt = params.startAt;
+    final endAt = params.endAt;
+
+    if (startAt == null && endAt == null) {
+      builder = builder..gt('holded_at', DateTime.now().toIso8601String());
+    } else if (startAt != null && endAt == null) {
+      builder = builder.gt('holded_at', startAt.toIso8601String());
+    } else if (startAt != null && endAt != null) {
+      builder = builder
+          .gt('holded_at', startAt.toIso8601String())
+          .lte('holded_at', endAt.toIso8601String());
+    }
+
+    if(params.categoryId != null) {
+      builder = builder.eq('category_id', params.categoryId!);
+    }
+
+    return builder.select().then((data) => ListDataDTO.fromJsonList(data, EventDTO.fromJson));
+  }
+
+  Future<EventDTO> getById(int id) => _client
+      .from('events')
+      .select()
+      .eq('id', id)
+      .then((data) => EventDTO.fromJson(data.first));
 }

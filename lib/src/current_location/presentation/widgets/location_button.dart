@@ -17,9 +17,9 @@ class _LocationButtonState extends State<LocationButton> {
   }
 
   void _listener(BuildContext context, CurrentLocationState state) {
-    if(state is CurrentLocationInitial) {
-      CurrentLocationView().view(context);
-    }
+    // if(state is CurrentLocationInitial) {
+    //   CurrentLocationView().view(context);
+    // }
   }
 
   @override

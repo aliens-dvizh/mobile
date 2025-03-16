@@ -3,6 +3,7 @@ import 'dart:io';
 
 // 📦 Package imports:
 import 'package:dio/dio.dart';
+import 'package:dvizh_mob/src/auth/data/repositories/iauth_repository.dart';
 import 'package:synchronized/synchronized.dart';
 
 // 🌎 Project imports:
@@ -15,7 +16,8 @@ class AuthInterceptor extends AppInterceptor {
     this.auth,
     this._authRepository,
   );
-  final AuthRepository _authRepository;
+
+  final IAuthRepository _authRepository;
   AuthModel auth;
   Lock? _lock;
   Future<void>? _tokenRefreshCall;

@@ -3,6 +3,7 @@ import 'package:depend/depend.dart';
 import 'package:dvizh_mob/src/auth/data/export.dart';
 import 'package:dvizh_mob/src/auth/data/repositories/iauth_repository.dart';
 import 'package:dvizh_mob/src/auth/data/repositories/mock_auth_repository.dart';
+import 'package:dvizh_mob/src/auth/data/repositories/supabase_auth_repository.dart';
 import 'package:dvizh_mob/src/category/data/category_data_source.dart';
 import 'package:dvizh_mob/src/category/data/category_repository.dart';
 import 'package:dvizh_mob/src/category/data/mock_category_repository.dart';
@@ -20,6 +21,7 @@ import 'package:dvizh_mob/src/user/data/repositories/user_repository.dart';
 import 'package:dvizh_mob/src/user/data/source/user_data_source.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:talker/talker.dart';
 import 'package:talker_dio_logger/talker_dio_logger_interceptor.dart';
 import 'package:talker_dio_logger/talker_dio_logger_settings.dart';
@@ -30,12 +32,13 @@ import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/core/services/dio/dio_service.dart';
 
 class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
+  RootDependencyFactory({required this.talker});
+
+  final Talker talker;
+
   @override
   RootDependencyContainer create() {
-    print('RootDependencyContainer');
-
-    final talker = Talker();
-    final settings = AppSettings(useMocks: true);
+    final settings = AppSettings(useMocks: false);
     const secureStorage = FlutterSecureStorage();
     final dioService = DioService.initialize(
       'http://localhost',
@@ -45,6 +48,7 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
           settings: const TalkerDioLoggerSettings(),
         ),
       );
+    final supabase = Supabase.instance.client;
 
     final authRepository = settings.useMocks
         ? MockAuthRepository(
@@ -52,23 +56,21 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
               secureStorage,
             ),
           )
-        : AuthRepository(
+        : SupabaseAuthRepository(
             TokenDataSource(
               secureStorage,
-            ),
-            AuthDataSource(
-              dioService,
             ),
             AuthInterceptorDataSource(
               dioService,
             ),
-          );
+            supabase);
     final userRepository = settings.useMocks
         ? MockUserRepository()
         : UserRepository(
             dataSource: UserDataSource(
               dioService: dioService,
             ),
+            client: supabase,
           );
 
     final eventRepository = settings.useMocks
@@ -76,6 +78,7 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
         : EventRepository(
             EventDataSource(
               dioService,
+              supabase,
             ),
           );
 
@@ -84,20 +87,19 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
         : CategoryRepository(
             CategoryDataSource(
               dioService,
+              supabase,
             ),
           );
 
     final cityRepository = settings.useMocks
         ? MockCityRepository()
         : CityRepository(
-            CityDataSource(
-              dioService,
-            ),
+            CityDataSource(dioService, supabase),
           );
 
-    final currentLocationRepository = settings.useMocks
+    final currentLocationRepository = false
         ? MockCurrentLocationRepository()
-        : CurrentLocationRepository();
+        : CurrentLocationRepository(secureStorage: secureStorage);
 
     return RootDependencyContainer(
       dioService: dioService,
@@ -110,6 +112,7 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
       categoryRepository: categoryRepository,
       cityRepository: cityRepository,
       currentLocationRepository: currentLocationRepository,
+      supabaseClient: Supabase.instance.client,
     );
   }
 }

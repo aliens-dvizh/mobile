@@ -7,6 +7,7 @@ import 'package:dvizh_mob/src/current_location/data/repositories/current_locatio
 import 'package:dvizh_mob/src/events/repositories/ievent_repository.dart';
 import 'package:dvizh_mob/src/user/data/repositories/iuser_repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:talker/talker.dart';
 
 // 🌎 Project imports:
@@ -19,19 +20,20 @@ class RootDependencyContainer extends DependencyContainer {
     required this.talker,
     required this.settings,
     required this.secureStorage,
-    // Repositories
     required this.authRepository,
     required this.userRepository,
     required this.eventRepository,
     required this.categoryRepository,
     required this.cityRepository,
     required this.currentLocationRepository,
+    required this.supabaseClient,
   });
 
   final Talker talker;
   final DioService dioService;
   final AppSettings settings;
   final FlutterSecureStorage secureStorage;
+  final SupabaseClient supabaseClient;
 
   // Repositories
   final IAuthRepository authRepository;

@@ -45,14 +45,6 @@ class CategoryCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              category.icon,
-                              size: 35,
-                              color: selected ? Colors.black : Colors.grey,
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
                             FittedBox(
                               child: Text(
                                 category.name,

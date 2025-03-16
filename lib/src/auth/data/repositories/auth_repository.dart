@@ -2,6 +2,11 @@
 import 'dart:async';
 
 // 📦 Package imports:
+import 'package:dvizh_mob/src/auth/params/delete_account_params.dart';
+import 'package:dvizh_mob/src/auth/params/login_params_with_email.dart';
+import 'package:dvizh_mob/src/auth/params/login_params_with_phone.dart';
+import 'package:dvizh_mob/src/auth/params/register_params.dart';
+import 'package:dvizh_mob/src/auth/params/verify_params.dart';
 import 'package:event_truck/event_truck.dart';
 
 // 🌎 Project imports:
@@ -10,7 +15,6 @@ import 'package:dvizh_mob/src/auth/data/sources/auth_data_source.dart';
 import 'package:dvizh_mob/src/auth/data/sources/auth_interceptor_data_source.dart';
 import 'package:dvizh_mob/src/auth/data/sources/token_data_source.dart';
 import 'package:dvizh_mob/src/auth/models/export.dart';
-import 'package:dvizh_mob/src/auth/params/export.dart';
 
 class AuthRepository extends IAuthRepository {
   AuthRepository(
@@ -33,7 +37,7 @@ class AuthRepository extends IAuthRepository {
   Future<void> register(RegisterParams params) => _authSource.register(params);
 
   @override
-  Future<void> login(LoginParams params) async =>
+  Future<void> login(LoginParamsWithEmail params) async =>
       await _authSource.login(params).then(_loginCallback);
 
   @override
@@ -90,5 +94,11 @@ class AuthRepository extends IAuthRepository {
   @override
   void dispose() {
     _authController.close();
+  }
+
+  @override
+  Future<void> loginWithPhone(LoginParamsWithPhone params) {
+    // TODO: implement loginWithPhone
+    throw UnimplementedError();
   }
 }

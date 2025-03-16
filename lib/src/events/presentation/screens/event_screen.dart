@@ -1,18 +1,10 @@
-// 🐦 Flutter imports:
+
 import 'package:depend/depend.dart';
-import 'package:dvizh_mob/src/category/bloc/categories_bloc/categories_bloc.dart';
 import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/core/router/wrapped_route.dart';
-import 'package:dvizh_mob/src/ticket/views/ticket_day_view.dart';
-import 'package:dvizh_mob/src/ticket/views/ticket_list_day_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-// 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:toptom_widgetbook/kit/components/buttons/button.dart';
-
-// 🌎 Project imports:
 import 'package:dvizh_mob/src/events/bloc/event/event_bloc.dart';
 import 'package:dvizh_mob/src/events/export.dart';
 import 'package:dvizh_mob/src/shared/widgets/app_image.dart';
@@ -106,7 +98,7 @@ class _EventScreenState extends State<EventScreen> {
                               fontWeight: FontWeight.w800,
                             ),
                           ),
-                          Text(event.description),
+                          Text(event.description ?? ''),
                           SizedBox(
                             width: double.infinity,
                             child: ButtonWidget(

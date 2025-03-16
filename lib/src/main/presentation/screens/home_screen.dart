@@ -20,7 +20,11 @@ import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/shared/widgets/media_query_scope.dart';
 
 class HomeScreen extends StatefulWidget implements WrappedRoute {
-  const HomeScreen({required this.child, required this.state, super.key, });
+  const HomeScreen({
+    required this.child,
+    required this.state,
+    super.key,
+  });
 
   final Widget child;
   final GoRouterState state;
@@ -29,10 +33,11 @@ class HomeScreen extends StatefulWidget implements WrappedRoute {
   State<HomeScreen> createState() => _HomeScreenState();
 
   @override
-  Widget wrappedRoute(BuildContext context) => BlocProvider<CurrentLocationViewCubit>(
-    create: (context) => CurrentLocationViewCubit(),
-    child: this,
-  );
+  Widget wrappedRoute(BuildContext context) =>
+      BlocProvider<CurrentLocationViewCubit>(
+        create: (context) => CurrentLocationViewCubit(),
+        child: this,
+      );
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -56,7 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
     context.go(routes[value].path);
   }
 
-
   @override
   void initState() {
     super.initState();
@@ -68,7 +72,8 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context, type) => Scaffold(
           body: widget.child,
           bottomNavigationBar: BottomNavigationBar(
-            currentIndex: routes.indexWhere((route) => route.path == widget.state.fullPath),
+            currentIndex: routes
+                .indexWhere((route) => route.path == widget.state.fullPath),
             onTap: _setActiveScreen,
             items: routes
                 .map(
