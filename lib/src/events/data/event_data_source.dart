@@ -12,7 +12,28 @@ class EventDataSource {
 
   Future<ListDataDTO<EventDTO, EventModel>> getEvents(
     EventIndexParams params,
-  ) => _client.from('events').select().filter('holded_at', 'gt', params.startAt.toIso8601String()).then((data) => ListDataDTO.fromJsonList(data, EventDTO.fromJson));
+  ) {
+    PostgrestFilterBuilder builder = _client.from('events').select();
 
-  Future<EventDTO> getById(int id) => _client.from('events').select().eq('id', id).then((data) => EventDTO.fromJson(data.first));
+    final startAt = params.startAt;
+    final endAt = params.endAt;
+
+    if (startAt == null && endAt == null) {
+      builder = builder..gt('holded_at', DateTime.now().toIso8601String());
+    } else if (startAt != null && endAt == null) {
+      builder = builder.gt('holded_at', startAt.toIso8601String());
+    } else if (startAt != null && endAt != null) {
+      builder = builder
+          .gt('holded_at', startAt.toIso8601String())
+          .lte('holded_at', endAt.toIso8601String());
+    }
+
+    return builder.select().then((data) => ListDataDTO.fromJsonList(data, EventDTO.fromJson));
+  }
+
+  Future<EventDTO> getById(int id) => _client
+      .from('events')
+      .select()
+      .eq('id', id)
+      .then((data) => EventDTO.fromJson(data.first));
 }

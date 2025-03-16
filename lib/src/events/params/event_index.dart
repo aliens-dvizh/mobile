@@ -2,15 +2,18 @@
 import 'package:dvizh_mob/src/core/models/params/params.dart';
 
 class EventIndexParams with Params {
-  EventIndexParams({this.page = 1, this.perPage = 10});
+  EventIndexParams({
+    this.page = 1,
+    this.perPage = 10,
+    this.endAt,
+    this.startAt,
+  });
+
   final int page;
   final int perPage;
-  final DateTime startAt = DateTime.now();
+  final DateTime? startAt;
+  final DateTime? endAt;
 
   @override
-  Map<String, Object?> toMap() => {
-        'page': page,
-        'per_page': perPage,
-        'start_at': startAt.toString(),
-      };
+  Map<String, Object?> toMap() => {};
 }
