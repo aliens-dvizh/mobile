@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:fform/fform.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
@@ -31,6 +32,11 @@ class _RegisterViewState extends State<RegisterView>
     with ValidationExceptionParser {
   late TextEditingController _nameController;
   late RegisterForm _form;
+  final maskFormatter =  MaskTextInputFormatter(
+      mask: '+# (###) ###-##-##',
+      filter: { '#': RegExp('[0-9]') },
+      type: MaskAutoCompletionType.lazy
+  );
 
 
   @override
@@ -56,7 +62,7 @@ class _RegisterViewState extends State<RegisterView>
               Register(
                 params: RegisterParams(
                   name: _nameController.text,
-                  phone: widget.emailController.text,
+                  phone: maskFormatter.getUnmaskedText(),
                   password: widget.passwordController.text,
                 ),
               ),
@@ -109,10 +115,13 @@ class _RegisterViewState extends State<RegisterView>
                       controller: _nameController,
                       enabled: state is! RegistrationLoading,
                       errorText: getFieldException(form, form.name),
+                      inputFormatters: [
+                        maskFormatter
+                      ],
                     ),
                     SizedBox(height: size.l),
                     TextFieldWidget(
-                      hintText: 'Email',
+                      hintText: 'Номер телефона',
                       controller: widget.emailController,
                       enabled: state is! RegistrationLoading,
                       errorText: getFieldException(
