@@ -16,56 +16,63 @@ class Routing {
 
   final NavigatorObserver observer;
 
-
   late final GoRouter router = GoRouter(
-        observers: [observer],
+    observers: [observer],
+    routes: [
+      ShellRoute(
+        builder: (context, state, child) => MainWrapped(
+          child: child,
+        ).wrappedRoute(
+          context,
+        ),
         routes: [
-          ShellRoute(
-            builder: (context, state, child) => MainWrapped(
+          StatefulShellRoute.indexedStack(
+            builder: (context, state, child) => HomeScreen(
+              state: state,
               child: child,
-            ).wrappedRoute(
-              context,
-            ),
-            routes: [
-              ShellRoute(
-                builder: (context, state, child) => HomeScreen(
-                  state: state,
-                  child: child,
-                ).wrappedRoute(context),
+            ).wrappedRoute(context),
+            branches: [
+              StatefulShellBranch(
                 routes: [
                   GoRoute(
                     path: '/',
                     builder: (context, state) =>
                         const EventsScreen().wrappedRoute(context),
                   ),
+                ],
+              ),
+              StatefulShellBranch(
+                routes: [
                   GoRoute(
                     path: '/profile',
                     builder: (context, state) => const ProfileScreen(),
                   ),
                 ],
               ),
-              GoRoute(
-                path: '/event/:id',
-                builder: (context, state) => EventScreen(
-                  params: EventScreenParams.fromMap(state.pathParameters),
-                ).wrappedRoute(context),
-              ),
-              GoRoute(
-                path: '/profile/update',
-                builder: (context, state) =>
-                    UpdateUserScreen().wrappedRoute(context),
-              ),
-              GoRoute(
-                path: '/settings',
-                builder: (context, state) => SettingScreen(),
-              ),
-              GoRoute(
-                path: '/auth',
-                builder: (context, state) =>
-                    const SingInScreen().wrappedRoute(context),
-              ),
             ],
           ),
+          GoRoute(
+            path: '/event/:id',
+            builder: (context, state) => EventScreen(
+              params: EventScreenParams.fromMap(state.pathParameters),
+            ).wrappedRoute(context),
+          ),
+          GoRoute(
+            path: '/profile/update',
+            builder: (context, state) =>
+                UpdateUserScreen().wrappedRoute(context),
+          ),
+          GoRoute(
+            path: '/settings',
+            builder: (context, state) => SettingScreen(),
+          ),
+          GoRoute(
+            path: '/auth',
+            builder: (context, state) =>
+                const SingInScreen().wrappedRoute(context),
+          ),
         ],
-      );
+      ),
+    ],
+  );
 }

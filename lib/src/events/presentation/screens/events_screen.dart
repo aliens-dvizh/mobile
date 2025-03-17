@@ -8,16 +8,11 @@ import 'package:dvizh_mob/src/current_location/presentation/widgets/location_but
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-// 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-// 🌎 Project imports:
 import 'package:dvizh_mob/src/category/bloc/categories_bloc/categories_bloc.dart';
 import 'package:dvizh_mob/src/core/models/list_data/list_data_model.dart';
 import 'package:dvizh_mob/src/events/export.dart';
 import 'package:dvizh_mob/src/events/presentation/widgets/event_card.dart';
-import 'package:dvizh_mob/src/shared/widgets/app_container.dart';
 import 'package:dvizh_mob/src/shared/widgets/media_query_scope.dart';
 import 'package:go_router/go_router.dart';
 
