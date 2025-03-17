@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:fform/fform.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:toptom_widgetbook/toptom_widgetbook.dart';
 
 // 🌎 Project imports:
@@ -33,8 +34,12 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> with ValidationExceptionParser {
   final LoginForm _form = LoginForm.parse();
+  final maskFormatter =  MaskTextInputFormatter(
+      mask: '+# (###) ###-##-##',
+      filter: { '#': RegExp('[0-9]') },
+      type: MaskAutoCompletionType.lazy
+  );
 
-  //METHODS
   Future<void> Function() _loginUser(BuildContext context) => () async {
         _form.change(
           email: widget._emailController.text,
@@ -44,7 +49,7 @@ class _LoginViewState extends State<LoginView> with ValidationExceptionParser {
         context.read<LoginBloc>().add(
               LoginSubmitted(
                 params: LoginParamsWithPhone(
-                  phone: widget._emailController.text,
+                  phone: maskFormatter.getUnmaskedText(),
                   password: widget._passwordController.text,
                 ),
               ),
@@ -94,11 +99,14 @@ class _LoginViewState extends State<LoginView> with ValidationExceptionParser {
               children: [
                 TextFieldWidget(
                   controller: widget._emailController,
-                  hintText: 'Email',
+                  hintText: 'Номер телефона',
                   errorText: getFieldException(
                     form,
                     form.email,
                   ),
+                  inputFormatters: [
+                    maskFormatter
+                  ],
                   enabled: state is! LoginLoading,
                 ),
                 SizedBox(height: ThemeCore.of(context).padding.l),
