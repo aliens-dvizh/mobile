@@ -12,14 +12,14 @@ class EventDataSource {
 
   Future<ListDataDTO<EventDTO, EventModel>> getEvents(
     EventIndexParams params,
-  ) {
-    PostgrestFilterBuilder builder = _client.from('events').select();
+  ) async {
+    var builder = _client.from('events').select();
 
     final startAt = params.startAt;
     final endAt = params.endAt;
 
     if (startAt == null && endAt == null) {
-      builder = builder..gt('holded_at', DateTime.now().toIso8601String());
+      builder = builder.gt('holded_at', DateTime.now().toIso8601String());
     } else if (startAt != null && endAt == null) {
       builder = builder.gt('holded_at', startAt.toIso8601String());
     } else if (startAt != null && endAt != null) {
@@ -32,12 +32,16 @@ class EventDataSource {
       builder = builder.eq('category_id', params.categoryId!);
     }
 
-    return builder.select().then((data) => ListDataDTO.fromJsonList(data, EventDTO.fromJson));
+    final result = await builder.select('*, category:categories(*), event_image(*), place:places(*)');
+
+    print(result);
+
+    return  ListDataDTO.fromJsonList(result, EventDTO.fromJson);
   }
 
   Future<EventDTO> getById(int id) => _client
       .from('events')
-      .select()
+      .select('*, category:categories(*),  place:places(*), event_image(*)')
       .eq('id', id)
       .then((data) => EventDTO.fromJson(data.first));
 }

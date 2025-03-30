@@ -62,6 +62,8 @@ dependencies:
   intl: ^0.19.0
   calendar_date_picker2: ^1.1.9
   mask_text_input_formatter: ^2.9.0
+  qr_flutter: ^4.1.0
+  share_plus: ^10.1.4
 
 dev_dependencies:
   flutter_test:
@@ -92,8 +94,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -121,7 +123,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
-
-import_sorter:
-  emojis: true # Optional, defaults to false
-  comments: true # Optional, defaults to true

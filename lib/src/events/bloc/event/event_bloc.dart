@@ -21,6 +21,10 @@ class EventBloc extends Bloc<EventEvent, EventState> {
   final IEventRepository _eventRepository;
 
   Future<void> _fetch(EventFetchEvent event, Emitter<EventState> emit) async {
+    if(state case EventLoadedState state) {
+      if(state.event.id == event.id) return;
+    }
+
     emit(EventLoadingState());
     try {
       final result = await _eventRepository.getById(event.id);

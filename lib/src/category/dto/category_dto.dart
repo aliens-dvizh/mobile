@@ -18,6 +18,8 @@ class CategoryDTO with DTO<CategoryModel> {
         createdAt: DateTime.parse(json['created_at'] as String),
       );
 
+  static CategoryDTO? fromJsonOrNull(Map<String, dynamic>? json) => json == null ? null : CategoryDTO.fromJson(json);
+
   final String name;
   final int id;
   final DateTime createdAt;

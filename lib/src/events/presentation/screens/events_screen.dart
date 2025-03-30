@@ -80,7 +80,7 @@ class _EventsScreenState extends State<EventsScreen> {
         currentDate: params.value.startAt,
         disableModePicker: true,
       ),
-      dialogSize: Size(300, 100),
+      dialogSize: const Size(300, 100),
       value: [params.value.startAt, params.value.endAt],
     );
     if (result == null) return;
@@ -111,26 +111,32 @@ class _EventsScreenState extends State<EventsScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'DVIZH',
-          ),
-          titleSpacing: 0,
-          actions: [
-            LocationButton(),
-          ],
-        ),
+        backgroundColor: Colors.white,
         body: MediaQueryScope(
           builder: (context, type) => CustomScrollView(
             slivers: [
-              SliverToBoxAdapter(
-                child: ValueListenableBuilder(
-                  valueListenable: params,
-                  builder: (context, value, child) {
-                    return SingleChildScrollView(
-                      padding: EdgeInsets.all(16),
+              SliverAppBar(
+                backgroundColor: Colors.white,
+                surfaceTintColor: Colors.white,
+                title: const Text(
+                  'DVIZH',
+                ),
+                titleSpacing: 0,
+                actions: [
+                  LocationButton(),
+                ],
+                floating: true,
+                stretch: true,
+                bottom: PreferredSize(
+                  preferredSize: Size(MediaQuery.sizeOf(context).width, 60),
+                  child: ValueListenableBuilder(
+                    valueListenable: params,
+                    builder: (context, value, child) => SingleChildScrollView(
+                      clipBehavior: Clip.none,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
                       scrollDirection: Axis.horizontal,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         spacing: 8,
                         children: [
                           ElevatedButton(
@@ -142,13 +148,12 @@ class _EventsScreenState extends State<EventsScreen> {
                             child: Text(dateTitle()),
                           ),
                           BlocBuilder<CategoriesBloc, CategoriesState>(
-                            builder: (context, state) {
-                              return Row(
-                                spacing: 8,
-                                children: switch (state) {
-                                  CategoriesLoadedState() =>
-                                    state.categories.list.map((category) {
-                                      return ElevatedButton(
+                            builder: (context, state) => Row(
+                              spacing: 8,
+                              children: switch (state) {
+                                CategoriesLoadedState() => state.categories.list
+                                    .map(
+                                      (category) => ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor:
                                               category.id == value.categoryId
@@ -161,17 +166,17 @@ class _EventsScreenState extends State<EventsScreen> {
                                         ),
                                         onPressed: _selectCategory(category),
                                         child: Text(category.name),
-                                      );
-                                    }).toList(),
-                                  _ => [],
-                                },
-                              );
-                            },
+                                      ),
+                                    )
+                                    .toList(),
+                                _ => [],
+                              },
+                            ),
                           ),
                         ],
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 ),
               ),
               SliverPadding(
@@ -218,4 +223,27 @@ class _EventsScreenState extends State<EventsScreen> {
           ),
         ),
       );
+}
+
+class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  final PreferredSize child;
+
+  _SliverAppBarDelegate(this.child);
+
+  @override
+  double get minExtent => child.preferredSize.height;
+
+  @override
+  double get maxExtent => child.preferredSize.height;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return child;
+  }
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
+  }
 }

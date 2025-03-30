@@ -5,6 +5,9 @@ import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/current_location/domain/blocs/city_from_ip_bloc/city_from_ip_bloc.dart';
 import 'package:dvizh_mob/src/current_location/domain/blocs/current_location/current_location_bloc.dart';
 import 'package:dvizh_mob/src/current_location/domain/blocs/current_location_view/current_location_view_cubit.dart';
+import 'package:dvizh_mob/src/events/bloc/event/event_bloc.dart';
+import 'package:dvizh_mob/src/favorite/controllers/favorite_events_cubit.dart';
+import 'package:dvizh_mob/src/ticket/controllers/tickers/tickers_cubit.dart';
 import 'package:dvizh_mob/src/user/bloc/user/user_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,6 +50,21 @@ class MainWrapped implements WrappedRoute {
           lazy: true,
           create: (context) => CitiesBloc(
             container.cityRepository,
+          ),
+        ),
+        BlocProvider<TicketsCubit>(
+          create: (context) => TicketsCubit(
+            container.tickerRepository,
+          ),
+        ),
+        BlocProvider<EventBloc>(
+          create: (context) => EventBloc(
+            container.eventRepository,
+          ),
+        ),
+        BlocProvider<FavoriteEventsCubit>(
+          create: (context) => FavoriteEventsCubit(
+            container.favoriteRepository,
           ),
         ),
       ],

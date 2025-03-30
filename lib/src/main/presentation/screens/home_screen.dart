@@ -43,6 +43,8 @@ class HomeScreen extends StatefulWidget implements WrappedRoute {
 class _HomeScreenState extends State<HomeScreen> {
   final routes = [
     MainNavigationItem(label: 'События', icon: Icons.event, path: '/'),
+    MainNavigationItem(label: 'Избранное', icon: Icons.favorite_border, path: '/favorite'),
+
     MainNavigationItem(label: 'Профиль', icon: Icons.person, path: '/profile'),
   ];
 

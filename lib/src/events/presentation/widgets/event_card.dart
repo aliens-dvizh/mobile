@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:dvizh_mob/src/favorite/views/favorite_event_button.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -32,9 +34,47 @@ class EventCard extends StatelessWidget {
             spacing: 4,
             children: [
               Expanded(
-                child: AppImage(
-                  image: event.image,
-                  width: double.infinity,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: AppImage(
+                        image: event.images.firstOrNull?.url,
+                        width: double.infinity,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: FavoriteEventButtonView(
+                        eventId: event.id,
+                        color: Colors.white,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: DateFormat('MMMM, dd')
+                          .format(event.holdedAt ?? DateTime.now()),
+                    ),
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        width: 5,
+                        height: 5,
+                        margin: EdgeInsets.symmetric(horizontal: 5),
+                      ),
+                    ),
+                    TextSpan(
+                      text: event.category?.name,
+                    ),
+                  ],
                 ),
               ),
               Text(
@@ -46,14 +86,6 @@ class EventCard extends StatelessWidget {
                 ),
                 maxLines: 2,
               ),
-              if (event.description != null) ...[
-                Text(
-                  event.description ?? '',
-                  style: TextStyle(
-                    color: Colors.grey,
-                  ),
-                ),
-              ]
             ],
           ),
         ),

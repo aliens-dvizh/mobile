@@ -76,27 +76,35 @@ class _UpdateUserScreenState extends State<UpdateUserScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: SafeArea(
-          child: FFormBuilder<UpdateUserForm>(
-            form: _form,
-            builder: (context, form) => ListView(
-              padding: const EdgeInsets.all(20),
-              children: [
-                TextFieldWidget(
-                  controller: _nameController,
-                ),
-                BlocConsumer<UpdateUserBloc, UpdateUserState>(
-                  listener: _listenerUpdate,
-                  builder: (context, state) => ButtonWidget(
-                    isLoading: state is UpdateUserLoadingState ||
-                        form.status == FFormStatus.loading,
-                    onPressed: _change,
-                    child: const Text('Change'),
-                  ),
-                )
-              ],
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              title: Text('Изменить профиль'),
             ),
-          ),
+            // SliverList.list(children: [],),
+            SliverPadding(
+              padding: EdgeInsets.all(16),
+              sliver: FFormBuilder<UpdateUserForm>(
+                form: _form,
+                builder: (context, form) => SliverList.list(
+                  children: [
+                    TextFieldWidget(
+                      controller: _nameController,
+                    ),
+                    BlocConsumer<UpdateUserBloc, UpdateUserState>(
+                      listener: _listenerUpdate,
+                      builder: (context, state) => ButtonWidget(
+                        isLoading: state is UpdateUserLoadingState ||
+                            form.status == FFormStatus.loading,
+                        onPressed: _change,
+                        child: const Text('Change'),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       );
 }

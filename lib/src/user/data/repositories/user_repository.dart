@@ -26,10 +26,13 @@ class UserRepository extends IUserRepository {
   @override
   Future<UserModel> get() async {
     final currentUser = _client.auth.currentUser;
+
+    if(currentUser == null) throw Exception();
     return UserModel(
-      id: currentUser?.id ?? '',
-      name: currentUser!.userMetadata?['name'] as String? ?? '',
+      id: currentUser.id,
+      name: currentUser.userMetadata?['name'] as String? ?? '',
       createdAt: DateTime.parse(currentUser.createdAt),
+      phone: currentUser.phone ?? ''
     );
   }
 
@@ -44,6 +47,7 @@ class UserRepository extends IUserRepository {
       id: response.user!.id,
       name: response.user?.userMetadata?['name'] as String? ?? '',
       createdAt: DateTime.parse(response.user!.createdAt),
+      phone: response.user?.phone ?? ''
     );
     _userController.add(user);
   }

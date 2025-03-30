@@ -5,6 +5,8 @@ import 'package:dvizh_mob/src/category/data/icategory_repository.dart';
 import 'package:dvizh_mob/src/city/data/icategory_repository.dart';
 import 'package:dvizh_mob/src/current_location/data/repositories/current_location_repository.dart';
 import 'package:dvizh_mob/src/events/repositories/ievent_repository.dart';
+import 'package:dvizh_mob/src/favorite/data/favorite_repository.dart';
+import 'package:dvizh_mob/src/ticket/data/ticker_repository.dart';
 import 'package:dvizh_mob/src/user/data/repositories/iuser_repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -15,7 +17,7 @@ import 'package:dvizh_mob/src/core/app_settings.dart';
 import 'package:dvizh_mob/src/core/services/dio/dio_service.dart';
 
 class RootDependencyContainer extends DependencyContainer {
-  RootDependencyContainer({
+  RootDependencyContainer( {
     required this.dioService,
     required this.talker,
     required this.settings,
@@ -27,6 +29,8 @@ class RootDependencyContainer extends DependencyContainer {
     required this.cityRepository,
     required this.currentLocationRepository,
     required this.supabaseClient,
+    required this.tickerRepository,
+    required this.favoriteRepository,
   });
 
   final Talker talker;
@@ -42,4 +46,6 @@ class RootDependencyContainer extends DependencyContainer {
   final ICategoryRepository categoryRepository;
   final ICityRepository cityRepository;
   final ICurrentLocationRepository currentLocationRepository;
+  final TicketRepository tickerRepository;
+  final FavoriteRepository favoriteRepository;
 }

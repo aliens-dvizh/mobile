@@ -15,6 +15,9 @@ import 'package:dvizh_mob/src/current_location/domain/repositories/current_locat
 import 'package:dvizh_mob/src/current_location/domain/repositories/mock_current_location_repository.dart';
 import 'package:dvizh_mob/src/events/export.dart';
 import 'package:dvizh_mob/src/events/repositories/mock_event_repository.dart';
+import 'package:dvizh_mob/src/favorite/data/favorite_repository.dart';
+import 'package:dvizh_mob/src/ticket/data/ticker_data_source.dart';
+import 'package:dvizh_mob/src/ticket/data/ticker_repository.dart';
 import 'package:dvizh_mob/src/user/data/repositories/iuser_repository.dart';
 import 'package:dvizh_mob/src/user/data/repositories/mock_repository.dart';
 import 'package:dvizh_mob/src/user/data/repositories/user_repository.dart';
@@ -101,6 +104,16 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
         ? MockCurrentLocationRepository()
         : CurrentLocationRepository(secureStorage: secureStorage);
 
+    final tickerRepository = TicketRepository(
+      dataSource: TicketDataSource(
+        client: supabase,
+      ),
+    );
+
+    final favoriteRepository = FavoriteRepository(
+      client: supabase,
+    );
+
     return RootDependencyContainer(
       dioService: dioService,
       talker: talker,
@@ -113,6 +126,8 @@ class RootDependencyFactory extends DependencyFactory<RootDependencyContainer> {
       cityRepository: cityRepository,
       currentLocationRepository: currentLocationRepository,
       supabaseClient: Supabase.instance.client,
+      tickerRepository: tickerRepository,
+      favoriteRepository: favoriteRepository,
     );
   }
 }

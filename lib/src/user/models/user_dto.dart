@@ -7,22 +7,25 @@ class UserDTO with DTO<UserModel> {
     required this.id,
     required this.name,
     required this.createdAt,
+    required this.phone,
   });
 
   factory UserDTO.fromJson(Map<String, Object?> map) => UserDTO(
         id: map['id'] as String,
         name: map['name'] as String,
         createdAt: DateTime.parse(map['created_at'] as String),
+        phone:  map['phone'] as String,
       );
 
   final String id;
   final String name;
   final DateTime createdAt;
+  final String phone;
 
   @override
   UserModel toModel() => UserModel(
         id: id,
         name: name,
-        createdAt: createdAt,
+        createdAt: createdAt, phone: phone,
       );
 }

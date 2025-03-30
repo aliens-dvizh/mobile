@@ -56,5 +56,10 @@
           </array>
         </dict>
       </array>
+      <key>LSApplicationQueriesSchemes</key>
+      <array>
+          <string>dgis</string>
+          <string>yandexnavi</string>
+      </array>
 </dict>
 </plist>

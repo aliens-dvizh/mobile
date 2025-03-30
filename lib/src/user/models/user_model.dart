@@ -6,11 +6,13 @@ class UserModel with ModelItem {
     required this.id,
     required this.name,
     required this.createdAt,
+    required this.phone,
   });
 
   final String id;
   final String name;
+  final String phone;
   final DateTime createdAt;
 
-  UserModel copyWith({String? name}) => UserModel(id: id, name: name ?? this.name, createdAt: createdAt);
+  UserModel copyWith({String? name}) => UserModel(id: id, name: name ?? this.name, createdAt: createdAt, phone: phone);
 }

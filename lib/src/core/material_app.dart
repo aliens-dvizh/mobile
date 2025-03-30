@@ -24,6 +24,23 @@ class MyApp extends StatelessWidget {
           child: MaterialApp.router(
             debugShowCheckedModeBanner: false,
             routerConfig: _appRouter.router,
+            theme: ThemeData(
+              scaffoldBackgroundColor: Colors.white,
+              appBarTheme: AppBarTheme(
+                backgroundColor: Colors.white,
+                surfaceTintColor: Colors.white,
+              ),
+              bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                backgroundColor: Colors.white,
+              )
+              // pageTransitionsTheme: const PageTransitionsTheme(
+              //   builders: <TargetPlatform, PageTransitionsBuilder>{
+              //     TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+              //     TargetPlatform.linux: OpenUpwardsPageTransitionsBuilder(),
+              //     TargetPlatform.macOS: FadeUpwardsPageTransitionsBuilder(),
+              //   },
+              // ),
+            ),
           ),
         ),
       );
