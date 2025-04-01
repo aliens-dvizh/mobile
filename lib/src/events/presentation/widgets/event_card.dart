@@ -45,6 +45,7 @@ class EventCard extends StatelessWidget {
                     Align(
                       alignment: Alignment.topRight,
                       child: FavoriteEventButtonView(
+                        event: event,
                         eventId: event.id,
                         color: Colors.white,
                       ),

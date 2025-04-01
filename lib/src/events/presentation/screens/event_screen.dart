@@ -98,8 +98,11 @@ class _EventScreenState extends State<EventScreen> {
                     backgroundColor: Colors.white,
                     surfaceTintColor: Colors.white,
                     actions: [
-                      FavoriteEventButtonView(
-                        eventId: widget.params.id,
+                      BlocBuilder<EventBloc, EventState>(
+                        builder: (context, state) => FavoriteEventButtonView(
+                          event: state is EventLoadedState ? state.event : null,
+                          eventId: widget.params.id,
+                        ),
                       ),
                       IconButton(
                         onPressed: _share,
