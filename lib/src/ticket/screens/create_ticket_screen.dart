@@ -5,6 +5,7 @@ import 'package:dvizh_mob/src/events/bloc/event/event_bloc.dart';
 import 'package:dvizh_mob/src/events/dto/event_dto.dart';
 import 'package:dvizh_mob/src/shared/widgets/app_image.dart';
 import 'package:dvizh_mob/src/ticket/controllers/create_ticket/create_ticket_cubit.dart';
+import 'package:dvizh_mob/src/ticket/views/have_ticket_alert_view.dart';
 import 'package:dvizh_mob/src/user/bloc/user/user_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
@@ -74,11 +75,12 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
     context.read<EventBloc>().add(EventFetchEvent(widget.params.id));
   }
 
-
   void _listener(BuildContext context, CreateTicketState state) {
-    if(state case CreateTicketLoadedState state) {
+    if (state case CreateTicketLoadedState state) {
       Navigator.of(context).popUntil((route) => route.isFirst);
       context.push('/ticket/${state.ticket.id}');
+    } else if (state case CreateHaveTicketExceptionState state) {
+      HaveTicketAlertView(ticketId: state.ticketId).view(context);
     }
   }
 
@@ -399,16 +401,16 @@ class _CreateTicketScreenState extends State<CreateTicketScreen> {
                       return switch (state) {
                         CreateTicketExceptionState() ||
                         CreateTicketLoadedState() ||
-                        CreateTicketInitialState() =>
+                        CreateTicketInitialState() ||
+                        CreateHaveTicketExceptionState() =>
                           ElevatedButton(
                             onPressed: _create(context),
                             child: Text('Create'),
                           ),
-                        CreateTicketLoadingState() =>
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: CupertinoActivityIndicator(),
-                            ),
+                        CreateTicketLoadingState() => ElevatedButton(
+                            onPressed: () {},
+                            child: CupertinoActivityIndicator(),
+                          ),
                       };
                     },
                   ),

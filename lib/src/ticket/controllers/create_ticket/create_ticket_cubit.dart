@@ -1,4 +1,6 @@
 import 'package:bloc/bloc.dart';
+import 'package:dvizh_mob/src/ticket/data/exceptions/have_ticket_exception.dart';
+import 'package:dvizh_mob/src/ticket/data/ticker_data_source.dart';
 import 'package:dvizh_mob/src/ticket/data/ticker_repository.dart';
 import 'package:dvizh_mob/src/ticket/models/ticket_model.dart';
 
@@ -15,8 +17,11 @@ class CreateTicketCubit extends Cubit<CreateTicketState> {
     try {
       final result = await _repository.create(eventId: eventId);
       emit(CreateTicketLoadedState(ticket: result));
+    } on HaveTicketException catch(err) {
+      emit(CreateHaveTicketExceptionState(
+        ticketId: err.ticketId
+      ));
     } on Exception catch(err) {
-      print(err);
       emit(CreateTicketExceptionState());
     }
   }

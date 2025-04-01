@@ -35,9 +35,6 @@ class FavoriteRepository {
         'event_id': eventId,
         'user_id': user.id,
       }).select('*, event:events(*, event_image(*), category:categories(*))');
-      print('Not have');
-
-      print(result);
     }
 
     return EventDTO.fromJson(result.first['event'] as Map<String, Object?>)

@@ -16,5 +16,13 @@ final class CreateTicketLoadedState extends CreateTicketState {
 
 final class CreateTicketExceptionState extends CreateTicketState {}
 
+final class CreateHaveTicketExceptionState extends CreateTicketState {
+  CreateHaveTicketExceptionState({required this.ticketId});
+
+  final int ticketId;
+
+}
+
+
 
 

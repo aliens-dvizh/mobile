@@ -32,6 +32,11 @@ class MyApp extends StatelessWidget {
               ),
               bottomNavigationBarTheme: BottomNavigationBarThemeData(
                 backgroundColor: Colors.white,
+              ),
+              dialogBackgroundColor: Colors.white,
+              dialogTheme: DialogTheme(
+                backgroundColor: Colors.white,
+
               )
               // pageTransitionsTheme: const PageTransitionsTheme(
               //   builders: <TargetPlatform, PageTransitionsBuilder>{

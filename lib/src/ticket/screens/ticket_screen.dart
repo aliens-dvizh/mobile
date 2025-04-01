@@ -6,6 +6,8 @@ import 'package:dvizh_mob/src/core/dependency/root_dependency_container.dart';
 import 'package:dvizh_mob/src/core/router/wrapped_route.dart';
 import 'package:dvizh_mob/src/events/dto/event_dto.dart';
 import 'package:dvizh_mob/src/ticket/controllers/ticket/ticket_cubit.dart';
+import 'package:dvizh_mob/src/ticket/models/ticket_model.dart';
+import 'package:dvizh_mob/src/ticket/views/cancel_ticket_alert_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -93,6 +95,10 @@ class _TicketScreenState extends State<TicketScreen> {
         }
       };
 
+  void _cancelTicket() {
+    CancelTicketAlertView(ticketId: widget.params.id,).view(context);
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: Colors.white,
@@ -103,6 +109,14 @@ class _TicketScreenState extends State<TicketScreen> {
               floating: true,
               backgroundColor: Colors.white,
               surfaceTintColor: Colors.white,
+              actions: [
+                IconButton(
+                  onPressed: _saveQR,
+                  icon: Icon(
+                    Icons.share,
+                  ),
+                ),
+              ],
             ),
             BlocBuilder<TicketCubit, TicketState>(
               builder: (context, state) => switch (state) {
@@ -115,22 +129,29 @@ class _TicketScreenState extends State<TicketScreen> {
                     padding: EdgeInsets.all(16),
                     sliver: SliverList.list(
                       children: [
-                        RepaintBoundary(
-                          key: _globalKey,
-                          child: Container(
-                            color: Colors.white,
-                            child: QrImageView(
-                              data: state.ticket.qrcode,
+                        if(state.ticket.status == TicketStatus.activated) ...[
+                          RepaintBoundary(
+                            key: _globalKey,
+                            child: Container(
+                              color: Colors.white,
+                              child: QrImageView(
+                                data: state.ticket.qrcode,
+                              ),
                             ),
                           ),
-                        ),
-                        ElevatedButton(
-                          onPressed: _saveQR,
-                          child: Text('Сохранить QR-код'),
-                        ),
-                        // SizedBox(
-                        //   height: 40,
-                        // ),
+                          const Divider(
+                            height: 40,
+                          ),
+                        ],
+                        if(state.ticket.status == TicketStatus.canceled) ...[
+                          Text('Билет отменён', style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w800,
+                          ),)
+                        ],
+
+
                         Text(
                           state.ticket.event?.name ?? '',
                           style: TextStyle(
@@ -208,7 +229,9 @@ class _TicketScreenState extends State<TicketScreen> {
                                             children: [
                                               Expanded(
                                                 child: Text(
-                                                  state.ticket.event?.place?.name ?? '',
+                                                  state.ticket.event?.place
+                                                          ?.name ??
+                                                      '',
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 16,
@@ -234,10 +257,21 @@ class _TicketScreenState extends State<TicketScreen> {
                           SizedBox(
                             height: 10,
                           ),
+
+                        ],
+                        if(state.ticket.status != TicketStatus.canceled) ...[
                           const Divider(
                             height: 40,
                           ),
-                        ],
+                          Text('Отменить билет'),
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: _cancelTicket,
+                              child: Text('Отменить'),
+                            ),
+                          ),
+                        ]
                       ],
                     ),
                   ),
